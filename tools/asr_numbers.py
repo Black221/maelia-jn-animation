@@ -1,5 +1,7 @@
 # asr_numbers.py: reads out/check/asr_report.md and checks that every number of each line was heard as sent.
 import re
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from fr_numbers import words_to_numbers
 rows = [l.split(' | ') for l in open('out/check/asr_report.md') if l.startswith('| ') and not l.startswith('| scène') and not l.startswith('|---')]
 bad = 0
