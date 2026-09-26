@@ -28,9 +28,9 @@ function band(x0, x1, yTop, yBot, col, op = 255, bleed = .03, tex = .5, n = 40) 
 const blob = (x, y, r, col, op = 120, bleed = .12) => paint(ellPts(x, y, r, r * .92, 26, r * .06), { fill: col, fillOp: op, bleed, tex: .4, border: .3, ink: null });
 // sky: a smooth vertical gradient of opaque washes (many thin bands) with a little watercolour bloom on top
 function sky(w, h, stops, y1 = h) {
-  const n = 36, col = y => { let i = 0; while (i + 1 < stops.length && y > stops[i + 1][0]) i++; const [a, ca] = stops[i], [b, cb] = stops[Math.min(i + 1, stops.length - 1)]; return b > a ? mixCol(ca, cb, ease((y - a) / (b - a))) : ca; };
-  for (let k = 0; k < n; k++) { const ya = -40 + k * (y1 + 80) / n, yb = ya + (y1 + 80) / n + 8; paint([[-40, ya], [w + 40, ya], [w + 40, yb], [-40, yb]], { wash: col((ya + yb) / 2), washOp: 255, ink: null }); }
-  for (let k = 0; k < 7; k++) blob(hash(k * 3.3) * w, hash(k * 1.7) * y1 * .8, 180 + hash(k) * 200, mixCol(col(hash(k * 1.7) * y1 * .8), PAL.cream, .4), 90, .3);
+  gradientRect(-40, -40, w + 80, y1 + 80, stops.map(([y, c]) => [(y + 40) / (y1 + 80), c]));
+  const col = y => { let i = 0; while (i + 1 < stops.length && y > stops[i + 1][0]) i++; const [a, ca] = stops[i], [b, cb] = stops[Math.min(i + 1, stops.length - 1)]; return b > a ? mixCol(ca, cb, ease((y - a) / (b - a))) : ca; };
+  for (let k = 0; k < 7; k++) blob(hash(k * 3.3) * w, hash(k * 1.7) * y1 * .8, 180 + hash(k) * 200, mixCol(col(hash(k * 1.7) * y1 * .8), PAL.cream, .4), 70, .3);
 }
 const wave = (base, amp, f, ph = 0) => x => base + amp * Math.sin(x * f + ph) + amp * .45 * Math.sin(x * f * 2.3 + ph * 1.7);
 // ink line in plate painting (a thin, slightly shaky pen line)
@@ -64,7 +64,7 @@ definePlate('dawn', { w: 2400, h: 1350, paint(w, h) {
   // field mosaic in the middle distance: strips in perspective
   const rows = [['#B9D383', 860, 900], ['#E6C77E', 900, 945], ['#98C170', 945, 1000], ['#D9B86A', 1000, 1065]];
   for (const [c, a, b] of rows) band(-40, w + 40, wave(a, 6, .006, a), b + 20, c, 150, .02, .6);
-  for (let k = 0; k < 26; k++) { const x = k * 100 - 60; pen([[x, 880], [x - 90 + k * 4, 1070]], .45, '#7E9A5E'); }
+  for (const [c, a, b] of rows) for (let r = 1; r < 3; r++) { const y0 = lerp(a, b, r / 3); pen(Array.from({ length: 13 }, (_, i) => [i * w / 12, y0 + 6 * Math.sin(i * w / 12 * .006 + a) + 3 * Math.sin(i * 1.7)]), .35, mixCol(c, PAL.ink, .3), .5); }
   // greenhouse with solar panels (distance, left)
   wcw([[250, 842], [470, 842], [470, 790], [360, 752], [250, 790]], '#DDEBEE', 255, '#B8D2DA', 80);
   pen([[250, 842], [250, 790], [360, 752], [470, 790], [470, 842]], .7);

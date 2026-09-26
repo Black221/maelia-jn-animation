@@ -14,8 +14,8 @@
 // ---------- the electric tractor (sprite) ----------
 const TRACTOR_PTS = [[40, 330], [60, 210], [150, 200], [190, 90], [400, 70], [430, 90], [440, 200], [560, 215], [600, 250], [600, 330]];
 definePlate('tractor', { w: 640, h: 420, res: 1.5, mask(c) {
-  c.lineWidth = 14; c.beginPath(); TRACTOR_PTS.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.closePath(); c.fill(); c.stroke();
-  for (const [x, y, r] of [[160, 320, 96], [505, 345, 66]]) { c.beginPath(); c.arc(x, y, r + 7, 0, TAU); c.fill(); }
+  c.lineWidth = 5; c.beginPath(); TRACTOR_PTS.forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.closePath(); c.fill(); c.stroke();
+  for (const [x, y, r] of [[160, 320, 96], [505, 345, 66]]) { c.beginPath(); c.arc(x, y, r + 2.5, 0, TAU); c.fill(); }
 }, paint(w, h) {
   const body = '#E7EEF0', acc = PAL.soil;
   wcw([[40, 330], [60, 215], [440, 205], [560, 215], [600, 250], [600, 330]], PAL.soil, 255, '#2F6139', 110);       // chassis + hood
@@ -51,11 +51,12 @@ function sensor(x, y, s, t, o = {}) {
 }
 
 // ---------- a glowing data well ----------
-definePlate('well', { w: 420, h: 300, res: 1.5, mask(c) { c.beginPath(); c.ellipse(210, 150, 200, 138, 0, 0, TAU); c.fill(); }, paint(w, h) {
+definePlate('well', { w: 420, h: 300, res: 1.5, mask(c) { c.beginPath(); c.ellipse(210, 150, 198, 134, 0, 0, TAU); c.fill(); }, paint(w, h) {
   wcw(ellPts(210, 150, 196, 132, 36), '#9A8A7A', 255, '#7A6A5A', 110);           // stone rim
   for (let k = 0; k < 16; k++) { const a = k / 16 * TAU; pen([[210 + Math.cos(a) * 150, 150 + Math.sin(a) * 100], [210 + Math.cos(a) * 196, 150 + Math.sin(a) * 132]], .8, '#5A4A3A', 0); }
-  wcw(ellPts(210, 150, 150, 100, 32), '#1F3A5F', 255, '#16304F', 120);           // the dark mouth
-  blob(210, 150, 110, '#3BC4D8', 170, .15); blob(210, 150, 60, '#BDF1F6', 170, .12);
+  wcw(ellPts(210, 150, 150, 100, 32), '#2A7F9E', 255, '#1F5F7E', 110);           // the glowing mouth
+  paint(ellPts(210, 150, 120, 80, 28), { wash: '#3BC4D8', washOp: 255, fill: '#7FDDEA', fillOp: 120, bleed: .1, tex: .5, border: .3, ink: null });
+  paint(ellPts(210, 146, 70, 46, 24), { wash: '#BDF1F6', washOp: 255, fill: '#FFFFFF', fillOp: 90, bleed: .12, tex: .4, border: .2, ink: null });
   paint(ellPts(210, 150, 196, 132, 36), { ink: PAL.ink, sw: 1 }); paint(ellPts(210, 150, 150, 100, 32), { ink: PAL.ink, sw: .8 });
 } });
 function well(x, y, s, t, o = {}) {
@@ -65,7 +66,8 @@ function well(x, y, s, t, o = {}) {
   boilSeed('well' + x);
   if (f > .02) {   // a column of light rising from the mouth
     const hh = 260 * s * f;
-    paint([[x - 90 * s, y], [x + 90 * s, y], [x + 60 * s, y - hh], [x - 60 * s, y - hh]], { wash: '#BDF1F6', washOp: 60 * f, ink: null });
+    paint([[x - 110 * s, y], [x + 110 * s, y], [x + 70 * s, y - hh], [x - 70 * s, y - hh]], { wash: '#9BE6F0', washOp: 70 * f, ink: null });
+    paint([[x - 50 * s, y], [x + 50 * s, y], [x + 30 * s, y - hh * .9], [x - 30 * s, y - hh * .9]], { wash: '#E4FAFC', washOp: 90 * f, ink: null });
     glow(x, y - hh * .6, 110 * s, '#BDF1F6', .35 * f);
   }
 }
@@ -87,7 +89,7 @@ function funnel(x, y, s, o = {}) {
 
 // ---------- MAELIA under its glass dome ----------
 // the miniature territory, painted once (a round tabletop world): parcels, a river, tiny farms and trees
-definePlate('maquette', { w: 900, h: 440, res: 1.3, mask(c) { c.beginPath(); c.ellipse(450, 222, 447, 214, 0, 0, TAU); c.fill(); }, paint(w, h) {
+definePlate('maquette', { w: 900, h: 440, res: 1.3, mask(c) { c.beginPath(); c.ellipse(450, 222, 445, 211, 0, 0, TAU); c.fill(); }, paint(w, h) {
   area(ellPts(450, 228, 444, 208, 40), '#8A6246', '#6E4A34', 120);                     // the wooden edge of the tabletop world
   area(ellPts(450, 210, 438, 196, 40), '#A2C676', '#8DB866', 110);
   const cols = ['#C6D98F', '#E3C98A', '#9DC07B', '#D9B872', '#B4CF84', '#E8D39A'];
@@ -169,13 +171,13 @@ function padlock(x, y, s, o = {}) {
 }
 
 // ---------- parchments (documents) ----------
-definePlate('parch', { w: 90, h: 110, res: 2, variants: 2, mask(c) { c.beginPath(); c.moveTo(6, 6); c.lineTo(66, 6); c.lineTo(84, 24); c.lineTo(84, 104); c.lineTo(6, 104); c.closePath(); c.fill(); c.lineWidth = 6; c.stroke(); }, paint(w, h) {
+definePlate('parch', { w: 90, h: 110, res: 2, variants: 2, mask(c) { c.beginPath(); c.moveTo(6, 6); c.lineTo(66, 6); c.lineTo(84, 24); c.lineTo(84, 104); c.lineTo(6, 104); c.closePath(); c.fill(); c.lineWidth = 2.5; c.stroke(); }, paint(w, h) {
   wcw([[8, 8], [64, 8], [82, 26], [82, 102], [8, 102]], '#FFF6E2', 255, '#EFD9AE', 90);
   paint([[64, 8], [64, 26], [82, 26]], { wash: '#E6CFA0', washOp: 255, ink: PAL.ink, sw: .6 });
   for (let k = 0; k < 6; k++) pen([[18, 36 + k * 11], [70 - (k % 3) * 8, 36 + k * 11]], .5, '#A48A6A', 0);
   paint([[8, 8], [64, 8], [82, 26], [82, 102], [8, 102]], { ink: PAL.ink, sw: .8 });
 } });
-definePlate('parch_x', { w: 90, h: 110, res: 2, mask(c) { c.beginPath(); c.moveTo(6, 6); c.lineTo(66, 6); c.lineTo(84, 24); c.lineTo(84, 104); c.lineTo(6, 104); c.closePath(); c.fill(); c.lineWidth = 6; c.stroke(); }, paint(w, h) {
+definePlate('parch_x', { w: 90, h: 110, res: 2, mask(c) { c.beginPath(); c.moveTo(6, 6); c.lineTo(66, 6); c.lineTo(84, 24); c.lineTo(84, 104); c.lineTo(6, 104); c.closePath(); c.fill(); c.lineWidth = 2.5; c.stroke(); }, paint(w, h) {
   wcw([[8, 8], [64, 8], [82, 26], [82, 102], [8, 102]], '#F3D2C6', 255, '#E0A796', 90);
   paint([[64, 8], [64, 26], [82, 26]], { wash: '#D9A08E', washOp: 255, ink: PAL.ink, sw: .6 });
   for (let k = 0; k < 6; k++) pen([[18, 36 + k * 11], [70 - (k % 3) * 8, 36 + k * 11]], .5, '#A06A5A', 0);

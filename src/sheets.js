@@ -105,7 +105,7 @@
     drawPlate('dawn', 0, 0);
     for (let i = 0; i < 7; i++) sensor(300 + i * 250 + (i % 2) * 60, 1000 + (i % 3) * 50, 1.6, t, { key: i });
     tractor(760, 1040, 1.05);
-    awa(900, 848, 21, { ...feelP('joie', t), sit: true, view: 'q', aR: 2.6, eR: .3, handR: 'open', boilKey: 'awa' });
+    awa(990, 880, 21, { ...feelP('joie', t), sit: true, view: 'side', aR: 2.4, eR: .4, handR: 'open', boilKey: 'awa', noShadow: true });
     jumo(1150, 700 + Math.sin(t * 2.2) * 10, 11, { stage: 0, face: 'happy', prop: 'spin', shadowY: 1060, rot: .06 });
     // a satellite passing like a shooting star
     const sx = 1700 + t * 40; inkLine([[sx - 220, 150], [sx, 120]], 1.4, PAL.cream, 'dry', .2); glow(sx, 120, 30, PAL.cream, .8);
@@ -119,7 +119,7 @@
     for (const [i, x] of [[0, 520], [1, 900], [2, 1500], [3, 1880]].map(([i, x]) => [i, x])) well(x, 1060 - (i === 1 || i === 2 ? 40 : 0), .8, t, { fill: .75 + .25 * Math.sin(t * 2 + i) });
     funnel(1200, 250, .75, { gauge: .6 });
     for (let k = 0; k < 16; k++) { const ph = frac(t * .35 + hash(k)), x = lerp(900 + hash(k + 3) * 600, 1200 + (hash(k) - .5) * 300, ph), y = lerp(900, 260, ph); parchment(x, y, .7, { rot: ph * 6 + k }); }
-    awa(1260, 1150, 24, { ...feelP('emerveillee', t), view: 'q', cap: 'labo', boilKey: 'awa' });
+    awa(1260, 1110, 24, { ...feelP('emerveillee', t), view: 'q', cap: 'labo', boilKey: 'awa' });
     jumo(1470, 870 + Math.sin(t * 2.4) * 8, 11, { stage: 0, face: 'wide', prop: 'spin', flip: true });
     camEnd();
   };
@@ -129,7 +129,7 @@
     cam(1200, 690, 1.0);
     drawPlate('hill', 0, 0);
     dome(1200, 1030, .95, t, {});
-    awa(640, 1200, 24, { ...feelP('fiere', t), view: 'q', boilKey: 'awa' });
+    awa(620, 1105, 24, { ...feelP('fiere', t), view: 'q', boilKey: 'awa' });
     // data balls bouncing off the glass
     const bx = 1720 + Math.sin(t * 4) * 20; for (let k = 0; k < 3; k++) { const ph = frac(t * .8 + k / 3), p = arcPt([1900, 700], [1680, 640], 120, ph); glow(p[0], p[1], 30, PAL.data, .5); paint(ellPts(p[0], p[1], 12, 12, 10), { wash: PAL.data, ink: PAL.ink, sw: .6 }); }
     jumo(1950, 620 + Math.sin(t * 2) * 10, 11, { stage: 0, face: 'angry', prop: 'spin', flip: true });
@@ -144,8 +144,9 @@
     futureTree(420, 760, 1.25, t, { branches: B, grow: 1, state: b => b.i === 2 ? { col: PAL.red, a: .7 } : b.i === 5 ? { a: .35, w: .4 } : null });
     const lock = B[1]; padlock(lock.tip[0], lock.tip[1] - 6, 1.4, { shut: 1 });
     const door = B[8] || B[4]; glow(door.tip[0], door.tip[1], 90, PAL.ochre, .7); paint(rrPts(door.tip[0] - 26, door.tip[1] - 70, 52, 80, 22), { wash: '#FFE6A8', washOp: 220, ink: PAL.ochre, sw: 1.2 });
-    const sx = 700, sy = 820;
-    awa(sx, sy, 20, { ...feelP('emerveillee', t), view: 'q', boilKey: 'awa', noShadow: true });
+    const main = B.filter(b => b.depth === 0).sort((a, b) => Math.abs(a.tip[1] - 760) - Math.abs(b.tip[1] - 760))[0], mp = through(main.pts, 6), foot = mp[Math.round(mp.length * .62)];
+    const sx = foot[0], sy = foot[1] + 4;
+    awa(sx, sy, 20, { ...feelP('emerveillee', t), view: 'q', boilKey: 'awa', noShadow: true, walk: t * .6 });
     jumo(sx + 170, sy - 250 + Math.sin(t * 2) * 8, 10, { stage: 2, face: 'tree', prop: 'spin', beamOut: .6, beamIn: .6 });
     camEnd();
   };
@@ -155,7 +156,7 @@
     cam(1200, 690, 1.0);
     drawPlate('reunion', 0, 0);
     for (let i = 0; i < 22; i++) { const x = 250 + hash(i) * 1900, y = 820 + hash(i + 7) * 420, k = .5 + .5 * Math.sin(t * 4 + i * 1.7); glow(x, y, 26, '#F9C86A', .8 * k); paint(ellPts(x, y, 4, 4, 8), { wash: '#FFE9A8', ink: null }); }
-    awa(1250, 1180, 22, { ...feelP('joie', t), view: 'front', boilKey: 'awa' });
+    awa(1250, 1100, 22, { ...feelP('joie', t), view: 'front', boilKey: 'awa' });
     jumo(1500, 930 + Math.sin(t * 3) * 10, 11, { stage: 1, face: 'love', prop: 'spin', beamIn: .8, rot: -.08 });
     camEnd();
   };
@@ -167,7 +168,7 @@
     // herd in transhumance crossing the plain (small cattle drawn live)
     for (let i = 0; i < 6; i++) { const x = 1400 + i * 95 - t * 10, y = 930 + (i % 2) * 20; boilSeed('cow' + i); paint(ellPts(x, y, 34, 18, 14), { wash: i % 3 ? '#E9DCC6' : '#8A6246', washOp: 255, ink: PAL.ink, sw: .7 }); paint(ellPts(x + 34, y - 10, 13, 10, 10), { wash: i % 3 ? '#E9DCC6' : '#8A6246', washOp: 255, ink: PAL.ink, sw: .6 }); inkLine([[x + 38, y - 20], [x + 48, y - 32]], 1.2, PAL.ink, 'ink', 0); for (const lx of [-20, -8, 12, 24]) inkLine([[x + lx, y + 14], [x + lx, y + 34]], 1.2, PAL.ink, 'ink', 0); }
     person(1250, 1000, 11, { preset: ACTEURS.eleveur, ...feelP('neutre', t), view: 'side', walk: t * .8, boilKey: 'eleveur' });
-    awa(800, 1200, 23, { ...feelP('emerveillee', t), view: 'q', boilKey: 'awa' });
+    awa(800, 1100, 23, { ...feelP('emerveillee', t), view: 'q', boilKey: 'awa' });
     jumo(1020, 880 + Math.sin(t * 2.5) * 10, 11, { stage: 2, face: 'happy', prop: 'spin', beamOut: .5 });
     camEnd();
   };
@@ -211,3 +212,5 @@ LOOPS.test_inkfill = t => {
   for (let k = 0; k < 6; k++) { const x = 100 + k * 300; paint(ellPts(x + 120, 750, 110, 110, 20), { fill: '#56A6B3', fillOp: 200, bleed: .05, tex: .5, border: .4, ink: null }); pen([[x, 900], [x + 240, 900]], .6); }
 };
 LOOPS.test_inkfill.len = 1;
+LOOPS.test_sit = t => { boilSeed('box'); paint(rectPts(700, 600, 520, 240), { wash: PAL.soil, ink: PAL.ink, sw: 1 }); awa(900, 646, 26, { ...feelP('joie', t), sit: true, view: 'side', aR: 2.4, eR: .4, noShadow: true }); awa(1400, 846, 26, { ...feelP('neutre', t), sit: true, view: 'q', noShadow: true }); };
+LOOPS.test_sit.len = 1;

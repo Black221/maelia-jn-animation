@@ -188,6 +188,12 @@ function centred(pts, draw) {
 // fully composites at the end of each draw, so the painting order is exact (mixing watercolour fills, washes and
 // strokes inside one draw can lose layers).
 let PLATE_REC = null;
+// plate-only: a smooth vertical gradient (Canvas2D) laid down as one op, for skies without banding
+function gradientRect(x, y, w, h, stops) {
+  const op = () => { flushBrush(true); const g = createGraphics(Math.max(1, Math.round(w)), Math.max(1, Math.round(h))); g.pixelDensity(1); const c = g.drawingContext, gr = c.createLinearGradient(0, 0, 0, h);
+    for (const [t, col] of stops) gr.addColorStop(clamp(t), col); c.fillStyle = gr; c.fillRect(0, 0, w, h); image(g, x, y, w, h); g.remove(); };
+  if (PLATE_REC) PLATE_REC.push(op); else op();
+}
 function paint(pts, o = {}) { if (PLATE_REC) { const P = pts.map(p => [p[0], p[1]]); PLATE_REC.push(() => paint(P, o)); return; } BRUSH_DIRTY = true; centred(pts, (P) => paintAt(P, o)); }
 function paintAt(pts, o) {
   if (o.wash || o.fill || o.hatch) {
@@ -377,7 +383,7 @@ window.paintPlate = async (id) => {
   for (let i = 0; i < Math.max(1, ops.length); i += per) {
     window.draw = () => {
       push(); translate(-cw / 2, -ch / 2);
-      if (i === 0) { const bg = d.mask || d.c2a ? null : makePaper(cw, ch, 11 + v); if (bg) image(bg, 0, 0); else { noStroke(); fill(d.mask ? (d.maskBg || PAL.paper) : '#FFFFFF'); rect(0, 0, cw, ch); } }
+      if (i === 0) { const bg = d.mask || d.c2a ? null : makePaper(cw, ch, 11 + v); if (bg) image(bg, 0, 0); else { noStroke(); fill(d.mask ? (d.maskBg || PAL.ink) : '#FFFFFF'); rect(0, 0, cw, ch); } }
       scale(d.res); for (let j = i; j < Math.min(ops.length, i + per); j++) ops[j](); pop();
     };
     await redraw();

@@ -107,7 +107,7 @@ function person(x, y, s, o = {}) {
   scale((P.flip ? -1 : 1) * (P.sx ?? 1) * (1 + sq * .5), 1 - sq);
 
   const bw = side ? .62 : q ? .88 : 1;                  // body width factor per view
-  const hipY = P.sit ? -2.2 : -3.75;
+  const hipY = -3.75, drop = P.sit ? 1.55 * s : 0;          // sitting lowers the whole upper body onto the seat
   // ---- arms (helper). which: 'L' (screen-left in front view) or 'R'
   const arm = (which, layer) => {
     rs('arm' + which);
@@ -144,7 +144,7 @@ function person(x, y, s, o = {}) {
   };
 
   // back arm in profile / 3/4
-  if (side || q) arm(P.flip ? 'R' : 'L', 0);
+  if (side || q) { push(); translate(0, drop); arm(P.flip ? 'R' : 'L', 0); pop(); }
   // ---- legs & boots
   const legs = () => {
     for (const sd of [-1, 1]) {
@@ -160,10 +160,11 @@ function person(x, y, s, o = {}) {
       const kneeLen = (-hipY - 1.0);
       const ax = hx * s + Math.sin(swing) * kneeLen * s, ay = hipY * s + Math.cos(swing) * kneeLen * s - lift * s;
       const pc = side && sd < 0 ? far(P.pants) : P.pants;
-      if (P.sit) {   // thighs forward, shins down
-        const kx = hx * s + (side ? 2.2 : 0) * s, ky = hipY * s + (side ? 0 : .6 * s);
-        paint(ribbon([[hx * s, hipY * s], [kx, ky], [kx, -1.0 * s]], 1.12 * s, 1.0 * s), { wash: pc, washOp: 255, ink: PAL.ink, sw: sw * .8 });
-        boot(kx, 0, sd); continue;
+      if (P.sit) {   // seat at -2.2 s: thighs forward (profile) or foreshortened (front), shins down to the ground
+        const seat = (hipY + 1.55) * s, kx = hx * s + (side ? 2.0 * s : sd * .08 * s), ky = seat + (side ? .1 * s : .55 * s);
+        const swingK = (P.kick || 0) * Math.sin(T * 5 + sd) * .5 * s;
+        paint(ribbon([[hx * s - (side ? .3 * s : 0), seat], [kx, ky], [kx + swingK, -1.0 * s]], 1.12 * s, 1.0 * s), { wash: pc, washOp: 255, ink: PAL.ink, sw: sw * .8 });
+        boot(kx + swingK, 0, sd); continue;
       }
       paint(ribbon([[hx * s, (hipY - .2) * s], [lerp(hx * s, ax, .5), lerp(hipY * s, ay, .5)], [ax, ay]], 1.12 * s, 1.02 * s), { wash: pc, washOp: 255, ink: PAL.ink, sw: sw * .8 });
       boot(ax, ay + 1.0 * s, sd);
@@ -178,6 +179,7 @@ function person(x, y, s, o = {}) {
   };
   legs();
 
+  push(); translate(0, drop);
   // ---- torso
   rs('torso');
   const tw = 1.78 * bw, hw = 1.9 * bw, ty = -7.1, torso = [[-tw * s, ty * s], [tw * s, ty * s], [(tw + .12) * s, (ty + 1.1) * s], [hw * s, (hipY + .1) * s], [-hw * s, (hipY + .1) * s], [-(tw + .12) * s, (ty + 1.1) * s]];
@@ -275,6 +277,7 @@ function person(x, y, s, o = {}) {
   if (side || q) arm(P.flip ? 'L' : 'R', 1);
   else { arm('L', 1); arm('R', 1); }
   if (P.draw) { rs('draw'); P.draw(s, sw); }
+  pop();   // upper body
   pop();
   rs('after');
 }
