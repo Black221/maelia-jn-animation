@@ -177,8 +177,18 @@ function ribbon(P, w0, w1 = w0) {
 // One call = one painted shape: optional flat wash, optional watercolor fill, optional hatch, optional ink outline.
 // COST: wash and ink are ~10 ms each in software GL; a watercolour `fill` is 1–2 s. So `fill` belongs in plates
 // (painted once, see below), never in per-frame drawing.
+// Cull shapes that land entirely off screen: p5.brush can't bound an off-screen stroke and then composites the
+// WHOLE frame for it (a full blend pass per colour change): an off-screen character used to cost seconds.
+let _R = null;
+function offscreen(pts) {
+  if (PLATE_MODE || PLATE_REC) return false;
+  _R = _R || p5.instance._renderer; const m = _R.states.uModelMatrix.mat4, hw = width / 2, hh = height / 2, pad = 90;
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  for (const [x, y] of pts) { const sx = m[0] * x + m[4] * y + m[12] + hw, sy = m[1] * x + m[5] * y + m[13] + hh; if (sx < x0) x0 = sx; if (sx > x1) x1 = sx; if (sy < y0) y0 = sy; if (sy > y1) y1 = sy; }
+  return x1 < -pad || x0 > width + pad || y1 < -pad || y0 > height + pad;
+}
 function centred(pts, draw) {
-  if (!pts.length) return;
+  if (!pts.length || offscreen(pts)) return;
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
   for (const [x, y] of pts) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;

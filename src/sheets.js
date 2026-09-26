@@ -214,3 +214,12 @@ LOOPS.test_inkfill = t => {
 LOOPS.test_inkfill.len = 1;
 LOOPS.test_sit = t => { boilSeed('box'); paint(rectPts(700, 600, 520, 240), { wash: PAL.soil, ink: PAL.ink, sw: 1 }); awa(900, 646, 26, { ...feelP('joie', t), sit: true, view: 'side', aR: 2.4, eR: .4, noShadow: true }); awa(1400, 846, 26, { ...feelP('neutre', t), sit: true, view: 'q', noShadow: true }); };
 LOOPS.test_sit.len = 1;
+// perf probes: 60 washes, same colour vs alternating colours, small vs large
+LOOPS.perf_same_small = t => { for (let i = 0; i < 60; i++) paint(rectPts(40 + (i % 12) * 150, 60 + Math.floor(i / 12) * 200, 60, 60), { wash: '#C8553D', ink: null }); }; LOOPS.perf_same_small.len = 1;
+LOOPS.perf_alt_small = t => { for (let i = 0; i < 60; i++) paint(rectPts(40 + (i % 12) * 150, 60 + Math.floor(i / 12) * 200, 60, 60), { wash: i % 2 ? '#C8553D' : '#3E7C4A', ink: null }); }; LOOPS.perf_alt_small.len = 1;
+LOOPS.perf_alt_spread = t => { for (let i = 0; i < 60; i++) paint(rectPts(i % 2 ? 40 : 1800, i % 3 ? 40 : 980, 60, 60), { wash: i % 2 ? '#C8553D' : '#3E7C4A', ink: null }); }; LOOPS.perf_alt_spread.len = 1;
+LOOPS.perf_ink_alt = t => { for (let i = 0; i < 60; i++) inkLine([[40 + (i % 12) * 150, 60 + Math.floor(i / 12) * 200], [100 + (i % 12) * 150, 90 + Math.floor(i / 12) * 200], [140 + (i % 12) * 150, 60 + Math.floor(i / 12) * 200]], 1, i % 2 ? '#C8553D' : '#3E7C4A', 'ink', .5); }; LOOPS.perf_ink_alt.len = 1;
+LOOPS.perf_awa_near = t => { awa(960, 860, 22, feelP('joie', t)); }; LOOPS.perf_awa_near.len = 1;
+LOOPS.perf_awa_far = t => { camBegin(960, 2700, 1); awa(960, 2860, 22, feelP('joie', t)); camEnd(); }; LOOPS.perf_awa_far.len = 1;
+LOOPS.perf_awa_zoom = t => { camBegin(960, 700, 1.6); awa(960, 860, 22, feelP('joie', t)); camEnd(); }; LOOPS.perf_awa_zoom.len = 1;
+LOOPS.perf_empty = t => {}; LOOPS.perf_empty.len = 1;
