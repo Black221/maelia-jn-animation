@@ -36,7 +36,7 @@
     const C = []; for (let i = 0; i < 36; i++) { const a = i / 36 * TAU, b = 1 + .08 * Math.abs(Math.sin(a * 4)); C.push([x + Math.cos(a) * r * 1.25 * b * p, y + Math.sin(a) * r * .9 * b * p]); }
     paint(C, { wash: PAL.cream, washOp: 255, ink: PAL.ink, sw: .8, curv: .4 });
     paint(ellPts(x, y, r * 1.02 * p, r * .7 * p, 26), { wash: PAL.night, washOp: 255, ink: null });
-    futureTree(x - r * .82 * p, y + r * .1 * p, .42 * p, t, { seed: 2, depth: 2, grow: clamp(k * 1.4 - .3) });
+    futureTree(x - r * .8 * p, y + r * .1 * p, .3 * p, t, { seed: 2, depth: 2, grow: clamp(k * 1.4 - .3) });
   }
   function stylusHand(x, y, s, rot = -.6) {                 // Awa's hand holding the stylus, the tip at (x, y)
     boilSeed('stylus');
@@ -106,11 +106,11 @@
     else { const f = ease(seg(tm, freezeA + .3, sitT + .8)); jx = lerp(runX - 190, sitX + 170, f); jy = lerp(760, 905, f) + Math.sin(tm * 2.2) * 6 * f; jr = lerp(.25, 0, f); jf = tm < sitT + .5 ? 'wide' : tm < L(3) + 1 ? 'question' : 'happy'; }
     jumo(jx, jy, 11.5, { stage: 0, face: jf, prop: 'spin', spin: tm * 9, rot: jr, shadowY: GROUND + 12, boilKey: 'jumo' });
     // the dream bubble (L1)
-    dreamBubble(HOOD[0] - 250, 590, 108, seg(tm, L(1) - .1, L(1) + .6) * (1 - seg(tm, E(1) - .5, E(1) - .1)), tm);
+    dreamBubble(HOOD[0] - 250, 590, 108, seg(tm, L(1) + 1.0, L(1) + 1.6) * (1 - seg(tm, E(1) - .5, E(1) - .1)), tm);
     camEnd();
     // title painted in the sky
-    const tk = seg(st, .7, 1.3) * (1 - seg(st, E(1) - .7, E(1) - .2));
-    if (tk > .01) { letter('Awa et Jumo', 960, 150, 104, PAL.night, { pop: tk, weight: 700, stroke: PAL.cream, screen: true }); letter('la quête du jumeau stratégique', 960, 238, 46, '#8A5A1E', { pop: seg(st, 1.1, 1.7) * (1 - seg(st, E(1) - .7, E(1) - .2)), weight: 600, stroke: PAL.cream, screen: true }); }
+    const tk = seg(st, .7, 1.3) * (1 - seg(st, L(1) + .5, L(1) + .95));
+    if (tk > .01) { letter('Awa et Jumo', 960, 150, 104, PAL.night, { pop: tk, weight: 700, stroke: PAL.cream, screen: true }); letter('la quête du jumeau stratégique', 960, 238, 46, '#8A5A1E', { pop: seg(st, 1.1, 1.7) * (1 - seg(st, L(1) + .5, L(1) + .95)), weight: 600, stroke: PAL.cream, screen: true }); }
     // the freeze: a cold, desaturated pause (a still frame, paint and all)
     if (frozen) { boilSeed('freeze'); const fk = seg(st, freezeA, freezeA + .12) * (1 - seg(st, freezeB - .2, freezeB)); paint(rectPts(-40, -40, W + 80, H + 80), { wash: '#D8E2EA', washOp: 120 * fk, ink: null }); }
     if (st < 1.25) iris(...toScreen(1560, 610, LAST_CAM), lerp(0, 2300, easeIn(seg(st, .05, 1.25))), '#2B2233');
