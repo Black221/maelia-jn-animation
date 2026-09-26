@@ -120,7 +120,7 @@ function dome(x, y, s, t, o = {}) {
   inkLine([[x - bw * .82, y - bh * .2 + dy], [x - bw * .8, y - bh * .62 + dy], [x - bw * .55, y - bh * .88 + dy]], 3.2, PAL.cream, 'ink', .6);
   inkLine([[x + bw * .6, y - bh * .78 + dy], [x + bw * .72, y - bh * .6 + dy]], 2.2, PAL.cream, 'ink', .6);
   paint(ellPts(x, top - 18 * s, 34 * s, 22 * s, 14), { wash: '#C9A04A', ink: PAL.ink, sw: .8 });   // knob
-  paint(ellPts(x, y + dy, bw, 40 * s, 30), { ink: '#7FA9B8', sw: .9 });
+  paint(ellPts(x, y + dy - 4 * s, bw, 190 * s, 36), { ink: '#7FA9B8', sw: .9 });   // the rim, seen from above like the tabletop
 }
 
 // ---------- the tree of futures ----------

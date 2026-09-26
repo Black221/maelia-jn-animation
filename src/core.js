@@ -244,8 +244,8 @@ function drawPlate(key, x = 0, y = 0, o = {}) {
   if (!img) { paint(rectPts(x - ax * w, y - ay * h, w, h), { wash: '#E9C7C7', washOp: 120, ink: PAL.red, sw: 1 }); return; }
   flushBrush();
   push(); translate(x, y); if (o.rot) rotate(o.rot); scale((o.flip ? -1 : 1) * (o.sx ?? 1), o.sy ?? 1);
-  if (o.alpha != null && o.alpha < 1) tint(255, 255 * clamp(o.alpha));
-  if (o.tint) tint(o.tint);
+  if (o.tint) { const c = color(o.tint); if (o.alpha != null) c.setAlpha(255 * clamp(o.alpha)); tint(c); }
+  else if (o.alpha != null && o.alpha < 1) tint(255, 255 * clamp(o.alpha));
   image(img, -ax * w, -ay * h, w, h);
   noTint(); pop();
 }
