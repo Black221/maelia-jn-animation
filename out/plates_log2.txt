@@ -1,0 +1,8 @@
+painting 7 plate(s)…
+  tractor#0 → out/plates/tractor_0.png  10.9 s
+  well#0 → out/plates/well_0.png  8.0 s
+  maquette#0 → out/plates/maquette_0.png  46.4 s
+  parch#0 → out/plates/parch_0.png  1.8 s
+  parch#1 → out/plates/parch_1.png  1.7 s
+  parch_x#0 → out/plates/parch_x_0.png  1.8 s
+  dawn#0 → out/plates/dawn_0.png  131.1 s

@@ -107,12 +107,12 @@ function person(x, y, s, o = {}) {
   scale((P.flip ? -1 : 1) * (P.sx ?? 1) * (1 + sq * .5), 1 - sq);
 
   const bw = side ? .62 : q ? .88 : 1;                  // body width factor per view
-  const hipY = -3.75, drop = P.sit ? 1.55 * s : 0;          // sitting lowers the whole upper body onto the seat
+  const hipY = -3.75, cross = P.sit === 'cross', drop = cross ? 2.75 * s : P.sit ? 1.55 * s : 0;   // sitting lowers the upper body onto the seat (cross-legged: onto the ground)
   // ---- arms (helper). which: 'L' (screen-left in front view) or 'R'
   const arm = (which, layer) => {
     rs('arm' + which);
     const sd = which === 'L' ? -1 : 1;
-    const holdClip = P.tablet === 'hand' && P['a' + which] == null;
+    const holdClip = (P.tablet === 'hand' || P.hold === 'tablet') && P['a' + which] == null;
     let a = holdClip ? .25 : P['a' + which] ?? .12, e = holdClip ? -1.75 : P['e' + which] ?? -.15;
     if (P.walk != null && P['a' + which] == null) a = .12 + .45 * Math.sin((P.walk + (sd > 0 ? .5 : 0)) * TAU);
     if (P.run != null && P['a' + which] == null) { a = .3 + .9 * Math.sin((P.run + (sd > 0 ? .5 : 0)) * TAU); e = -1.3; }
@@ -160,6 +160,12 @@ function person(x, y, s, o = {}) {
       const kneeLen = (-hipY - 1.0);
       const ax = hx * s + Math.sin(swing) * kneeLen * s, ay = hipY * s + Math.cos(swing) * kneeLen * s - lift * s;
       const pc = side && sd < 0 ? far(P.pants) : P.pants;
+      if (cross) {   // cross-legged on the ground: thighs out to the side, shins crossing in front, boots tucked
+        const hy = (hipY + 2.75) * s, kx = sd * 2.15 * s, ky = -.45 * s, ax = -sd * .55 * s, ay = -.2 * s;
+        paint(ribbon([[sd * .7 * s, hy], [kx, ky], [ax, ay]], 1.15 * s, 1.0 * s), { wash: pc, washOp: 255, ink: PAL.ink, sw: sw * .8 });
+        paint([[ax - sd * .2 * s, ay - .5 * s], [ax - sd * 1.2 * s, ay - .45 * s], [ax - sd * 1.25 * s, ay + .2 * s], [ax - sd * .1 * s, ay + .25 * s]], { wash: P.boots, washOp: 255, ink: PAL.ink, sw: sw * .7 });
+        continue;
+      }
       if (P.sit) {   // seat at -2.2 s: thighs forward (profile) or foreshortened (front), shins down to the ground
         const seat = (hipY + 1.55) * s, kx = hx * s + (side ? 2.0 * s : sd * .08 * s), ky = seat + (side ? .1 * s : .55 * s);
         const swingK = (P.kick || 0) * Math.sin(T * 5 + sd) * .5 * s;
@@ -204,7 +210,7 @@ function person(x, y, s, o = {}) {
     }
   }
   // tablet on its strap (bandoulière)
-  if (P.tablet === true && !back) {
+  if (P.tablet === true && P.hold !== 'tablet' && !back) {
     rs('tablet');
     inkLine([[-(tw - .45) * s, ty * s], [(hw - .25) * s, (hipY + .4) * s]], sw * 1.8, '#7A5638', 'ink', 0);
     const tx = (hw - .15) * s * (side ? .4 : 1), tyy = (hipY + .3) * s;
@@ -225,6 +231,12 @@ function person(x, y, s, o = {}) {
     paint(rectPts(cx0 - 1.0 * s, -6.0 * s, 2.0 * s, 2.45 * s), { wash: PAL.cream, washOp: 255, ink: null });
     for (let k = 0; k < 4; k++) inkLine([[cx0 - .75 * s, (-5.6 + k * .5) * s], [cx0 + .7 * s, (-5.6 + k * .5) * s]], sw * .5, PAL.grey, 'inkfine', 0);
     paint(rrPts(cx0 - .45 * s, -6.5 * s, .9 * s, .4 * s, .1 * s), { wash: '#9C98A6', ink: PAL.ink, sw: sw * .4 });
+  }
+  if (P.hold === 'tablet' && !back) {   // Awa's tablet, held against the chest
+    rs('held');
+    const cx0 = side ? 1.2 * s : 0;
+    paint(rrPts(cx0 - 1.45 * s, -6.2 * s, 2.9 * s, 2.1 * s, .25 * s), { wash: PAL.night, washOp: 255, ink: PAL.ink, sw: sw * .7 });
+    paint(rrPts(cx0 - 1.25 * s, -6.0 * s, 2.5 * s, 1.7 * s, .12 * s), { wash: P.tabletScreen || PAL.data, washOp: 230, ink: null });
   }
   if (P.prop) { rs('prop'); P.prop(s, sw); }
 

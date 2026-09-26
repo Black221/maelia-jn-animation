@@ -16,7 +16,7 @@
 //   GPU: software WebGL (SwiftShader) by default on Linux; --gpu uses the platform's GPU path, --gpu-angle=vulkan|gl-egl.
 import puppeteer from 'puppeteer-core';
 import { spawn } from 'node:child_process';
-import { mkdirSync, writeFileSync, existsSync, statSync, renameSync, readdirSync, readFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, existsSync, statSync, renameSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -67,6 +67,14 @@ async function openPage(tag = '', query = '') {
 // ---------- plates ----------
 async function plates() {
   mkdirSync(PLATES_DIR, { recursive: true });
+  // one plate pass at a time (several scene authors may render at once): a directory lock
+  const LOCK = `${PLATES_DIR}/.lock`;
+  for (let i = 0; ; i++) { try { mkdirSync(LOCK); break; } catch { if (i === 0) console.log('waiting for another plate pass…'); if (i > 3600) { console.error('plate lock stuck: remove ' + LOCK); process.exit(1); } await new Promise(r => setTimeout(r, 1000)); } }
+  const unlock = () => { try { rmSync(LOCK, { recursive: true }); } catch {} };
+  process.on('exit', unlock); process.on('SIGINT', () => { unlock(); process.exit(1); });
+  try { await platesLocked(); } finally { unlock(); }
+}
+async function platesLocked() {
   if (!existsSync(`${PLATES_DIR}/manifest.js`)) writeFileSync(`${PLATES_DIR}/manifest.js`, 'window.PLATE_FILES = {};\n');
   const probe = await openPage('', '&noplates');
   const defs = await probe.evaluate(() => Object.entries(PLATES).map(([k, d]) => ({ k, n: d.variants || 1, sig: [d.w, d.h, d.res, d.variants, !!d.c2a, d.paint.toString(), d.mask ? d.mask.toString() : '', d.maskBg || '', (d.deps || []).map(f => String(window[f])).join('')].join('|') })));

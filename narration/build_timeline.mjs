@@ -13,7 +13,7 @@ import fs from 'node:fs';
 const LEAD = 0.3, TAIL = 0.6, GAP = 0.45, CPS = 14.5;
 // Extra holds (seconds) the storyboard asks for, on top of the natural gaps: { scene: { lineIndex: seconds after it } }
 const HOLDS = {
-  '1.1': { 0: 0.8, 1: 0.6, 2: 1.2 },           // Awa rushes → "Pas si vite." freeze → she draws the map
+  '1.1': { 0: 0.8, 1: 0.6, 2: 1.2, 5: 1.5, tail: 1.4 },           // Awa rushes → "Pas si vite." freeze → she draws the map
   '1.3': { 5: 0.8 },                            // TOTAL lands before "Oui, vraiment."
   '1.4': { 0: 1.2, 1: 1.6, 3: .6, 4: .8, 5: 1.0, 6: 1.2, 7: 1.4 },  // one floor per line
   '1.5': { 1: .8, 2: .6, 3: .8 },
@@ -36,9 +36,9 @@ for (const sc of scenes) {
   const holds = HOLDS[sc.id] || {};
   const voice = lines.reduce((s, l, i) => s + l.dur + (i < lines.length - 1 ? l.gap + (holds[i] || 0) : 0), 0);
   const target = sc.cible[1] - sc.cible[0];
-  const dur = +Math.max(target, LEAD + voice + TAIL).toFixed(3);
+  const dur = +Math.max(target, LEAD + voice + TAIL + (holds.tail || 0)).toFixed(3);
   // spare time: 30 % spread over the gaps, 70 % at the tail (transitions, gags, payoffs)
-  const spare = dur - (LEAD + voice + TAIL), nG = Math.max(1, lines.length - 1), perGap = lines.length > 1 ? spare * .3 / nG : 0;
+  const spare = dur - (LEAD + voice + TAIL + (holds.tail || 0)), nG = Math.max(1, lines.length - 1), perGap = lines.length > 1 ? spare * .3 / nG : 0;
   let lt = LEAD; const cues = [];
   lines.forEach((l, i) => {
     cues.push({ t: +lt.toFixed(3), end: +(lt + l.dur).toFixed(3), qui: l.qui, texte: l.texte, file: l.file });

@@ -7,10 +7,13 @@
 // t = film time, lt = time since the shot started, dur = shot length, st = time since the scene started.
 // It paints the WHOLE frame and must be a pure function of t (frames render in parallel and out of order).
 
-const SCENES = {}, SC = {}, TRACKS = {};
-// scene(id, build, track?): track(st, S) → { name: number } lets tools/check-motion.mjs find pops (positions in px,
-// angles in rad, squash as a fraction).
-function scene(id, build, track) { SCENES[id] = build; if (track) TRACKS[id] = track; }
+const SCENES = {}, SC = {}, TRACKS = {}, SFXS = {};
+// scene(id, build, track?, sfx?):
+//   track(st, S) → { name: number } lets tools/check-motion.mjs find pops (positions in px, angles in rad, squash).
+//   sfx(S) → [[st, kind, gain?, pan?], ...] sound effects at scene-local times (kinds: see FX in audio/score.mjs);
+//   tools/export_sfx.mjs turns them into src/sfx_cues.js for the score.
+function scene(id, build, track, sfx) { SCENES[id] = build; if (track) TRACKS[id] = track; if (sfx) SFXS[id] = sfx; }
+window.allSfx = () => { if (!Object.keys(SC).length) resolveScenes(); const out = []; for (const s of TIMING.scenes) if (SFXS[s.id]) for (const [st, k, g, p] of SFXS[s.id](SC[s.id])) out.push([+(s.start + st).toFixed(3), k, g ?? null, p ?? 0, s.id]); return out.sort((a, b) => a[0] - b[0]); };
 window.trackAt = t => { if (!Object.keys(SC).length) resolveScenes(); const s = SC[sceneAt(t).id], f = TRACKS[s.id]; return f ? { scene: s.id, v: f(t - s.start, s) } : { scene: s.id, v: null }; };
 function resolveScenes() {
   for (const s of TIMING.scenes) {
