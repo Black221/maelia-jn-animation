@@ -206,5 +206,14 @@
   }
 
   scene('1.1', S => [[0, field], [S.cue(4) - .02, mapShot]],
-    (st, S) => ({ cue4: st > S.cue(4) ? 1 : 0 }));
+    (st, S) => ({ cue4: st > S.cue(4) ? 1 : 0 }),
+    S => {   // sound effects, on the same cues as the picture
+      const L = i => S.cue(i), E = i => S.cueEnd(i), j0 = E(1) - .25, gag0 = E(5) + .15;
+      const out = [[.4, 'rotor', .04], [L(0) + .1, 'bip2', .07, .3], [L(1) + .05, 'sparkle', .04], [j0 - .1, 'boing', .14], [j0 + .55, 'thud', .25],
+        [j0 + .7, 'step', .08], [j0 + .95, 'step', .08], [L(2) - .02, 'scratch', .12], [E(2) + .75, 'whoosh', .08], [L(2) + 1.3, 'thud', .18], [L(3) + 1.5, 'rustle', .06],
+        [L(4) - .05, 'whoosh', .1], [gag0, 'bipq', .09, .6], [gag0 + .2, 'pop', .12, .6], [gag0 + 1.05, 'whoosh', .14, .5], [gag0 + 1.3, 'bipsad', .08, .6],
+        [L(6) - .1, 'rustle', .07], [E(6) - .55, 'clic', .14], [L(7) + 1.4, 'stamp', .3], [E(7) + .2, 'whoosh', .16], [S.dur - .4, 'knock', .2]];
+      for (let i = 0; i < 4; i++) out.push([L(4) + .35 + i * (E(4) - L(4)) / 4, 'tick', .05]);
+      return out;
+    });
 })();
