@@ -1,0 +1,697 @@
+[
+ {
+  "id": "1.1",
+  "acte": 1,
+  "titre": "La carte avant le voyage",
+  "cible": [
+   0,
+   30
+  ],
+  "texte": "Voici Awa. Elle rêve d'un jumeau numérique capable de dire à son territoire quels futurs sont encore possibles. Pas si vite. Mais avant de construire quoi que ce soit, il faut savoir ce que le monde sait déjà. Et pour ça, on ne fouille pas au hasard : on écrit d'abord les règles de la quête. Quatre questions. Des critères clairs. Et un protocole… verrouillé. Toute modification ? Datée et justifiée.",
+  "texte_tts": "Voici Awa. Elle rêve d'un jumeau numérique capable de dire à son territoire quels futurs sont encore possibles. Pas si vite. Mais avant de construire quoi que ce soit, il faut savoir ce que le monde sait déjà. Et pour ça, on ne fouille pas au hasard : on écrit d'abord les règles de la quête. Quatre questions. Des critères clairs. Et un protocole… verrouillé. Toute modification ? Datée et justifiée.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Voici Awa.",
+    "texte_tts": "Voici Awa."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Elle rêve d'un jumeau numérique capable de dire à son territoire quels futurs sont encore possibles.",
+    "texte_tts": "Elle rêve d'un jumeau numérique capable de dire à son territoire quels futurs sont encore possibles."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Pas si vite.",
+    "texte_tts": "Pas si vite."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Mais avant de construire quoi que ce soit, il faut savoir ce que le monde sait déjà.",
+    "texte_tts": "Mais avant de construire quoi que ce soit, il faut savoir ce que le monde sait déjà."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et pour ça, on ne fouille pas au hasard : on écrit d'abord les règles de la quête.",
+    "texte_tts": "Et pour ça, on ne fouille pas au hasard : on écrit d'abord les règles de la quête."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Quatre questions. Des critères clairs.",
+    "texte_tts": "Quatre questions. Des critères clairs."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et un protocole… verrouillé.",
+    "texte_tts": "Et un protocole… verrouillé."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Toute modification ? Datée et justifiée.",
+    "texte_tts": "Toute modification ? Datée et justifiée."
+   }
+  ]
+ },
+ {
+  "id": "1.2",
+  "acte": 1,
+  "titre": "Les mots magiques",
+  "cible": [
+   30,
+   50
+  ],
+  "texte": "Pour ouvrir la bibliothèque, il faut les bons mots : jumeau numérique, assimilation de données, modèles multi-agents, systèmes agricoles, trajectoires, décision, exploration de modèles. Combinés, ils forment six clés. On cherche de 2010 à 2026, et seulement des articles.",
+  "texte_tts": "Pour ouvrir la bibliothèque, il faut les bons mots : jumeau numérique, assimilation de données, modèles multi-agents, systèmes agricoles, trajectoires, décision, exploration de modèles. Combinés, ils forment six clés. On cherche de deux mille dix à deux mille vingt-six, et seulement des articles.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Pour ouvrir la bibliothèque, il faut les bons mots :",
+    "texte_tts": "Pour ouvrir la bibliothèque, il faut les bons mots :"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "jumeau numérique, assimilation de données, modèles multi-agents, systèmes agricoles, trajectoires, décision, exploration de modèles.",
+    "texte_tts": "jumeau numérique, assimilation de données, modèles multi-agents, systèmes agricoles, trajectoires, décision, exploration de modèles."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Combinés, ils forment six clés.",
+    "texte_tts": "Combinés, ils forment six clés."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "On cherche de 2010 à 2026, et seulement des articles.",
+    "texte_tts": "On cherche de deux mille dix à deux mille vingt-six, et seulement des articles."
+   }
+  ]
+ },
+ {
+  "id": "1.3",
+  "acte": 1,
+  "titre": "La pêche aux documents",
+  "cible": [
+   50,
+   75
+  ],
+  "texte": "OpenAlex : trois mille cent quarante-sept. Semantic Scholar : mille huit cent cinquante-deux. HAL : trois cent trente-deux. arXiv : cent quarante-sept. Et en tirant sur les références des premiers articles… deux mille cent quatre-vingt-dix de plus. Total : sept mille six cent soixante-huit. Oui, vraiment.",
+  "texte_tts": "Open Alex : trois mille cent quarante-sept. Semantic Scholar : mille huit cent cinquante-deux. Hal : trois cent trente-deux. Arkiv : cent quarante-sept. Et en tirant sur les références des premiers articles… deux mille cent quatre-vingt-dix de plus. Total : sept mille six cent soixante-huit. Oui, vraiment.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "OpenAlex : trois mille cent quarante-sept.",
+    "texte_tts": "Open Alex : trois mille cent quarante-sept."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Semantic Scholar : mille huit cent cinquante-deux.",
+    "texte_tts": "Semantic Scholar : mille huit cent cinquante-deux."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "HAL : trois cent trente-deux.",
+    "texte_tts": "Hal : trois cent trente-deux."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "arXiv : cent quarante-sept.",
+    "texte_tts": "Arkiv : cent quarante-sept."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et en tirant sur les références des premiers articles… deux mille cent quatre-vingt-dix de plus.",
+    "texte_tts": "Et en tirant sur les références des premiers articles… deux mille cent quatre-vingt-dix de plus."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Total : sept mille six cent soixante-huit.",
+    "texte_tts": "Total : sept mille six cent soixante-huit."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Oui, vraiment.",
+    "texte_tts": "Oui, vraiment."
+   }
+  ]
+ },
+ {
+  "id": "1.4",
+  "acte": 1,
+  "titre": "Le grand tri",
+  "cible": [
+   75,
+   120
+  ],
+  "texte": "Premier étage : les doublons. Deuxième : tout ce qui n'est pas un article du bon type, ou pas de la bonne époque. Troisième : on lit chaque titre et chaque résumé. Et là, une règle d'or : dans le doute, on exclut. Pas de résumé ? Pas d'entrée. Il en reste six cent quatre-vingt-six. On en lit deux cent quarante et un en entier, obtenus légalement ; les autres attendent leur tour. Et à la fin… cent trente-neuf études.",
+  "texte_tts": "Premier étage : les doublons. Deuxième : tout ce qui n'est pas un article du bon type, ou pas de la bonne époque. Troisième : on lit chaque titre et chaque résumé. Et là, une règle d'or : dans le doute, on exclut. Pas de résumé ? Pas d'entrée. Il en reste six cent quatre-vingt-six. On en lit deux cent quarante et un en entier, obtenus légalement ; les autres attendent leur tour. Et à la fin… cent trente-neuf études.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Premier étage : les doublons.",
+    "texte_tts": "Premier étage : les doublons."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Deuxième : tout ce qui n'est pas un article du bon type, ou pas de la bonne époque.",
+    "texte_tts": "Deuxième : tout ce qui n'est pas un article du bon type, ou pas de la bonne époque."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Troisième : on lit chaque titre et chaque résumé.",
+    "texte_tts": "Troisième : on lit chaque titre et chaque résumé."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et là, une règle d'or : dans le doute, on exclut.",
+    "texte_tts": "Et là, une règle d'or : dans le doute, on exclut."
+   },
+   {
+    "qui": "videur",
+    "texte": "Pas sûr ? Dehors.",
+    "texte_tts": "Pas sûr ? Dehors."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Pas de résumé ? Pas d'entrée.",
+    "texte_tts": "Pas de résumé ? Pas d'entrée."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Il en reste six cent quatre-vingt-six.",
+    "texte_tts": "Il en reste six cent quatre-vingt-six."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "On en lit deux cent quarante et un en entier, obtenus légalement ; les autres attendent leur tour.",
+    "texte_tts": "On en lit deux cent quarante et un en entier, obtenus légalement ; les autres attendent leur tour."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et à la fin… cent trente-neuf études.",
+    "texte_tts": "Et à la fin… cent trente-neuf études."
+   }
+  ]
+ },
+ {
+  "id": "1.5",
+  "acte": 1,
+  "titre": "Bip, Bop et le dernier mot",
+  "cible": [
+   120,
+   150
+  ],
+  "texte": "Chaque parchemin est lu deux fois, par deux intelligences artificielles qui ne se voient pas. Quand elles ne sont pas d'accord, l'arbitre tranche. Et à la fin, c'est Awa qui décide : elle revoit toutes les inclusions et un échantillon des exclusions. Accord entre Bip et Bop : zéro virgule neuf, ou presque. C'est ce que les statisticiens appellent un κ, et c'est très bon.",
+  "texte_tts": "Chaque parchemin est lu deux fois, par deux intelligences artificielles qui ne se voient pas. Quand elles ne sont pas d'accord, l'arbitre tranche. Et à la fin, c'est Awa qui décide : elle revoit toutes les inclusions et un échantillon des exclusions. Accord entre Bip et Bop : zéro virgule neuf, ou presque. C'est ce que les statisticiens appellent un kappa, et c'est très bon.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Chaque parchemin est lu deux fois, par deux intelligences artificielles qui ne se voient pas.",
+    "texte_tts": "Chaque parchemin est lu deux fois, par deux intelligences artificielles qui ne se voient pas."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Quand elles ne sont pas d'accord, l'arbitre tranche.",
+    "texte_tts": "Quand elles ne sont pas d'accord, l'arbitre tranche."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et à la fin, c'est Awa qui décide : elle revoit toutes les inclusions et un échantillon des exclusions.",
+    "texte_tts": "Et à la fin, c'est Awa qui décide : elle revoit toutes les inclusions et un échantillon des exclusions."
+   },
+   {
+    "qui": "arbitre",
+    "texte": "C'est elle la cheffe.",
+    "texte_tts": "C'est elle la cheffe."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Accord entre Bip et Bop : zéro virgule neuf, ou presque.",
+    "texte_tts": "Accord entre Bip et Bop : zéro virgule neuf, ou presque."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "C'est ce que les statisticiens appellent un κ, et c'est très bon.",
+    "texte_tts": "C'est ce que les statisticiens appellent un kappa, et c'est très bon."
+   }
+  ]
+ },
+ {
+  "id": "1.6",
+  "acte": 1,
+  "titre": "La carte aux trésors cachés",
+  "cible": [
+   150,
+   175
+  ],
+  "texte": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus. Premier essai : cinq sur seize. Elle a ajouté une clé et remonté les références : neuf. Pas parfait, mais honnête, et ça se dit. Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement. Ici, on ne cite rien de mémoire.",
+  "texte_tts": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus. Premier essai : cinq sur seize. Elle a ajouté une clé et remonté les références : neuf. Pas parfait, mais honnête, et ça se dit. Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement. Ici, on ne cite rien de mémoire.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus.",
+    "texte_tts": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Premier essai : cinq sur seize.",
+    "texte_tts": "Premier essai : cinq sur seize."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Elle a ajouté une clé et remonté les références : neuf.",
+    "texte_tts": "Elle a ajouté une clé et remonté les références : neuf."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Pas parfait, mais honnête, et ça se dit.",
+    "texte_tts": "Pas parfait, mais honnête, et ça se dit."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement.",
+    "texte_tts": "Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Ici, on ne cite rien de mémoire.",
+    "texte_tts": "Ici, on ne cite rien de mémoire."
+   }
+  ]
+ },
+ {
+  "id": "2.1",
+  "acte": 2,
+  "titre": "Un territoire qui change vite",
+  "cible": [
+   175,
+   190
+  ],
+  "texte": "Le territoire d'Awa vit dans l'incertitude : le climat, les prix, les techniques, tout bouge vite. Et chaque choix agricole a des effets sur l'eau, l'azote, les sols.",
+  "texte_tts": "Le territoire d'Awa vit dans l'incertitude : le climat, les prix, les techniques, tout bouge vite. Et chaque choix agricole a des effets sur l'eau, l'azote, les sols.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Le territoire d'Awa vit dans l'incertitude : le climat, les prix, les techniques, tout bouge vite.",
+    "texte_tts": "Le territoire d'Awa vit dans l'incertitude : le climat, les prix, les techniques, tout bouge vite."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et chaque choix agricole a des effets sur l'eau, l'azote, les sols.",
+    "texte_tts": "Et chaque choix agricole a des effets sur l'eau, l'azote, les sols."
+   }
+  ]
+ },
+ {
+  "id": "2.2",
+  "acte": 2,
+  "titre": "La maquette qui n’écoute pas",
+  "cible": [
+   190,
+   210
+  ],
+  "texte": "Voici MAELIA, une plateforme qui simule le territoire, ses fermes et ses rivières, agent par agent. Elle sait jouer des scénarios. Mais elle a été conçue pour la simulation planifiée : les données du terrain, collectées au fil de la saison… ne rentrent pas.",
+  "texte_tts": "Voici Maélia, une plateforme qui simule le territoire, ses fermes et ses rivières, agent par agent. Elle sait jouer des scénarios. Mais elle a été conçue pour la simulation planifiée : les données du terrain, collectées au fil de la saison… ne rentrent pas.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Voici MAELIA, une plateforme qui simule le territoire, ses fermes et ses rivières, agent par agent.",
+    "texte_tts": "Voici Maélia, une plateforme qui simule le territoire, ses fermes et ses rivières, agent par agent."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Elle sait jouer des scénarios.",
+    "texte_tts": "Elle sait jouer des scénarios."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Mais elle a été conçue pour la simulation planifiée : les données du terrain, collectées au fil de la saison… ne rentrent pas.",
+    "texte_tts": "Mais elle a été conçue pour la simulation planifiée : les données du terrain, collectées au fil de la saison… ne rentrent pas."
+   }
+  ]
+ },
+ {
+  "id": "2.3",
+  "acte": 2,
+  "titre": "Jumo prend des antennes",
+  "cible": [
+   210,
+   230
+  ],
+  "texte": "Un modèle, c'est une copie. Une ombre numérique, c'est une copie qui reçoit les données du terrain. Un jumeau numérique, c'est une copie qui reçoit… et qui répond, pour éclairer les décisions.",
+  "texte_tts": "Un modèle, c'est une copie. Une ombre numérique, c'est une copie qui reçoit les données du terrain. Un jumeau numérique, c'est une copie qui reçoit… et qui répond, pour éclairer les décisions.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Un modèle, c'est une copie.",
+    "texte_tts": "Un modèle, c'est une copie."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Une ombre numérique, c'est une copie qui reçoit les données du terrain.",
+    "texte_tts": "Une ombre numérique, c'est une copie qui reçoit les données du terrain."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Un jumeau numérique, c'est une copie qui reçoit… et qui répond, pour éclairer les décisions.",
+    "texte_tts": "Un jumeau numérique, c'est une copie qui reçoit… et qui répond, pour éclairer les décisions."
+   }
+  ]
+ },
+ {
+  "id": "2.4",
+  "acte": 2,
+  "titre": "Tacti contre Jumo",
+  "cible": [
+   230,
+   245
+  ],
+  "texte": "Beaucoup de jumeaux agricoles sont comme Tacti : ils pilotent en temps réel, pour aujourd'hui. Awa veut autre chose : un jumeau stratégique, qui réévalue à chaque saison les chemins encore possibles.",
+  "texte_tts": "Beaucoup de jumeaux agricoles sont comme Tacti : ils pilotent en temps réel, pour aujourd'hui. Awa veut autre chose : un jumeau stratégique, qui réévalue à chaque saison les chemins encore possibles.",
+  "lignes": [
+   {
+    "qui": "tacti",
+    "texte": "Maintenant ! Maintenant ! Maintenant !",
+    "texte_tts": "Maintenant ! Maintenant ! Maintenant !"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Beaucoup de jumeaux agricoles sont comme Tacti : ils pilotent en temps réel, pour aujourd'hui.",
+    "texte_tts": "Beaucoup de jumeaux agricoles sont comme Tacti : ils pilotent en temps réel, pour aujourd'hui."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Awa veut autre chose : un jumeau stratégique, qui réévalue à chaque saison les chemins encore possibles.",
+    "texte_tts": "Awa veut autre chose : un jumeau stratégique, qui réévalue à chaque saison les chemins encore possibles."
+   }
+  ]
+ },
+ {
+  "id": "2.5",
+  "acte": 2,
+  "titre": "L’arbre des futurs",
+  "cible": [
+   245,
+   260
+  ],
+  "texte": "Car les futurs ne sont pas figés. Des options apparaissent, restent ouvertes, deviennent trop chères, ou se referment pour de bon. Parfois, une porte ne s'ouvre qu'un instant.",
+  "texte_tts": "Car les futurs ne sont pas figés. Des options apparaissent, restent ouvertes, deviennent trop chères, ou se referment pour de bon. Parfois, une porte ne s'ouvre qu'un instant.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Car les futurs ne sont pas figés.",
+    "texte_tts": "Car les futurs ne sont pas figés."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Des options apparaissent, restent ouvertes, deviennent trop chères, ou se referment pour de bon.",
+    "texte_tts": "Des options apparaissent, restent ouvertes, deviennent trop chères, ou se referment pour de bon."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Parfois, une porte ne s'ouvre qu'un instant.",
+    "texte_tts": "Parfois, une porte ne s'ouvre qu'un instant."
+   }
+  ]
+ },
+ {
+  "id": "2.6",
+  "acte": 2,
+  "titre": "La boucle de Jumo",
+  "cible": [
+   260,
+   280
+  ],
+  "texte": "Le plan d'Awa : un prototype de jumeau stratégique. Il observe, il intègre les données, il met à jour le territoire simulé, il recalcule les futurs possibles en explorant le modèle avec OpenMOLE, et il montre l'écart entre ce qui était prévu et ce qui s'est passé. Pour décider mieux, et ensemble.",
+  "texte_tts": "Le plan d'Awa : un prototype de jumeau stratégique. Il observe, il intègre les données, il met à jour le territoire simulé, il recalcule les futurs possibles en explorant le modèle avec Open Mole, et il montre l'écart entre ce qui était prévu et ce qui s'est passé. Pour décider mieux, et ensemble.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Le plan d'Awa : un prototype de jumeau stratégique.",
+    "texte_tts": "Le plan d'Awa : un prototype de jumeau stratégique."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Il observe,",
+    "texte_tts": "Il observe,"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "il intègre les données,",
+    "texte_tts": "il intègre les données,"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "il met à jour le territoire simulé,",
+    "texte_tts": "il met à jour le territoire simulé,"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "il recalcule les futurs possibles en explorant le modèle avec OpenMOLE,",
+    "texte_tts": "il recalcule les futurs possibles en explorant le modèle avec Open Mole,"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "et il montre l'écart entre ce qui était prévu et ce qui s'est passé.",
+    "texte_tts": "et il montre l'écart entre ce qui était prévu et ce qui s'est passé."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Pour décider mieux, et ensemble.",
+    "texte_tts": "Pour décider mieux, et ensemble."
+   }
+  ]
+ },
+ {
+  "id": "2.7",
+  "acte": 2,
+  "titre": "Deux terrains d’aventure",
+  "cible": [
+   280,
+   295
+  ],
+  "texte": "L'aventure est prévue sur deux terrains : La Réunion, bien équipée en capteurs, pour faire entrer les données ; et le Sénégal, à l'échelle d'un territoire, pour étudier les trajectoires et leurs bifurcations.",
+  "texte_tts": "L'aventure est prévue sur deux terrains : La Réunion, bien équipée en capteurs, pour faire entrer les données ; et le Sénégal, à l'échelle d'un territoire, pour étudier les trajectoires et leurs bifurcations.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "L'aventure est prévue sur deux terrains :",
+    "texte_tts": "L'aventure est prévue sur deux terrains :"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "La Réunion, bien équipée en capteurs, pour faire entrer les données ;",
+    "texte_tts": "La Réunion, bien équipée en capteurs, pour faire entrer les données ;"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "et le Sénégal, à l'échelle d'un territoire, pour étudier les trajectoires et leurs bifurcations.",
+    "texte_tts": "et le Sénégal, à l'échelle d'un territoire, pour étudier les trajectoires et leurs bifurcations."
+   }
+  ]
+ },
+ {
+  "id": "3.1",
+  "acte": 3,
+  "titre": "Île RQ1 : la foire aux jumeaux",
+  "cible": [
+   295,
+   315
+  ],
+  "texte": "Première île, première leçon : le mot “jumeau” est à la mode. Mais beaucoup de ces outils sont des ombres, ou de simples modèles. Et presque tous servent le pilotage tactique. L'idée d'un jumeau qui explore plusieurs futurs ne fait qu'émerger.",
+  "texte_tts": "Première île, première leçon : le mot jumeau est à la mode. Mais beaucoup de ces outils sont des ombres, ou de simples modèles. Et presque tous servent le pilotage tactique. L'idée d'un jumeau qui explore plusieurs futurs ne fait qu'émerger.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Première île, première leçon : le mot “jumeau” est à la mode.",
+    "texte_tts": "Première île, première leçon : le mot jumeau est à la mode."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Mais beaucoup de ces outils sont des ombres, ou de simples modèles.",
+    "texte_tts": "Mais beaucoup de ces outils sont des ombres, ou de simples modèles."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et presque tous servent le pilotage tactique.",
+    "texte_tts": "Et presque tous servent le pilotage tactique."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "L'idée d'un jumeau qui explore plusieurs futurs ne fait qu'émerger.",
+    "texte_tts": "L'idée d'un jumeau qui explore plusieurs futurs ne fait qu'émerger."
+   }
+  ]
+ },
+ {
+  "id": "3.2",
+  "acte": 3,
+  "titre": "Île RQ2 : la vallée des artisans des données",
+  "cible": [
+   315,
+   340
+  ],
+  "texte": "Deuxième île : les méthodes pour faire entrer les données existent. En agriculture, on les utilise surtout pour recaler des modèles de culture grâce aux satellites. Mais pour les modèles multi-agents comme MAELIA, les meilleurs artisans travaillent… ailleurs : sur les foules, les épidémies, la finance.",
+  "texte_tts": "Deuxième île : les méthodes pour faire entrer les données existent. En agriculture, on les utilise surtout pour recaler des modèles de culture grâce aux satellites. Mais pour les modèles multi-agents comme Maélia, les meilleurs artisans travaillent… ailleurs : sur les foules, les épidémies, la finance.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Deuxième île : les méthodes pour faire entrer les données existent.",
+    "texte_tts": "Deuxième île : les méthodes pour faire entrer les données existent."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "En agriculture, on les utilise surtout pour recaler des modèles de culture grâce aux satellites.",
+    "texte_tts": "En agriculture, on les utilise surtout pour recaler des modèles de culture grâce aux satellites."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Mais pour les modèles multi-agents comme MAELIA, les meilleurs artisans travaillent… ailleurs :",
+    "texte_tts": "Mais pour les modèles multi-agents comme Maélia, les meilleurs artisans travaillent… ailleurs :"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "sur les foules, les épidémies, la finance.",
+    "texte_tts": "sur les foules, les épidémies, la finance."
+   }
+  ]
+ },
+ {
+  "id": "3.3",
+  "acte": 3,
+  "titre": "Trois leçons à la vallée",
+  "cible": [
+   340,
+   360
+  ],
+  "texte": "Leçon un : mettre à jour l'état ne suffit pas, il faut aussi recaler les paramètres. Leçon deux : certains paramètres se ressemblent tant qu'on ne peut pas les distinguer. Leçon trois : ce qui marche sur des données simulées devient bien plus difficile sur des données réelles. Une prévision toute simple reste parfois difficile à battre !",
+  "texte_tts": "Leçon un : mettre à jour l'état ne suffit pas, il faut aussi recaler les paramètres. Leçon deux : certains paramètres se ressemblent tant qu'on ne peut pas les distinguer. Leçon trois : ce qui marche sur des données simulées devient bien plus difficile sur des données réelles. Une prévision toute simple reste parfois difficile à battre !",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Leçon un : mettre à jour l'état ne suffit pas, il faut aussi recaler les paramètres.",
+    "texte_tts": "Leçon un : mettre à jour l'état ne suffit pas, il faut aussi recaler les paramètres."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Leçon deux : certains paramètres se ressemblent tant qu'on ne peut pas les distinguer.",
+    "texte_tts": "Leçon deux : certains paramètres se ressemblent tant qu'on ne peut pas les distinguer."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Leçon trois : ce qui marche sur des données simulées devient bien plus difficile sur des données réelles.",
+    "texte_tts": "Leçon trois : ce qui marche sur des données simulées devient bien plus difficile sur des données réelles."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Une prévision toute simple reste parfois difficile à battre !",
+    "texte_tts": "Une prévision toute simple reste parfois difficile à battre !"
+   }
+  ]
+ },
+ {
+  "id": "3.4",
+  "acte": 3,
+  "titre": "Île RQ3 : le labyrinthe des futurs",
+  "cible": [
+   360,
+   380
+  ],
+  "texte": "Troisième île : on sait dessiner les futurs. Portes qui se verrouillent, pentes qu'on ne remonte pas, seuils qui font tout basculer. Et en explorant le modèle intelligemment, on découvre bien plus de chemins : deux cent soixante comportements au lieu de trente-trois.",
+  "texte_tts": "Troisième île : on sait dessiner les futurs. Portes qui se verrouillent, pentes qu'on ne remonte pas, seuils qui font tout basculer. Et en explorant le modèle intelligemment, on découvre bien plus de chemins : deux cent soixante comportements au lieu de trente-trois.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Troisième île : on sait dessiner les futurs.",
+    "texte_tts": "Troisième île : on sait dessiner les futurs."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Portes qui se verrouillent, pentes qu'on ne remonte pas, seuils qui font tout basculer.",
+    "texte_tts": "Portes qui se verrouillent, pentes qu'on ne remonte pas, seuils qui font tout basculer."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Et en explorant le modèle intelligemment, on découvre bien plus de chemins :",
+    "texte_tts": "Et en explorant le modèle intelligemment, on découvre bien plus de chemins :"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "deux cent soixante comportements au lieu de trente-trois.",
+    "texte_tts": "deux cent soixante comportements au lieu de trente-trois."
+   }
+  ]
+ },
+ {
+  "id": "3.5",
+  "acte": 3,
+  "titre": "Île RQ4 : le village aux chaises vides",
+  "cible": [
+   380,
+   395
+  ],
+  "texte": "Quatrième île : ces outils sont rarement testés avec ceux qui décident. Heureusement, il y a des exceptions, et MAELIA en fait partie, grâce aux démarches participatives.",
+  "texte_tts": "Quatrième île : ces outils sont rarement testés avec ceux qui décident. Heureusement, il y a des exceptions, et Maélia en fait partie, grâce aux démarches participatives.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Quatrième île : ces outils sont rarement testés avec ceux qui décident.",
+    "texte_tts": "Quatrième île : ces outils sont rarement testés avec ceux qui décident."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Heureusement, il y a des exceptions, et MAELIA en fait partie, grâce aux démarches participatives.",
+    "texte_tts": "Heureusement, il y a des exceptions, et Maélia en fait partie, grâce aux démarches participatives."
+   }
+  ]
+ },
+ {
+  "id": "3.6",
+  "acte": 3,
+  "titre": "Le pont manquant",
+  "cible": [
+   395,
+   415
+  ],
+  "texte": "En rassemblant tout ce savoir, Awa découvre un vide : personne n'a encore fait entrer, au fil des saisons, les observations d'un vrai territoire agricole dans un modèle multi-agents, pour réévaluer ses futurs. Ce pont-là n'existe pas encore. C'est exactement celui qu'Awa va construire.",
+  "texte_tts": "En rassemblant tout ce savoir, Awa découvre un vide : personne n'a encore fait entrer, au fil des saisons, les observations d'un vrai territoire agricole dans un modèle multi-agents, pour réévaluer ses futurs. Ce pont-là n'existe pas encore. C'est exactement celui qu'Awa va construire.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "En rassemblant tout ce savoir, Awa découvre un vide :",
+    "texte_tts": "En rassemblant tout ce savoir, Awa découvre un vide :"
+   },
+   {
+    "qui": "narrateur",
+    "texte": "personne n'a encore fait entrer, au fil des saisons, les observations d'un vrai territoire agricole dans un modèle multi-agents, pour réévaluer ses futurs.",
+    "texte_tts": "personne n'a encore fait entrer, au fil des saisons, les observations d'un vrai territoire agricole dans un modèle multi-agents, pour réévaluer ses futurs."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "Ce pont-là n'existe pas encore.",
+    "texte_tts": "Ce pont-là n'existe pas encore."
+   },
+   {
+    "qui": "narrateur",
+    "texte": "C'est exactement celui qu'Awa va construire.",
+    "texte_tts": "C'est exactement celui qu'Awa va construire."
+   }
+  ]
+ },
+ {
+  "id": "3.7",
+  "acte": 3,
+  "titre": "Épilogue et générique",
+  "cible": [
+   415,
+   430
+  ],
+  "texte": "Et l'aventure ne fait que commencer.",
+  "texte_tts": "Et l'aventure ne fait que commencer.",
+  "lignes": [
+   {
+    "qui": "narrateur",
+    "texte": "Et l'aventure ne fait que commencer.",
+    "texte_tts": "Et l'aventure ne fait que commencer."
+   }
+  ]
+ }
+]

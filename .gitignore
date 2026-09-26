@@ -1,0 +1,12 @@
+node_modules/
+ref/
+out/frames/
+out/check/
+out/plates/
+out/tmp/
+narration/raw/
+*.tmp
+.env
+.env.*
+.DS_Store
+out/*_log.txt

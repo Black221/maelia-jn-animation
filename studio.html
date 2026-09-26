@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Awa et Jumo — studio</title>
+<style>
+  @font-face { font-family: "Fredoka"; src: url("assets/fonts/Fredoka.ttf"); font-weight: 300 700; font-display: block; }
+  @font-face { font-family: "Permanent Marker"; src: url("assets/fonts/PermanentMarker-Regular.ttf"); font-display: block; }
+  @font-face { font-family: "Patrick Hand"; src: url("assets/fonts/PatrickHand-Regular.ttf"); font-display: block; }
+  html, body { margin: 0; background: #1b1820; color: #eee; font: 13px system-ui, sans-serif; }
+  main { padding: 12px; display: grid; gap: 8px; }
+  #out { width: min(100%, 1280px); aspect-ratio: 16 / 9; height: auto; background: #FBF3E6; }
+  .p5Canvas { display: none !important; }
+  .bar { display: flex; gap: 10px; align-items: center; max-width: 1280px; }
+  #scrub { flex: 1; }
+  #tt { font-variant-numeric: tabular-nums; min-width: 190px; }
+</style>
+<script src="node_modules/p5/lib/p5.min.js"></script>
+<script src="node_modules/p5.brush/dist/p5.brush.js"></script>
+</head>
+<body>
+<main>
+  <canvas id="out" width="1920" height="1080"></canvas>
+  <div class="bar"><input id="scrub" type="range" min="0" max="480" step="0.0417" value="0"><span id="tt">loading…</span></div>
+</main>
+<!-- the clock (generated from the narration), then the engine -->
+<script src="src/timing.js"></script>
+<script src="src/core.js"></script>
+<script src="src/cast.js"></script>
+<script src="src/props.js"></script>
+<script src="src/decor.js"></script>
+<script src="src/timeline.js"></script>
+<script src="src/sheets.js"></script>
+<!-- scenes: one file each -->
+<script src="src/ch/a1_s1.js"></script>
+<script src="src/ch/a1_s2.js"></script>
+<script src="src/ch/a1_s3.js"></script>
+<script src="src/ch/a1_s4.js"></script>
+<script src="src/ch/a1_s5.js"></script>
+<script src="src/ch/a1_s6.js"></script>
+<script src="src/ch/a2_s1.js"></script>
+<script src="src/ch/a2_s2.js"></script>
+<script src="src/ch/a2_s3.js"></script>
+<script src="src/ch/a2_s4.js"></script>
+<script src="src/ch/a2_s5.js"></script>
+<script src="src/ch/a2_s6.js"></script>
+<script src="src/ch/a2_s7.js"></script>
+<script src="src/ch/a3_s1.js"></script>
+<script src="src/ch/a3_s2.js"></script>
+<script src="src/ch/a3_s3.js"></script>
+<script src="src/ch/a3_s4.js"></script>
+<script src="src/ch/a3_s5.js"></script>
+<script src="src/ch/a3_s6.js"></script>
+<script src="src/ch/a3_s7.js"></script>
+<!-- the painted plates that exist (written by `node render.mjs --plates`) -->
+<script src="out/plates/manifest.js"></script>
+<script>
+  const q = new URLSearchParams(location.search).get('loop'); if (q && LOOPS[q]) window.LOOP = LOOPS[q];
+</script>
+</body>
+</html>

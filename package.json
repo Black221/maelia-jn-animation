@@ -1,0 +1,20 @@
+{
+  "name": "awa-jumo-jumeau-strategique",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Awa et Jumo : la quête du jumeau stratégique — court métrage aquarelle (p5.js + p5.brush), d'après ClaudeAnimationBase (MIT)",
+  "type": "module",
+  "scripts": {
+    "tts": "node narration/tts.mjs",
+    "timeline": "node narration/build_timeline.mjs",
+    "frames": "node render.mjs --frames --soft-gl --workers=4",
+    "encode": "node render.mjs --encode",
+    "audio": "node audio/score.mjs && node audio/mix.mjs"
+  },
+  "dependencies": {
+    "p5": "^2.3.3",
+    "p5.brush": "^2.2.3",
+    "puppeteer-core": "^25.11.0"
+  }
+}
