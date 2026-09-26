@@ -1,6 +1,6 @@
 # Awa et Jumo : la quête du jumeau stratégique
 
-Court métrage d'animation (≈ 7 min 10, 1920 × 1080, 24 i/s) en aquarelle peinte, qui présente dans l'ordre la méthode
+Court métrage d'animation (7 min 19 s, 10 544 images, 1920 × 1080, 24 i/s) en aquarelle peinte, qui présente dans l'ordre la méthode
 de collecte (revue PRISMA 2020), la thèse (un jumeau numérique stratégique pour MAELIA) et l'état de l'art (provisoire).
 Contenu : [`docs/animation_motion_design_v2.md`](docs/animation_motion_design_v2.md) (source de vérité).
 Démarche technique : [`docs/PROMPT_claude_code_cloud.md`](docs/PROMPT_claude_code_cloud.md).
@@ -29,18 +29,28 @@ node render.mjs --plates
 # 3. images (reprenable : relancer continue là où c'était arrêté)
 node render.mjs --frames                  # ou --scene=1.4, ou --range=0:30
 
-# 4. son : musique + bruitages synthétisés, voix, mixage, −16 LUFS en deux passes
-node audio/score.mjs && node audio/mix.mjs
+# 4. son : bruitages relevés dans les scènes, musique + bruitages synthétisés, voix, mixage, −16 LUFS en deux passes
+node tools/export_sfx.mjs                 # src/sfx_cues.js
+node audio/voice.mjs && node audio/score.mjs && node audio/mix.mjs
 
 # 5. assemblage
 node render.mjs --encode --audio=out/mix.wav --out=out/awa_jumo_v2_full.mp4
 ```
+
+## Temps de calcul (sans GPU)
+
+- Plates (décors et sprites aquarelle) : une fois, ≈ 1 à 2 s par tache de lavis ; ensuite seules les plates modifiées sont repeintes.
+- Images : ≈ 1,9 s par image avec 2 workers (SwiftShader), soit ≈ 5 h 30 pour le film entier.
+  Les personnages hors champ ne sont pas tracés : sans ce tri, p5.brush recompose toute l'image à chaque couleur (jusqu'à 14 s par image).
+- Son et assemblage : quelques minutes.
 
 ## Regarder et vérifier
 
 - `studio.html` dans Chrome (`?t=12.5` pour aller à un instant, `?loop=sheet_awa` pour une planche).
 - Planches contact : `node render.mjs --scene=1.3 --sheet=0.5,3,6,9 --out=out/check/s13.jpg`.
 - Planches de personnages et images de style : `node render.mjs --loop=sheet_jumo --stills=0.4 --out=out/sheets`.
+- Chiffres à l'écran contre V2 : `node tools/fidelity.mjs`. Chiffres prononcés (transcription Whisper locale) : `python3 tools/asr_check.py` puis `python3 tools/asr_numbers.py`.
+- À-coups de mouvement : `node tools/check-motion.mjs`.
 
 ## Organisation
 
