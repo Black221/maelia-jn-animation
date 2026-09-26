@@ -143,10 +143,24 @@ if (args.sheet || args.strip) {
   console.log(`${todo.length} frames to render (${last - first + 1 - todo.length} already done), ${workers} worker(s)`);
   let next = 0, done = 0; const start = Date.now();
   await Promise.all(Array.from({ length: workers }, async (_, w) => {
-    const page = await openPage('#' + w);
+    // a page that hangs while loading, or dies mid-render, is replaced: a long render must not stop on one bad page
+    let page = null;
+    const fresh = async () => {
+      for (let k = 1; ; k++) {
+        if (page) await page.close().catch(() => {});
+        try { page = await openPage('#' + w); return; }
+        catch (e) { console.log(`[worker ${w}] page failed to open (${e.message}), attempt ${k}`); if (k >= 5) throw e; }
+      }
+    };
+    await new Promise(r => setTimeout(r, w * 15000));   // stagger start-up: pages loading all plates at once compete
+    await fresh();
     while (next < todo.length) {
       const i = todo[next++], f = `${FRAMES_DIR}/f${String(i).padStart(5, '0')}.jpg`;
-      const buf = await frameOf(page, i / fps, 'image/jpeg', .94);
+      let buf = null;
+      for (let k = 1; !buf; k++) {
+        try { buf = await Promise.race([frameOf(page, i / fps, 'image/jpeg', .94), new Promise((_, no) => setTimeout(() => no(new Error('frame timeout')), 300000))]); }
+        catch (e) { console.log(`[worker ${w}] frame ${i} failed (${e.message}), attempt ${k}`); if (k >= 3) throw e; await fresh(); }
+      }
       writeFileSync(f + '.tmp', buf); renameSync(f + '.tmp', f);
       if (++done % 24 === 0 || done === todo.length) {
         const el = (Date.now() - start) / 1000;
