@@ -67,6 +67,14 @@
     treeP(120, 900, 150, '#6E9A55'); treeP(2060, 880, 120, '#7FA968');
   } });
 
+  // the workshop names on their boards (also used by 3.3, which plays in the same valley)
+  A3.valleyNames = (k = () => 1) => HUTS.forEach((x, i) => {
+    if (!A3.vis(x, HB - 230, 250)) return;
+    const p = backOut(k(i));
+    letter(NAMES[i][0], x, HB - 244, 31 * p, PAL.night, { weight: 700, maxW: 330 });
+    letter(NAMES[i][1], x, HB - 212, 23 * p, '#5A4034', { weight: 600, maxW: 330 });
+  });
+  A3.gears = (x, y, st) => engrenages(x, y, st);
   // ---------------- the four workshops, at work (pure functions of st) ----------------
   function nuees(x, y, st, s = 1) {             // ensemble Kalman: model copies spread (forecast), then tighten (analysis)
     const per = 2.4, c = Math.floor(st / per), ph = frac(st / per);
@@ -198,7 +206,7 @@
   // ---------------- the shot ----------------
   function valley(t, lt, dur, S, st) {
     const L = i => S.cue(i), E = i => S.cueEnd(i);
-    const toPost = [E(0) + .9, E(0) + 2.0], toTown = [E(2) - .9, L(3) + .2], back = [E(3) + .3, E(3) + 1.6], dive = [S.dur - 1.3, S.dur];
+    const toPost = [E(0) + .45, E(0) + 2.45], toTown = [E(2) - .9, L(3) + .2], back = [E(3) + .3, E(3) + 1.6], dive = [S.dur - 1.3, S.dur];
     const cx = kf(st, [[0, 1010], [toPost[0], 1120], [toPost[1], 2240], [toTown[0], 2250], [toTown[1], 2420], [back[0], 2425], [back[1], 2150], [99, 2150]]);
     const cy = kf(st, [[0, 560], [toPost[0], 575], [toPost[1], 770], [toTown[0], 760], [toTown[1], 410], [back[0], 400], [back[1], 800], [99, 800]]);
     const z = kf(st, [[0, 1.0], [toPost[0], 1.02], [toPost[1], 1.32], [toTown[0], 1.34], [toTown[1], 1.66], [back[0], 1.7], [back[1], 1.4], [99, 1.45]]);
@@ -211,12 +219,7 @@
     if (A3.vis(HUTS[1], 560, 250)) lucioles(HUTS[1], 560, st);
     if (A3.vis(HUTS[2], 560, 250)) luthier(HUTS[2], 560, st);
     if (A3.vis(HUTS[3], 560, 250)) engrenages(HUTS[3], 575, st);
-    HUTS.forEach((x, i) => {
-      if (!A3.vis(x, HB - 230, 250)) return;
-      const k = seg(st, L(0) + .5 + i * .55, L(0) + .9 + i * .55);
-      letter(NAMES[i][0], x, HB - 244, 31 * backOut(k), PAL.night, { weight: 700, maxW: 330 });
-      letter(NAMES[i][1], x, HB - 212, 23 * backOut(k), '#5A4034', { weight: 600, maxW: 330 });
-    });
+    A3.valleyNames(i => seg(st, L(0) + .5 + i * .55, L(0) + .9 + i * .55));
     for (const [x, y] of rs) glow(x, y, 16, '#E4FBFD', .45);
     // the fork: satellite over the crop plots, the crop model's gauge (L1)
     const agri = seg(st, L(1) + .2, L(1) + .7), far = seg(st, E(2) - 1.6, E(2) - 1.0);
@@ -247,7 +250,7 @@
     }
     // the far town (L3): a crowd, an epidemic curve, a finance chart — and the workshops' tricks at work there
     if (A3.vis(TOWN.x, TOWN.y, 400)) {
-      const k1 = seg(st, L(3) + .05, L(3) + .5), k2 = seg(st, L(3) + .95, L(3) + 1.4), k3 = seg(st, L(3) + 1.85, L(3) + 2.3);
+      const off = 1 - seg(st, back[0], back[0] + .5), k1 = seg(st, L(3) + .05, L(3) + .5) * off, k2 = seg(st, L(3) + .95, L(3) + 1.4) * off, k3 = seg(st, L(3) + 1.85, L(3) + 2.3) * off;
       crowd(TOWN.x - 180, TOWN.y + 75, st, k1);
       if (k1 > .3) nuees(TOWN.x - 180, TOWN.y - 10, st, .55);
       epiBoard(TOWN.x, TOWN.y - 30, st, k2);
@@ -259,7 +262,7 @@
     const ax = kf(st, [[0, 1850], [toPost[1] + .3, 2045], [99, 2045]]), walking = st > .2 && st < toPost[1] + .3;
     const mood = actP(st, [[0, 'neutre'], [L(1) + .8, 'concentree', { lookX: .9, lookY: -.3 }], [E(1) - 1.0, 'joie', { lookX: .9 }],
       [L(2) + .8, 'doute', { lookX: -.9 }], [E(2) - 1.6, 'surprise', { lookX: .8, lookY: -.8 }], [L(3) + .6, 'emerveillee', { lookX: .8, lookY: -.9 }], [back[0] + .6, 'determinee', { lookX: -.2 }]]);
-    const Aw = walking ? { ...mood, view: 'side', walk: (ax - 1850) / 34, aL: undefined, aR: undefined, eL: undefined, eR: undefined, fist: false, handR: undefined, finger: undefined }
+    const Aw = walking ? { ...mood, view: 'side', walk: (ax - 1850) / 130, aL: undefined, aR: undefined, eL: undefined, eR: undefined, fist: false, handR: undefined, finger: undefined }
       : { ...mood, view: st > L(2) + .8 && st < E(2) - 1.6 ? 'q' : 'side', flip: st > L(2) + .8 && st < E(2) - 1.6 };
     if (A3.vis(ax, 900, 300)) A3.awa(ax, 985, 21, Aw);
     const holo = bump(st, L(2) + .2, E(2) - .3, .35);
@@ -285,7 +288,7 @@
     (st, S) => ({}),
     S => {
       const L = i => S.cue(i), E = i => S.cueEnd(i);
-      const out = [[.1, 'whoosh', .1, .3], [E(0) + .9, 'whoosh', .06], [L(1) + .6, 'rotor', .05, .5], [L(1) + 1.6, 'bip', .06, .5], [E(1) - 1.0, 'ding', .08, .4],
+      const out = [[.1, 'whoosh', .1, .3], [E(0) + .45, 'whoosh', .06], [L(1) + .6, 'rotor', .05, .5], [L(1) + 1.6, 'bip', .06, .5], [E(1) - 1.0, 'ding', .08, .4],
         [L(2) + .2, 'sparkle', .05], [E(2) - 1.6, 'chime', .08, .3], [E(2) - .9, 'whoosh', .06], [L(3) + .05, 'pop', .08], [L(3) + .95, 'pop', .08], [L(3) + 1.85, 'pop', .08],
         [E(3) + .3, 'whoosh', .06], [E(3) + 1.8, 'bip2', .08], [S.dur - 1.3, 'whoosh', .16]];
       for (let i = 0; i < 4; i++) out.push([L(0) + .5 + i * .55, 'tick', .05]);

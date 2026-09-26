@@ -46,13 +46,16 @@
     } else if (kind === 'biomasse') {
       paint([[x - .1 * r, y + .75 * r], [x - .75 * r, y - .05 * r], [x - .2 * r, y - .85 * r], [x + .7 * r, y - .8 * r], [x + .45 * r, y + .15 * r]], { wash: '#7FB35E', washOp: 255, ink: PAL.ink, sw: .7, curv: .5 });
       inkLine([[x - .15 * r, y + .7 * r], [x + .05 * r, y - .05 * r], [x + .5 * r, y - .6 * r]], 1, PAL.soil, 'inkfine', .5);
-    } else {   // gaz à effet de serre: a grey cloud with wavy rising lines
-      for (const [dx, dy, rr] of [[-.45, .15, .38], [0, -.15, .5], [.45, .15, .38]]) paint(ellPts(x + dx * r, y + dy * r, rr * r, rr * .85 * r, 12), { wash: '#AEB4BE', washOp: 255, ink: null });
-      paint([[x - .85 * r, y + .45 * r], [x + .85 * r, y + .45 * r], [x + .8 * r, y + .15 * r], [x - .8 * r, y + .15 * r]], { wash: '#AEB4BE', washOp: 255, ink: null });
-      paint([[x - .88 * r, y + .45 * r], [x - .8 * r, y - .05 * r], [x - .35 * r, y - .45 * r], [x + .2 * r, y - .62 * r], [x + .7 * r, y - .2 * r], [x + .88 * r, y + .45 * r]], { ink: PAL.ink, sw: .7, curv: .5 });
-      for (const dx of [-.3, .3]) inkLine([[x + dx * r, y - .7 * r], [x + (dx + .1) * r, y - .9 * r], [x + dx * r, y - 1.1 * r]], .9, '#7D8594', 'inkfine', .6);
+    } else {   // gaz à effet de serre: a grey cloud puffing wavy fumes
+      for (const [dx, dy, rr] of [[-.48, .22, .36], [.02, -.08, .5], [.5, .22, .36]]) paint(ellPts(x + dx * r, y + dy * r, rr * r, rr * .9 * r, 14), { wash: '#AEB4BE', washOp: 255, ink: PAL.ink, sw: .6 });
+      paint(rrPts(x - .82 * r, y + .12 * r, 1.64 * r, .42 * r, .2 * r), { wash: '#AEB4BE', washOp: 255, ink: null });
+      inkLine([[x - .82 * r, y + .54 * r], [x + .82 * r, y + .54 * r]], .7, PAL.ink, 'inkfine', 0);
+      for (const dx of [-.35, .35]) inkLine([[x + dx * r, y - .55 * r], [x + (dx + .12) * r, y - .78 * r], [x + dx * r, y - 1.0 * r]], 1, '#7D8594', 'inkfine', .6);
     }
   };
+  // letters are composited above all paint: fade this frame's letters when something covers the frame
+  K.fadeLetters = a => { if (a >= 1) return; for (const Lt of LETTERS) Lt.alpha = (Lt.alpha ?? 1) * clamp(a); };
+  K.wipeAmt = k => (k <= 0 || k >= 1) ? 0 : clamp((1 - Math.abs(k - .5) * 2) * 2);
   // the territory plate's river centre line (same maths as decor.js parcels()), for overlays
   K.riverLine = (w = 2400, h = 1350) => { const R = []; for (let k = 0; k <= 12; k++) R.push([k * w / 12, h * .55 + Math.sin(k * .9) * h * .16 + Math.sin(k * 2.1) * 40]); return R; };
 
@@ -81,7 +84,7 @@
     for (let i = 0; i < 14; i++) { const x = hash(i * 5 + 2) * w, y = 1190 + hash(i * 3 + 1) * 140; paint(ellPts(x, y, 9 + hash(i) * 8, 5, 8), { wash: '#A8906A', washOp: 200, ink: null }); }
   } });
   // clouds: soft cream puffs cut out by their silhouette (tinted grey for the storm, dark for shadows)
-  const CLOUDS = []; for (let k = 0; k < 6; k++) { const cx = 200 + k * 400 + hash(k * 3) * 120, cy = 300 + hash(k * 7) * 180, r = 110 + hash(k) * 60; CLOUDS.push([[cx, cy, r], [cx + r * .85, cy + r * .25, r * .72], [cx - r * .75, cy + r * .3, r * .62], [cx + r * .1, cy + r * .5, r * .8]]); }
+  const CLOUDS = []; for (let k = 0; k < 6; k++) { const cx = 250 + k * 370 + hash(k * 3) * 80, cy = 300 + hash(k * 7) * 180, r = 110 + hash(k) * 60; CLOUDS.push([[cx, cy, r], [cx + r * .85, cy + r * .25, r * .72], [cx - r * .75, cy + r * .3, r * .62], [cx + r * .1, cy + r * .5, r * .8]]); }
   window.A2K.CLOUDS = CLOUDS;
   definePlate('a2s1_clouds', { w: 2400, h: 700, deps: [], mask(c) { for (const C of window.A2K.CLOUDS) for (const [x, y, r] of C) { c.beginPath(); c.ellipse(x, y, r, r * .8, 0, 0, TAU); c.fill(); } }, paint(w, h) {
     for (const C of window.A2K.CLOUDS) {
@@ -239,11 +242,11 @@
     ['eau', [1320, 820], [1000, 470], 2.2],
     ['azote', [880, 330], [740, 560], 3.02],
     ['carbone', [1150, 900], [1330, 650], 3.84],
-    ['biomasse', [1480, 380], [1590, 520], 4.55],
-    ['ges', [1700, 760], [1780, 740], 5.0],
+    ['biomasse', [1480, 380], [1590, 520], 4.0],
+    ['ges', [1700, 760], [1760, 760], 4.4],
   ];
   function effects(t, lt, dur, S, st) {
-    const L = i => S.cue(i), l1 = L(1), close0 = S.dur - 1.15;
+    const L = i => S.cue(i), l1 = L(1), close0 = S.dur - .95;
     const z = kf(st, [[l1 - .3, 1.18], [S.dur, 1.3]]);
     camBegin(kf(st, [[l1 - .3, 1240], [S.dur, 1260]]), kf(st, [[l1 - .3, 560], [S.dur, 620]]) + 60 * easeOut(1 - seg(lt, 0, .6)), z);
     drawPlate('territory', 0, 0);
@@ -255,15 +258,17 @@
       if (ck > 0) { boilSeed('crop' + i); paint(ellPts(x, y + 4, 90 * ease(ck), 70 * ease(ck), 18), { wash: ['#86B06A', '#E8D39A', '#9DC07B'][i], washOp: 150 * ck, ink: null }); }
     });
     // effect ripples from the sources, then the bubbles float up and bob
-    for (const [kind, src, dst, off] of BUBS) {
-      const tb = l1 + off, k = seg(st, tb - .35, tb + .25), m = ease(seg(st, tb - .35, tb + .45));
+    BUBS.forEach(([kind, src, dst, off], bi) => {
+      const pop0 = close0 - .6 + bi * .08, gone = seg(st, pop0, pop0 + .12);
+      const tb = l1 + off, k = seg(st, tb - .35, tb + .25) * (1 - gone), m = ease(seg(st, tb - .35, tb + .45));
+      if (gone > 0 && gone < 1) { const x = dst[0], y = dst[1]; for (let q = 0; q < 6; q++) { const a = q / 6 * TAU; boilSeed('burst' + bi + q); inkLine([[x + Math.cos(a) * 60, y + Math.sin(a) * 60], [x + Math.cos(a) * (70 + 40 * gone), y + Math.sin(a) * (70 + 40 * gone)]], 1.4, K.bubbleCol(kind), 'ink', 0); } }
       if (st > tb - .5 && st < tb + .5) { boilSeed('rip' + kind); const rk = seg(st, tb - .5, tb + .5); paint(ellPts(src[0], src[1], 20 + 90 * rk, 12 + 50 * rk, 18), { ink: K.bubbleCol(kind), sw: 1.6 * (1 - rk) + .2 }); }
-      if (k <= 0) continue;
+      if (k <= 0) return;
       const bob = Math.sin(st * 2.2 + off * 3) * 10 * m;
       const x = lerp(src[0], dst[0], m), y = lerp(src[1], dst[1], m) + bob;
       inkLine([[src[0], src[1]], [lerp(src[0], x, .5) + 10, lerp(src[1], y, .5)], [x, y]], .7, mixCol(K.bubbleCol(kind), PAL.cream, .3), 'inkfine', .5);
       K.bubble(x, y, 56, k, kind);
-    }
+    });
     camEnd();
     // exit: the frame closes to an ellipse — MAELIA's tabletop in 2.2's first frame
     const ck = ease(seg(st, close0, S.dur - .1));
@@ -282,7 +287,8 @@
         [l1 - .6, 'whoosh', .12]];
       for (let i = 0; i < 3; i++) out.push([l1 + .15 + i * .4 + .2, 'thud', .12]);
       for (const [, , , off] of BUBS) out.push([l1 + off - .1, 'bloop', .1]);
-      out.push([S.dur - 1.1, 'whoosh', .08]);
+      BUBS.forEach((b, bi) => out.push([S.dur - .95 - .6 + bi * .08, 'pop', .08, -.4 + bi * .2]));
+      out.push([S.dur - .9, 'whoosh', .08]);
       return out;
     });
 })();

@@ -135,6 +135,7 @@
     let cx, cy, z;
     if (part === 'A') { const k = ease(seg(st, 0, dur)); cx = 1200; cy = lerp(700, 1080, easeIn(k)); z = lerp(.86, 1.9, easeIn(k)); }
     else { cx = kf(st, [[L(2) - .1, 1200], [mole, 1200], [flood1, 1200], [99, 1200]]); cy = kf(st, [[L(2) - .1, 1060], [mole, 1080], [flood1 - .4, 690], [99, 680]]); z = kf(st, [[L(2) - .1, 1.6], [mole, 1.55], [flood1 - .4, .86], [99, .88]]); }
+    cy = Math.min(cy, 1350 - 540 / z - 2); cx = clamp(cx, 960 / z, 2400 - 960 / z);
     camBegin(cx, cy, z);
     drawPlate('a3s4_maze', 0, 0);
     // A: the corridors glow faintly from the entrance, like the tree of futures being drawn
@@ -179,7 +180,7 @@
         panel(960, 150, 520, 92, null, { k: cM, col: '#FFF6DE', key: 'c260' });
         letter(fmtFR(n) + (st > flood1 - .05 ? ' comportements' : ''), 960, 152, 52, PAL.night, { pop: cM, weight: 700 });
         const k3 = seg(st, flood1 + 1.0, flood1 + 1.4);
-        if (k3 > .02) letter('au lieu de ' + fmtFR(33), 960, 232, 34, '#6A3A12', { pop: k3, weight: 600, stroke: PAL.cream });
+        if (k3 > .02) letter('au lieu de ' + fmtFR(33), 960, 240, 42, '#6A3A12', { pop: k3, weight: 600, stroke: PAL.cream });
         const mk = seg(st, mole, mole + .4) * (1 - seg(st, flood1 - .3, flood1));
         if (mk > .02) letter('mode : « chercher la diversité »', 960, 232, 30, '#6A3A12', { pop: mk, weight: 600, stroke: PAL.cream });
       }
@@ -194,13 +195,14 @@
   function hedges(t, lt, dur, S, st) {
     const L = i => S.cue(i), E = i => S.cueEnd(i);
     const b0 = L(1);
-    const shut = [b0 + .45, b0 + .75], lock = b0 + 1.05;
-    const sl = [b0 + 1.75, b0 + 2.3], climb = [b0 + 2.45, b0 + 3.2];
-    const mb = [b0 + 3.35, b0 + 3.75, b0 + 4.35];            // wobble start, roll start, rest
-    const lv = b0 + 4.95, flip = [lv + .15, lv + .45];
-    const cx = kf(st, [[b0 - .3, 830], [b0 + 1.2, 860], [b0 + 1.55, 1230], [climb[1] - .1, 1260], [mb[0] - .15, 1800], [mb[2] + .2, 1830], [lv - .7, 2165], [99, 2165]]);
-    const cz = kf(st, [[b0 - .3, 1.18], [b0 + 1.2, 1.2], [b0 + 1.55, 1.12], [mb[0] - .15, 1.2], [lv - .7, 1.15], [99, 1.18]]);
-    camBegin(cx, kf(st, [[0, 720], [lv - .7, 740], [99, 740]]), cz);
+    const shut = [b0 + .3, b0 + .6], lock = b0 + .85;
+    const sl = [b0 + 1.65, b0 + 2.35], climb = [b0 + 2.45, b0 + 3.15];
+    const mb = [b0 + 3.25, b0 + 3.5, b0 + 4.05];            // wobble start, roll start, rest
+    const lv = b0 + 5.1, flip = [lv + .15, lv + .45], toLever = b0 + 4.0;
+    const cx = kf(st, [[b0 - .3, 830], [b0 + 1.0, 860], [b0 + 1.8, 1500], [toLever, 1520], [toLever + .85, 2165], [99, 2165]]);
+    const cz = kf(st, [[b0 - .3, 1.18], [b0 + 1.0, 1.2], [b0 + 1.8, 1.0], [toLever, 1.02], [toLever + .85, 1.15], [99, 1.18]]);
+    const cyy = kf(st, [[0, 720], [b0 + 1.8, 700], [toLever, 700], [toLever + .85, 740], [99, 740]]);
+    camBegin(cx, cyy, cz);
     drawPlate('a3s4_hedges', 0, 0);
     // gate + padlock (verrouillage)
     if (A3.vis(DOOR, 750, 300)) {
@@ -234,18 +236,19 @@
     }
     // Jumo: peeks at the gate, rides the slide and fails the climb, watches the marble, pushes the lever
     let jx, jy, jr = 0, jf = 'happy', ju = 11;
-    if (st < b0 + 1.4) { jx = DOOR + 180; jy = 700 + Math.sin(st * 2.4) * 6; jf = st > shut[1] ? 'wide' : 'happy'; }
-    else if (st < sl[0]) { const k = ease(seg(st, b0 + 1.4, sl[0])); jx = lerp(DOOR + 180, SLIDE.x0 + 10, k); jy = lerp(700, SLIDE.y0 - 40, k); }
-    else if (st < sl[1]) { const k = easeIn(seg(st, ...sl)); jx = lerp(SLIDE.x0 + 10, SLIDE.x1 - 20, k); jy = slideY(jx) - 44; jr = .5 * Math.sin(k * Math.PI) ; jf = 'love'; }
+    if (st < b0 + 1.0) { jx = DOOR + 180; jy = 700 + Math.sin(st * 2.4) * 6; jf = st > shut[1] ? 'wide' : 'happy'; }
+    else if (st < sl[0]) { const k = ease(seg(st, b0 + 1.0, sl[0])); jx = lerp(DOOR + 180, SLIDE.x0 + 10, k); jy = lerp(700, SLIDE.y0 - 40, k); }
+    else if (st < sl[1]) { const k = ease(seg(st, ...sl)); jx = lerp(SLIDE.x0 + 10, SLIDE.x1 - 20, k); jy = slideY(jx) - 44; jr = .5 * Math.sin(k * Math.PI) ; jf = 'love'; }
     else if (st < climb[1]) {
       const k = seg(st, ...climb), up = Math.sin(Math.min(1, k * 1.3) * Math.PI);   // climbs part way… and slides back down
       jx = SLIDE.x1 - 20 - 170 * up; jy = slideY(jx) - 44; jr = -.4 * up; jf = k > .55 ? 'dizzy' : 'angry';
     }
-    else if (st < lv - .4) { const k = ease(seg(st, climb[1], mb[0])); jx = lerp(SLIDE.x1 - 20, HILL.x - 160, k); jy = lerp(slideY(SLIDE.x1 - 20) - 44, HILL.top - 140, k) + Math.sin(st * 2.4) * 6; jf = st > mb[1] ? 'wide' : 'question'; }
-    else { const k = ease(seg(st, lv - .9, lv - .3)); const a = -Math.PI / 2 - .64 + lk * .96, h = [LEVER.x + Math.cos(a) * 136, FY - 96 + Math.sin(a) * 136]; jx = lerp(HILL.x - 160, h[0] - 60, k); jy = lerp(HILL.top - 140, h[1] - 10, k); jf = st > flip[1] ? 'happy' : 'angry'; jr = .15 * k; }
+    else if (st < toLever) { jx = SLIDE.x1 - 20; jy = slideY(jx) - 44 - 20 * ease(seg(st, climb[1], climb[1] + .4)); jf = st > mb[1] ? 'wide' : 'dizzy'; }
+    else { const k = ease(seg(st, toLever, lv - .3)); const a = -Math.PI / 2 - .64 + lk * .96, h = [LEVER.x + Math.cos(a) * 136, FY - 96 + Math.sin(a) * 136], s0 = [SLIDE.x1 - 20, slideY(SLIDE.x1 - 20) - 64]; jx = lerp(s0[0], h[0] - 60, k); jy = lerp(s0[1], h[1] - 10, k) - 60 * Math.sin(k * Math.PI); jf = st > flip[1] ? 'happy' : 'angry'; jr = .15 * k; }
     // the gate shot has Awa; the others centre on Jumo
-    if (A3.vis(DOOR - 250, 800, 300)) A3.awa(DOOR - 250, FY + 30, 20, { ...actP(st, [[0, 'neutre', { lookX: .8 }], [shut[1], 'surprise', { lookX: .8 }], [lock + .4, 'grimace', { lookX: .8 }]]), view: 'q' });
-    if (A3.vis(SLIDE.x0 - 330, 800, 300) && st > sl[0] - .6) A3.awa(SLIDE.x0 - 330, FY + 30, 20, { ...actP(st, [[0, 'neutre', { lookX: .8 }], [climb[0] + .4, 'rire', { lookX: .9 }]]), view: 'q' });
+    const ax = kf(st, [[b0 + 1.0, DOOR - 250], [b0 + 1.9, SLIDE.x0 - 330], [99, SLIDE.x0 - 330]]), aw = st > b0 + 1.0 && st < b0 + 1.9;
+    const am = actP(st, [[0, 'neutre', { lookX: .8 }], [shut[1], 'surprise', { lookX: .8 }], [lock + .4, 'grimace', { lookX: .8 }], [b0 + 1.9, 'neutre', { lookX: .8 }], [climb[0] + .4, 'rire', { lookX: .9 }], [mb[1], 'surprise', { lookX: .9 }]]);
+    if (A3.vis(ax, 800, 300)) A3.awa(ax, FY + 30, 20, aw ? { ...am, view: 'side', walk: (ax - DOOR + 250) / 125, aL: undefined, aR: undefined, eL: undefined, eR: undefined, fist: false, finger: undefined, handR: undefined } : { ...am, view: 'q' });
     A3.jumo(jx, jy, ju, { face: jf, rot: jr, boilKey: 'jumo' });
     camEnd();
     cite(['Hotz et al., 2026 : verrouillage, hystérésis', 'Sanga et al., 2025 : trappes à pauvreté, Mali'], seg(st, lock, lock + .5) * (1 - seg(st, mb[0] + .6, mb[0] + .9)));
@@ -258,8 +261,8 @@
     S => {
       const L = i => S.cue(i), E = i => S.cueEnd(i), b0 = L(1), lamp0 = L(2) + .35, mole = L(2) + 1.9;
       const out = [[.05, 'whoosh', .1], [.5, 'sparkle', .05], [L(1) - .2, 'whoosh', .1],
-        [b0 + .7, 'thud', .22, -.4], [b0 + 1.05, 'clic', .14, -.4], [b0 + 1.75, 'slideDown', .09], [b0 + 2.6, 'squeak', .06], [b0 + 2.95, 'slideDown', .06],
-        [b0 + 3.35, 'tick', .05], [b0 + 3.75, 'bloop', .08, .3], [b0 + 4.95, 'clic', .12, .4], [b0 + 5.1, 'whoosh', .08, .5], [b0 + 5.3, 'pop', .08, .5],
+        [b0 + .6, 'thud', .22, -.4], [b0 + .85, 'clic', .14, -.4], [b0 + 1.0, 'whoosh', .06], [b0 + 1.65, 'slideDown', .09], [b0 + 2.65, 'squeak', .06], [b0 + 2.95, 'slideDown', .06],
+        [b0 + 3.25, 'tick', .05], [b0 + 3.5, 'bloop', .08, .3], [b0 + 4.0, 'whoosh', .06], [b0 + 5.1, 'clic', .12, .4], [b0 + 5.25, 'whoosh', .08, .5], [b0 + 5.55, 'pop', .08, .5],
         [L(2) - .15, 'whoosh', .1], [lamp0, 'chime', .06], [mole, 'bip2', .07], [mole + .3, 'sparkle', .07], [L(3) + .05, 'ding', .09], [S.dur - 1.0, 'whoosh', .12]];
       for (let k = 0; k < 8; k++) out.push([mole + .35 + k * .3, 'tick', .03]);
       return out;

@@ -86,7 +86,7 @@
   function robot(x, y, o = {}) {                // the filter-robot: a runner with a sieve-funnel for a head
     const rot = o.rot || 0, run = o.run ?? 0, mud = o.mud || 0, sq = o.sq || 0;
     boilSeed('robot');
-    push(); translate(x, y); rotate(rot); scale(1 + sq * .5, 1 - sq);
+    push(); translate(x, y); rotate(rot); scale((1 + sq * .5) * 1.45, (1 - sq) * 1.45);
     for (const sd of [-1, 1]) { const ph = Math.sin(run * TAU + (sd > 0 ? Math.PI : 0)); inkLine([[sd * 10, -40], [sd * 10 + ph * 18, -18], [sd * 8 + ph * 26, 0]], 4, '#5A6A7A', 'ink', .3); paint(ellPts(sd * 8 + ph * 26 + 6, -2, 12, 6, 8), { wash: mixCol('#3A3440', '#6E5038', mud), washOp: 255, ink: null }); }
     paint(rrPts(-34, -104, 68, 66, 14), { wash: mixCol('#9FB9CF', '#8A6A4A', mud * .6), washOp: 255, ink: PAL.ink, sw: .9 });
     paint(rrPts(-24, -94, 48, 28, 6), { wash: PAL.night, washOp: 255, ink: null });
@@ -117,10 +117,11 @@
   // ---------------- A: the two knobs ----------------
   function knobs(t, lt, dur, S, st) {
     const L = i => S.cue(i), E = i => S.cueEnd(i);
-    const k1 = [.95, 1.45], fly1 = [1.6, 2.9], back = [3.15, 3.65], k2 = [3.55, 4.05], fly2 = [4.15, 4.85];
-    const cx = 1900 + 20 * seg(st, 0, 5.6), cz = 1.25 + .04 * seg(st, 0, 5.6);
-    camBegin(cx, 700, cz);
+    const k1 = [.95, 1.45], fly1 = [1.55, 2.75], back = [2.95, 3.65], k2 = [3.5, 4.0], fly2 = [4.1, 4.95];
+    const cx = 1880 + 20 * seg(st, 0, 5.6), cz = 1.34 + .04 * seg(st, 0, 5.6);
+    camBegin(cx, 880, cz);
     drawPlate('a3s2_valley', 0, 0);
+    A3.valleyNames(); A3.gears(1780, 575, st * .3);
     boilSeed('veil'); paint(rectPts(1000, 200, 1800, 1100), { wash: '#F4F2EC', washOp: 70, ink: null });
     const hit = seg(st, fly2[1] - .05, fly2[1] + .15) * (1 - seg(st, 5.3, 5.6));
     target(2330, 700, hit);
@@ -134,9 +135,9 @@
     const P0 = [1700, 720], T = [2250, 700];
     let jx, jy, face = 'happy', rot = 0, u = 11;
     if (st < fly1[0]) { [jx, jy] = P0; face = st < k1[0] ? 'happy' : 'scan'; }
-    else if (st < back[0]) { const k = ease(seg(st, ...fly1)); jx = lerp(P0[0], 2230, k); jy = lerp(P0[1], 700, k) - 330 * Math.sin(k * Math.PI * .75) * k; rot = -.5 * Math.sin(k * Math.PI) - .2 * k; face = k > .6 ? 'dizzy' : 'wide'; }
-    else if (st < fly2[0]) { const k = ease(seg(st, ...back)); const e = [2230, 700 - 330 * Math.sin(Math.PI * .75)]; jx = lerp(e[0], P0[0], k); jy = lerp(e[1], P0[1], k); face = 'sad'; rot = .1 * Math.sin(st * 9) * (1 - k); }
-    else { const k = easeIn(seg(st, ...fly2)); jx = lerp(P0[0], T[0], k); jy = P0[1] + Math.sin(k * Math.PI) * -12; face = st > fly2[1] ? 'check' : 'happy'; rot = .12 * (1 - k); }
+    else if (st < back[0]) { const k = ease(seg(st, ...fly1)); jx = lerp(P0[0], 2150, k); jy = lerp(P0[1], 700, k) - 300 * Math.sin(k * Math.PI * .75) * k; rot = -.5 * Math.sin(k * Math.PI) - .2 * k; face = k > .6 ? 'dizzy' : 'wide'; }
+    else if (st < fly2[0]) { const k = ease(seg(st, ...back)); const e = [2150, 700 - 300 * Math.sin(Math.PI * .75)]; jx = lerp(e[0], P0[0], k); jy = lerp(e[1], P0[1], k); face = 'sad'; rot = .1 * Math.sin(st * 9) * (1 - k); }
+    else { const k = ease(seg(st, ...fly2)); jx = lerp(P0[0], T[0], k); jy = P0[1] + Math.sin(k * Math.PI) * -12; face = st > fly2[1] ? 'check' : 'happy'; rot = .12 * (1 - k); }
     jy += Math.sin(st * 2.6) * 6;
     // pulled back out of the lens (3.2 ended with Jumo filling the frame)
     const pk = easeOut(seg(st, 0, .8));
@@ -152,8 +153,9 @@
   function twins(t, lt, dur, S, st) {
     const L = i => S.cue(i), E = i => S.cueEnd(i);
     const sw = [L(1) + 1.1, L(1) + 2.2, L(1) + 3.2, L(1) + 4.0];                    // swaps
-    camBegin(1280 + 30 * seg(lt, 0, dur), 690, 1.32 + .05 * seg(lt, 0, dur));
+    camBegin(1280 + 30 * seg(lt, 0, dur), 850, 1.42 + .05 * seg(lt, 0, dur));
     drawPlate('a3s2_valley', 0, 0);
+    A3.valleyNames();
     boilSeed('veil'); paint(rectPts(400, 200, 1800, 1100), { wash: '#F4F2EC', washOp: 70, ink: null });
     const X = 1300, Y = 860;
     // needle: jiggles on each landing, always back on the mark
@@ -181,7 +183,7 @@
     for (let j = 0; j < 2; j++) { const qk = seg(st, sw[1] + .55 + j * .15, sw[1] + .8 + j * .15) * (1 - seg(st, sw[3], sw[3] + .3)); if (qk > .02) letter('?', pos[j], Y - 170 + 6 * Math.sin(st * 5 + j), 54, PAL.red, { pop: qk, font: FONT.marker, weight: 400 }); }
     // the sum stays right
     const sk = seg(st, sw[3] + .6, sw[3] + 1.0);
-    if (sk > .02) { letter('a + b', X, Y + 190, 34, PAL.night, { pop: sk, weight: 700 }); boilSeed('check'); inkLine([[X + 60, Y + 188], [X + 72, Y + 200], [X + 96, Y + 172]], 3 * backOut(sk), PAL.soil, 'ink', 0); }
+    if (sk > .02) { panel(X + 270, Y + 40, 170, 64, null, { k: sk, col: '#E4F2DA', key: 'sum' }); letter('a + b', X + 245, Y + 41, 34, PAL.night, { pop: sk, weight: 700 }); boilSeed('check'); push(); translate(X + 318, Y + 40); scale(backOut(sk)); inkLine([[-14, 0], [-4, 12], [16, -14]], 3.4, PAL.soil, 'ink', 0); pop(); }
     A3.awa(1000, 990, 20, { ...actP(st, [[0, 'concentree', { lookX: .8 }], [sw[1] + .6, 'doute', { lookX: .8 }], [sw[3] + .6, 'rire', { lookX: .6 }]]), view: 'q' });
     const jf = st < sw[0] ? 'happy' : st < sw[2] ? 'question' : st < sw[3] + .6 ? 'dizzy' : 'happy';
     A3.jumo(1520 + 20 * Math.sin(st * 1.3), 640 + Math.sin(st * 2.4) * 8, 11, { face: jf, rot: st > sw[2] && st < sw[3] + .6 ? .2 * Math.sin(st * 6) : 0, flip: true, boilKey: 'jumo' });
@@ -200,7 +202,7 @@
     else if (st < onMud) { rx = lerp(START, MUD, seg(st, go, onMud)); rrun = (st - go) * 4.5; rrot = .12; }
     else {
       const k = seg(st, onMud, robotFin), slow = 1 - .55 * bump(st, fall1, up1, .15) - .6 * bump(st, fall2, up2, .15);
-      rx = lerp(MUD, FIN + 30, 1 - Math.pow(1 - k, 1.25));
+      rx = lerp(MUD, FIN + 130, 1 - Math.pow(1 - k, 1.25));
       rrun = (st - go) * 4.5 * slow; rrot = .12 + .5 * Math.sin(Math.min(1, seg(st, fall1, fall1 + .25)) * Math.PI / 2) * (1 - seg(st, up1 - .2, up1)) - .9 * bump(st, fall2, up2, .2);
       rsq = spring(st, fall1 + .25, 6, 20) * .25 + spring(st, fall2 + .2, 6, 20) * .2;
       eyes = (st > fall1 && st < up1) || (st > fall2 && st < up2) ? 'x' : 'open';
@@ -218,22 +220,22 @@
     boilSeed('banner'); paint([[FIN - 5, TY - 330], [FIN + 5, TY - 330], [FIN + 5, GY - 190], [FIN - 5, GY - 190]], { ink: null });
     for (let k = 0; k < 10; k++) paint(rectPts(FIN - 14, TY - 320 + k * 12, 28, 12), { wash: k % 2 ? PAL.ink : PAL.cream, washOp: 255, ink: null });
     // the Videur, arms crossed at the edge of the mud: one eyebrow goes up when the robot falls
-    if (A3.vis(1330, TY - 130, 300)) videur(1330, TY - 118, 12, { arms: 'crossed', brow: ease(seg(st, fall1 + .3, fall1 + .6)) * (1 - .3 * seg(st, E(2) + .5, E(2) + 1)), boilKey: 'videur' });
+    if (A3.vis(1110, TY - 130, 300)) videur(1110, TY - 112, 15, { arms: 'crossed', brow: ease(seg(st, fall1 + .3, fall1 + .6)) * (1 - .3 * seg(st, E(2) + .5, E(2) + 1)), boilKey: 'videur' });
     robot(rx, TY, { rot: rrot, run: rrun, eyes, sq: rsq, mud: seg(st, onMud, onMud + 1.2) });
     if (st > go - .1 && st < onMud) { boilSeed('dust'); for (let k = 1; k < 4; k++) inkLine([[rx - 40 - k * 30, TY - 60 + k * 14], [rx - 70 - k * 36, TY - 60 + k * 14]], 1.2, PAL.cream, 'inkfine', 0); }
     splash(rx + 20, TY, st - fall1 - .2); splash(rx + 20, TY, st - fall2 - .15);
-    if (A3.vis(rx, TY - 100, 200)) { sfx('SPLOTCH !', rx + 30, TY - 200, 42, '#6E5038', st - fall1 - .2, { life: 1.1 }); sfx('SPLOTCH !', rx + 30, TY - 200, 38, '#6E5038', st - fall2 - .15, { life: 1.0, rot: .08 }); }
+    if (A3.vis(rx, TY - 100, 200)) { sfx('SPLOTCH !', rx + 30, TY - 250, 42, '#6E5038', st - fall1 - .2, { life: 1.1 }); sfx('SPLOTCH !', rx + 30, TY - 250, 38, '#6E5038', st - fall2 - .15, { life: 1.0, rot: .08 }); }
     // grandma: the persistence forecast, steady as today
     const gw = st > go && st < granFin;
-    person(gx, GY, 17, { preset: GRANNY, ...actP(st, [[0, 'neutre'], [granFin, 'fiere']]), view: gw ? 'side' : 'q', walk: gw ? (gx - START) / 30 : null, aR: gw ? .35 : .2, eR: -.3, handR: cane, noShadow: false, boilKey: 'granny', seed: 7 });
+    person(gx, GY, 17, { preset: GRANNY, ...actP(st, [[0, 'neutre'], [granFin, 'fiere']]), view: gw ? 'side' : 'q', walk: gw ? (gx - START) / 100 : null, aR: gw ? .35 : .2, eR: -.3, handR: cane, noShadow: false, boilKey: 'granny', seed: 7 });
     const bk = Math.max(seg(st, L(2) + .3, L(2) + .6) * (1 - seg(st, go + .4, go + .7)), seg(st, E(2) + .5, E(2) + 1.0) * (1 - seg(st, S.dur - .9, S.dur - .5)));
     if (bk > .02) { boilSeed('gbub'); const bx = gx + 60, by = GY - 290; push(); translate(bx, by); scale(backOut(bk)); paint(rrPts(-150, -38, 300, 76, 30), { wash: PAL.cream, washOp: 255, ink: PAL.ink, sw: .9 }); paint([[-60, 34], [-30, 34], [-80, 64]], { wash: PAL.cream, washOp: 255, ink: PAL.ink, sw: .8 }); pop(); letter('demain comme\naujourd’hui', bx, by + 1, 28, PAL.night, { pop: bk, font: FONT.hand, weight: 400, lh: .95 }); }
     // Awa and Jumo watch from the start
-    if (A3.vis(420, GY, 300)) A3.awa(420, GY + 40, 19, { ...actP(st, [[0, 'neutre', { lookX: .8 }], [go + .2, 'emerveillee', { lookX: .9 }], [fall1 + .3, 'grimace', { lookX: .9 }]]), view: 'q' });
-    if (A3.vis(560, 700, 200)) A3.jumo(560, 700 + Math.sin(st * 2.4) * 8, 10, { face: st < fall1 ? 'happy' : 'sad', boilKey: 'jumo' });
+    if (A3.vis(2330, GY, 300)) A3.awa(2330, GY + 40, 19, { ...actP(st, [[0, 'neutre', { lookX: -.8 }], [fall1 + .3, 'grimace', { lookX: -.9 }], [granFin, 'rire', { lookX: -.6 }]]), view: 'q', flip: true });
+    if (A3.vis(2240, 660, 200)) A3.jumo(2240, 660 + Math.sin(st * 2.4) * 8, 10, { face: st < fall1 ? 'happy' : st < granFin ? 'sad' : 'love', flip: true, boilKey: 'jumo' });
     camEnd();
     const inT = seg(lt, 0, .25);
-    cite(['Ternes et al., 2021 : sur données réelles, un filtre particulaire standard fait moins bien que l’absence d’assimilation'], seg(st, fall1 + .3, fall1 + .9) * (1 - seg(st, E(2) + .4, E(2) + .8)));
+    cite(['Ternes et al., 2021 : sur données réelles, un filtre particulaire', 'standard fait moins bien que l’absence d’assimilation'], seg(st, fall1 + .3, fall1 + .9) * (1 - seg(st, E(2) + .4, E(2) + .8)));
     cite(['Ward et al., 2016 : pas encore mieux qu’une prévision de persistance'], seg(st, L(3) + .3, L(3) + .8) * (1 - seg(st, S.dur - 1.1, S.dur - .8)));
     whip(seg(lt, -.25, .25), 1);
     flushLetters();
@@ -244,7 +246,7 @@
     (st, S) => ({}),
     S => {
       const L = i => S.cue(i), E = i => S.cueEnd(i), go = L(2) + .5, onMud = go + 1.8, fall1 = onMud + .45, fall2 = fall1 + 1.9;
-      const out = [[.05, 'whoosh', .12], [.95, 'tick', .06], [1.2, 'tick', .06], [1.6, 'whoosh', .08], [2.4, 'buzzer', .06], [2.8, 'bipsad', .07], [3.55, 'tick', .06], [3.8, 'tick', .06], [4.15, 'whoosh', .08], [4.82, 'ding', .1],
+      const out = [[.05, 'whoosh', .12], [.95, 'tick', .06], [1.2, 'tick', .06], [1.55, 'whoosh', .08], [2.3, 'buzzer', .06], [2.75, 'bipsad', .07], [3.5, 'tick', .06], [3.75, 'tick', .06], [4.1, 'whoosh', .08], [4.95, 'ding', .1],
         [L(1) - .1, 'whoosh', .1], [L(1) + .5, 'pop', .07], [L(1) + .7, 'pop', .07], [L(2) - .2, 'whoosh', .1], [go, 'whoosh', .1], [fall1 + .2, 'thud', .2], [fall1 + .25, 'scratch', .08], [fall2 + .15, 'thud', .16],
         [fall1 + .4, 'squeak', .06], [E(2) + .5, 'pop', .06], [E(3) - 1.6, 'ding', .08], [E(3) - 1.1, 'chime', .06], [S.dur - .95, 'whoosh', .12]];
       [1.1, 2.2, 3.2, 4.0].forEach(d => { out.push([L(1) + d, 'boing', .06]); out.push([L(1) + d + .5, 'bloop', .07]); });

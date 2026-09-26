@@ -21,8 +21,6 @@
   A3.awa = (x, y, s, o = {}) => awa(x, y, s, { cap: 'terrain', ...o });
   A3.jumo = (x, y, u, o = {}) => jumo(x, y, u, { stage: 2, badge: true, prop: 'spin', ...o });
   // is a world point (with radius r) inside the current camera's frame? (skip costly drawing off-screen)
-  // profiling marks (only when window.A3PROF is set by a profiling script): time since the previous mark
-  let _pm = 0; A3.P = name => { if (!window.A3PROF) return; flushBrush(true); const n = performance.now(); if (name) window.A3PROF[name] = (window.A3PROF[name] || 0) + n - _pm; _pm = n; };
   A3.vis = (x, y, r = 200) => { const [sx, sy] = toScreen(x, y); const rr = r * (CAM ? CAM.zoom : 1); return sx > -rr && sx < W + rr && sy > -rr && sy < H + rr; };
   // hand position of a person seen from the front, arm 'R' (screen right) or 'L', angles as in person()
   A3.hand = (x, y, s, a, e, which = 'R') => {
@@ -259,14 +257,12 @@
       return;
     }
     // --- the fair ---
-    const pushA = [3.0, 3.6], toScan = [4.9, 5.55], toBal = [8.85, 9.5], toNav = [11.3, 13.1], outK = seg(st, S.dur - 1.3, S.dur - .15);
+    const pushA = [2.9, 3.75], toScan = [4.9, 5.55], toBal = [8.85, 9.5], toNav = [11.3, 13.1], outK = seg(st, S.dur - 1.3, S.dur - .15);
     const cx = kf(st, [[cloudOut[0], 1190], [pushA[0], 1190], [pushA[1], 720], [toScan[0], 720], [toScan[1], 1020], [toBal[0], 1020], [toBal[1], 1070], [toNav[0], 1070], [toNav[1], 1680], [S.dur, 1715]]);
     const cy = kf(st, [[cloudOut[0], 660], [pushA[0], 650], [pushA[1], 720], [toScan[0], 720], [toScan[1], 790], [toBal[0], 790], [toBal[1], 530], [toNav[0], 530], [toNav[1], 800], [S.dur - 1.3, 830], [S.dur, 700]]);
     const z = kf(st, [[cloudOut[0], .86], [pushA[0], .82], [pushA[1], 1.35], [toScan[0], 1.38], [toScan[1], 1.3], [toBal[0], 1.32], [toBal[1], 1.12], [toNav[0], 1.15], [toNav[1], 1.34], [S.dur - 1.3, 1.44], [S.dur, 1.5]]);
-    A3.P();
     camBegin(cx, cy, z);
     drawPlate('a3s1_fair', 0, 0);
-    A3.P('plate');
     // the balance (back): heavy on the tactical side; Tacti hops on the pile and every landing dips the pan
     const hopP = .52, hops = [], tactiOn = st > toBal[0] - .2 && st < E(2) + .6;
     for (let h = 2; h < S.dur; h += tactiOn || h < toBal[0] ? hopP : 99) hops.push(h);
@@ -286,7 +282,6 @@
       letter('stratégique', rx, ry + 20, 30, '#6A3A12', { weight: 700 });
       if (big) sfx('HOP !', lx + 110, ly - 170, 40, PAL.red, st - L(2) - .2, { life: 1.1, rot: .1 });
     }
-    A3.P('balance');
     // stalls: merchants behind their counters
     STALLS.forEach((Sx, i) => {
       if (!A3.vis(Sx.x, SB - 200, 260)) return;
@@ -308,7 +303,6 @@
         else if (st >= 4.1) { const sq = spring(st, 4.1, 9, 30) * .15; tag(Sx.x + 52, SB - 104 - 92, -.2, 1 + sq); }
       }
     });
-    A3.P('stalls');
     // the shouting bursts (L0)
     STALLS.forEach((Sx, i) => bubble(Sx.x, SB - 540, seg(st, 1.3 + i * .25, 1.6 + i * .25) * (1 - seg(st, 2.95, 3.3)), i));
     // the quiet stand (L3): the sign and the screen
@@ -316,7 +310,6 @@
       navScreen(st, seg(st, L(3) + .9, L(3) + 3.0));
       letter('navigateur\nde décision', NAV.x, NAV.y - 244, 24, '#3E5A3A', { font: FONT.hand, weight: 400, lh: .95 });
     }
-    A3.P('nav');
     // the mirror-scanner and its belt (L1)
     const V = [1, 0, 1, 2, 0], P = .72, T0 = toScan[0] + .9, v = 225 / P;
     let cur = null, ck = 0;
@@ -337,7 +330,6 @@
       paint([[1330, GY - 110], [1450, GY - 110], [1435, GY], [1345, GY]], { wash: '#9C98A6', washOp: 255, ink: PAL.ink, sw: .9 });
       verdictPanel(cur ?? 0, cur != null ? ck : 0);
     }
-    A3.P('scanner');
     // Awa: walks in (L0), watches the scanner (L1), looks up at the balance (L2), trots to the quiet stand (L3)
     const walks = [[1.0, 3.3, 20, 400], [toScan[0] - .1, toScan[1] + .2, 420, 700], [toNav[0] - .1, toNav[1] + .6, 700, 1780]];
     let ax = 60, A = null;
@@ -345,13 +337,12 @@
     const walking = walks.find(([a, b]) => st > a && st < b);
     const mood = actP(st, [[0, 'neutre'], [4.15, 'doute', { lookX: .6 }], [toScan[1] + .2, 'concentree', { lookX: .5, lookY: -.2 }], [T0 + 3 * P, 'surprise', { lookX: .5, lookY: -.3 }], [T0 + 3 * P + .7, 'neutre', { lookX: .4 }],
                          [toBal[0] + .4, 'grimace', { lookX: .2, lookY: -.9 }], [toNav[0] - .1, 'determinee'], [toNav[1] + .6, 'doute', { lookX: .5, lookY: -.3 }], [L(3) + 2.2, 'emerveillee', { lookX: .6, lookY: -.4 }]]);
-    if (walking) { const [a, b, x0, x1] = walking, d = Math.abs(ax - x0) / 34; A = { ...mood, view: 'side', walk: d, aL: undefined, aR: undefined, eL: undefined, eR: undefined, fist: false, handR: undefined, finger: undefined }; }
+    if (walking) { const [a, b, x0, x1] = walking, d = Math.abs(ax - x0) / 130; A = { ...mood, view: 'side', walk: d, aL: undefined, aR: undefined, eL: undefined, eR: undefined, fist: false, handR: undefined, finger: undefined }; }
     else A = { ...mood, view: 'q' };
     A3.awa(ax, GY + 8, 20, A);
-    A3.P('awa');
     // Jumo
-    const jx = kf(st, [[1.0, 120], [3.3, 560], [4.2, 700], [toScan[0], 610], [toScan[1], 1230], [toBal[0], 1230], [toBal[1], 1180], [toNav[0], 1180], [toNav[1] + .4, 1905], [99, 1905]]);
-    const jy = kf(st, [[1.0, 760], [3.3, 640], [4.2, 600], [toScan[0], 700], [toScan[1], 640], [toBal[0], 640], [toBal[1], 560], [toNav[0], 560], [toNav[1] + .4, 585], [99, 585]]) + Math.sin(st * 2.4) * 8;
+    const jx = kf(st, [[1.0, 120], [3.3, 720], [4.2, 730], [toScan[0], 610], [toScan[1], 1230], [toBal[0], 1230], [toBal[1], 1180], [toNav[0], 1180], [toNav[1] + .4, 1905], [99, 1905]]);
+    const jy = kf(st, [[1.0, 760], [3.3, 690], [4.2, 680], [toScan[0], 700], [toScan[1], 640], [toBal[0], 640], [toBal[1], 560], [toNav[0], 560], [toNav[1] + .4, 585], [99, 585]]) + Math.sin(st * 2.4) * 8;
     let jf = 'happy';
     if (st > 4.2 && st < toScan[0]) jf = 'question';
     else if (cur != null && ck > .3) jf = cur === 2 ? 'love' : 'cross';
@@ -359,16 +350,13 @@
     else if (st > toBal[0] && st < toNav[0]) jf = 'wide';
     else if (st > L(3) + 1) jf = 'tree';
     A3.jumo(jx, jy, 11, { face: jf, rot: .08 * Math.sin(st * 1.7), lookX: st > toBal[0] && st < toNav[0] ? -.4 : .3, boilKey: 'jumo' });
-    A3.P('jumo');
     camEnd();
     // study citations
     cite(['Patil et al., 2025 : modèle, ombre, jumeau'], seg(st, L(1) + .6, L(1) + 1.1) * (1 - seg(st, E(2) + .3, E(2) + .7)));
     cite(['El Jarroudi et al., 2026 : des jumeaux comme « navigateurs de décision »', 'Fur et al., 2023 : réplique multi-agents d’une communauté rurale au Sénégal'], seg(st, L(3) + .8, L(3) + 1.6) * (1 - seg(st, S.dur - 1.6, S.dur - 1.2)));
-    A3.P('cite');
     flushLetters();                                            // lettering under the clouds, not over them
     A3.clouds(1 - seg(st, cloudOut[0], cloudOut[1]), 'cl31');
     A3.clouds(outK, 'cl32');
-    A3.P('clouds');
   }
 
   scene('3.1', S => [[0, fair]],

@@ -195,6 +195,7 @@
     // ---------- exit: the night floods in behind Jumo, the dizzy stars become the night sky ----------
     if (st >= exitA) {
       const nk = ease(seg(st, exitA, S.dur - .3));
+      K.fadeLetters(1 - nk);
       drawPlate('night', -240, -135, { alpha: nk });
       const u = 11 * LAST_CAM.zoom, [sx, sy] = toScreen(jx, jy, LAST_CAM);
       dizzyStars(sx, sy - 60 * LAST_CAM.zoom, 60 * LAST_CAM.zoom, st, 1 - nk * .6, nk);

@@ -222,7 +222,7 @@
       if (st < pull + .2 || roll > .01) parchment(hand[0], hand[1] + 10, .55, { rot: -.3 + .1 * Math.sin(st * 9) });
     }
     // the mound over Jumo: the toppled parchments are drawn above him; only his propeller sticks out
-    if (hidden) propeller(MOUND[0] + 14, MOUND[1] - 128, 13, st * (st > L(6) - .1 && st < E(6) + .2 ? 3.5 : .8), .45 + .1 * Math.sin(st * 3));
+    if (hidden) propeller(MOUND[0] + 12, MOUND[1] - 150, 17, st * (st > L(6) - .1 && st < E(6) + .2 ? 3.5 : .8), .25 + .12 * Math.sin(st * 3));
     // ---- the hopper comes down from the ceiling (the funnel of 1.4); the pile is sucked up into it
     if (st > hopIn) {
       funnel(HOP.x, hopY, HOP.s);

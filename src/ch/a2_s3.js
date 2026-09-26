@@ -15,7 +15,7 @@
 (() => {
   const K = window.A2K;
   const J = K.J23;                                          // Jumo's start (from 2.2's last frame)
-  K.J24 = { x: 1440, y: 520, u: 14 }; K.NIGHT24 = [-240, 0];
+  K.J24 = { x: 1440, y: 540, u: 18 }; K.NIGHT24 = [-240, 0];
   const SENS = [[690, 850], [850, 812], [1070, 818], [1230, 852], [960, 890]];
   const AWA_P = [420, 885], F1 = [1440, 880], F2 = [1610, 892];
   const tipOf = (x, y, u, sd) => [x + sd * 1.9 * u, y - 6.35 * u];
@@ -42,7 +42,7 @@
   // Jumo's screen contents
   const screenCopy = (k, col) => (u, sw) => {   // the landscape he copies: horizon, hills, parcels
     const L = [[[-2.3, .2], [-1, -.3], [.2, 0], [1.3, -.4], [2.3, 0]], [[-2.3, .75], [2.3, .7]], [[-1.2, .72], [-1.5, 1.05]], [[.1, .7], [.05, 1.05]], [[1.3, .7], [1.6, 1.05]]];
-    L.forEach((P, i) => { const kk = clamp(k * 5 - i); if (kk <= 0) return; const pts = P.map(([x, y]) => [x * u, (y - .5) * u]); const n = Math.max(2, Math.round(pts.length * kk)); inkLine(pts.slice(0, n), sw * 1.1, col, 'inkfine', .3); });
+    L.forEach((P, i) => { const kk = clamp(k * 5 - i); if (kk <= 0) return; const pts = P.map(([x, y]) => [x * u, (y - .5) * u]); const n = Math.max(2, Math.round(pts.length * kk)); inkLine(pts.slice(0, n), sw * 2.2, col, 'ink', .3); });
   };
   const screenLive = (t) => (u, sw) => {        // the field, live: coloured, with the sensors blinking
     paint(rrPts(-2.5 * u, -1.95 * u, 5 * u, 2.9 * u, .9 * u), { wash: '#2E5578', washOp: 255, ink: null });
@@ -63,8 +63,8 @@
   // the banner: « Modèle → Ombre (un sens) → Jumeau (deux sens) », each part pops on its palier
   function banner(st, k0, k1, k2, a = 1) {
     const parts = [['Modèle', 470, k0], ['→', 745, k1], ['Ombre (un sens)', 1040, k1], ['→', 1335, k2], ['Jumeau (deux sens)', 1615, k2]];
-    for (const [txt, x, k] of parts) {
-      if (k <= .01) continue;
+    for (const [txt, x, k0] of parts) {
+      const k = k0 * a; if (k <= .01) continue;
       const w = txt.length * 23 + 50, ar = txt === '→';
       if (!ar) { boilSeed('ban' + txt); push(); translate(x, 118); scale(backOut(k)); rotate(-.012 * (x % 3 - 1)); paint(rrPts(-w / 2, -36, w, 72, 12, 1.2), { wash: PAL.cream, washOp: 240 * a, ink: PAL.ink, sw: .8 }); pop(); }
       const col = txt.startsWith('Jumeau') ? '#A8691E' : txt.startsWith('Ombre') ? '#1E7F8E' : ar ? PAL.cream : PAL.night;
@@ -88,10 +88,11 @@
     const antK = stage === 1 ? seg(st, s1, s1 + .45) : stage === 2 ? seg(st, s2, s2 + .45) : 1;
     const ex = ease(seg(st, exit0, S.dur - .05));
     // camera: a slow push on the stage; on the exit, the backdrop drifts down 135 px (the camera tilts up)
-    const pz = 1 + .05 * ease(seg(st, 0, exit0)) * (1 - ex);
-    camBegin(960, 540 - 135 * ex * 0, pz);
+    const push0 = ease(seg(st, .3, 3.2)), pz = lerp(1, 1.28, push0) + .04 * ease(seg(st, 3.2, exit0));
+    const pzE = lerp(pz, 1, ease(ex));
+    camBegin(960, lerp(540, 575, push0 * (1 - ease(ex))), pzE);
     drawPlate('night', -240, -135 + 135 * ex);
-    const drop = 760 * easeIn(ex);                              // the mound falls out of frame on the exit
+    const drop = 760 * easeIn(ex) + 760 * (1 - easeOut(seg(st, 0, 1.2)));   // the mound rises in (after 2.2's night), falls away on the exit
     // light on the stage
     glow(960, 780 + drop, 900, '#FFE8B8', .22);
     drawPlate('a2s3_stage', 960, 830 + drop, { ax: .5, ay: 260 / 720 });
@@ -112,7 +113,7 @@
     });
     let face = 'neutral', grin = null, glowScr = .5;
     if (st < L(0) + 1.2) face = st > L(0) ? 'neutral' : 'happy';
-    else if (st < s1 - .5) { grin = screenCopy(seg(st, L(0) + 1.2, L(0) + 2.2), JUMO.grey); }
+    else if (st < s1 - .5) { grin = screenCopy(seg(st, L(0) + 1.2, L(0) + 2.2), '#C4CAD4'); }
     else if (st < s1 + .9) face = st < s1 ? 'question' : 'wide';
     else if (st < recv) face = 'happy';
     else if (st < s2 - .3) grin = screenLive(st);
