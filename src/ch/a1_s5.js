@@ -207,10 +207,11 @@
       // the gag: the owl's ✖ comes to Awa, she turns the tag over to ✔ and stamps the sheet
       const ga = seg(st, gavel2, gavel2 + .1), f = seg(st, flyT, flyT + .5);
       if (ga > 0 && st < E(3) + 1.2) {
-        const p = f <= 0 ? [PAR.x, OWL_PERCH[1] - 13 * OU] : arcPt([PAR.x, OWL_PERCH[1] - 13 * OU], [TOP[0], TOP[1] - 70], 160, ease(f));
-        parchment(p[0], p[1] + 70, .62, { rot: f * .1 });
-        card(p[0], p[1], 1.0 * backOut(ga) * (1 - .25 * f), false, seg(st, flipT, flipT + .3));
-        imprint(p[0], p[1] + 72, .58, seg(st, stamp2, stamp2 + .08), -.1);
+        const o0 = [PAR.x, OWL_PERCH[1] - 13 * OU], p = f <= 0 ? o0 : arcPt(o0, [TOP[0] + 150, TOP[1] - 150], 160, ease(f)), q = f <= 0 ? [o0[0], o0[1] + 70] : arcPt([o0[0], o0[1] + 70], TOP, 120, ease(f));
+        parchment(q[0], q[1], .62, { rot: f * .1 });
+        imprint(q[0], q[1] + 2, .58, seg(st, stamp2, stamp2 + .08), -.1);
+        card(p[0], p[1], 1.15 * backOut(ga) * (1 - .1 * f), false, seg(st, flipT, flipT + .3));
+        if (st > flipT && st < flipT + .6) glow(p[0], p[1], 70, '#FFE3A0', .6 * (1 - seg(st, flipT, flipT + .6)));
       }
       // the last sheet: the imprint we push into
       if (st > lastSt - .6) { const sk = seg(st, lastSt - .6, lastSt - .15); parchment(TOP[0], lerp(TOP[1] - 220, TOP[1], easeIn(sk)), .62, { alpha: seg(sk, 0, .3) }); imprint(TOP[0], TOP[1] + 2, .58, seg(st, lastSt, lastSt + .08), -.1); }

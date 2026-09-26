@@ -126,7 +126,7 @@
   function thread(a, b, k, i) {
     if (k <= 0) return;
     boilSeed('a1s6 thread' + i);
-    const mid = [(a[0] + b[0]) / 2, Math.min(a[1], b[1]) - 60], P = through([a, mid, b], 8), n = Math.max(2, Math.round(P.length * k));
+    const mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 26], P = through([a, mid, b], 8), n = Math.max(2, Math.round(P.length * k));
     const Q = P.slice(0, n);
     for (let j = 0; j < Q.length; j += 4) glow(Q[j][0], Q[j][1], 18, '#FFD27A', .45);
     inkLine(Q, 2, '#E8A33A', 'ink', .5);
@@ -143,7 +143,7 @@
     const th = [lerp(L(4), E(4), .38), lerp(L(4), E(4), .55), lerp(L(4), E(4), .72)];
     const closeT = E(4) + .1, capA = L(5) + .05, capB = capA + .55, gust = capB + .1, fly = gust + .35, terr = S.dur - .95;
     const [cx, cy, z] = camKF(st, [[0, SEAL[0], SEAL[1] + 20, 3.0], [.9, SEAL[0], SEAL[1] + 20, 2.9], [unrolled + .2, 1150, 800, 1.2], [E(3), 1150, 800, 1.24],
-      [rollUp + .5, 1200, 830, 1.3], [header + .2, BOOK.x, 815, 2.15], [th[2] + .9, BOOK.x, 818, 2.2], [closeT + .1, 1090, 830, 1.45], [gust, 1090, 830, 1.5], [S.dur, 1150, 700, 2.2]]);
+      [rollUp + .5, 1200, 830, 1.3], [header + .2, BOOK.x, 792, 2.0], [th[2] + .9, BOOK.x, 795, 2.04], [closeT + .1, 1090, 830, 1.45], [gust, 1090, 830, 1.5], [S.dur, 1150, 700, 2.2]]);
     camBegin(cx, cy, z);
     drawPlate('library', 0, 0);
     // the book on its lectern (behind the map until the map rolls up)
@@ -201,8 +201,8 @@
     }
     // Awa: points at the map, grimaces, forges a key, shrugs; later closes the book and turns her cap
     {
-      const ax = st < rollUp + .3 ? AWA_X : lerp(AWA_X, 960, ease(seg(st, rollUp + .3, closeT - .5)));
-      const walking = st > rollUp + .3 && st < closeT - .5;
+      const wA = th[2] + .2, wB = closeT - .15, ax = lerp(AWA_X, 960, ease(seg(st, wA, wB)));
+      const walking = st > wA && st < wB;
       const A0 = actP(st, [[0, 'neutre', { lookX: .8 }], [unrolled - .3, 'emerveillee', { lookX: .8, lookY: -.3 }], [fiveTxt + .2, 'concentree', { lookX: .8 }], [grim, 'grimace'],
         [keyA - .2, 'determinee', { lookX: .6, lookY: -.3 }], [nineTxt + .1, 'joie', { lookX: .6 }], [shrugT, 'fiere'], [rollUp + .3, 'neutre', { lookX: .8 }], [closeT - .2, 'determinee', { lookX: .6 }], [capA + .2, 'joie'], [gust + .05, 'surprise', { lookY: -.8 }]]);
       const point = bump(st, treA + .3, grim - .2, .3), key = bump(st, keyA - .1, threadsA + 1.4, .25), sh = bump(st, shrugT, E(3) - .1, .25), close = bump(st, closeT - .25, closeT + .35, .15), cap = bump(st, capA - .1, capB + .1, .12);
@@ -254,7 +254,7 @@
     }
     // entry: the ochre stamp of 1.5 fills the frame, and shrinks into the wax seal
     if (st < .75) {
-      const k = easeIn(seg(st, 0, .7)), [sx, sy] = [lerp(W / 2, 960, k), lerp(H / 2, 510, k)], r = lerp(1300, 34 * 2.95, k);
+      const k = ease(seg(st, 0, .65)), [sx, sy] = [lerp(W / 2, 960, k), lerp(H / 2, 510, k)], r = lerp(1300, 34 * 2.95, k);
       boilSeed('a1s6 entry'); paint(ellPts(sx, sy, r, r, 40), { wash: PAL.ochre, washOp: 255 * (1 - seg(st, .6, .75)), ink: null });
     }
   }

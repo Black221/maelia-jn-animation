@@ -289,6 +289,7 @@
     flushLetters();
     door(op);
     doorSign(bump(st, buzz, buzz + .9, .12));
+    flushLetters();
     lectern(LECT.x, LECT.y, bump(st, wordT(0) - .3, E(1) + .2, .4));
     // Awa: at the lectern, taps it on each word, looks up at the pieces; watches the book; sends the keys
     const tap = WORD_F.reduce((m, f, i) => Math.max(m, bump(st, wordT(i) - .35, wordT(i) + .12, .16)), 0);
