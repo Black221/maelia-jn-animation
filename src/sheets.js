@@ -191,3 +191,23 @@
 // test loop: 300 small washes in a grid, to see whether p5.brush drops any before a flush
 LOOPS.test_washes = t => { for (let i = 0; i < 300; i++) paint(rectPts(40 + (i % 30) * 62, 60 + Math.floor(i / 30) * 100, 50, 80), { wash: i < 100 ? '#C8553D' : i < 200 ? '#3E7C4A' : '#1F3A5F', ink: null }); };
 LOOPS.test_washes.len = 1;
+// test loop: a watercolour bloom, then three rows of washes (reproduces the lost top shelf of the library plate)
+LOOPS.test_order = t => {
+  paint(ellPts(960, -60, 520, 480, 26), { fill: '#FFF3D6', fillOp: 170, bleed: .25, tex: .4, border: .3, ink: null });
+  for (const [r, y] of [[0, 250], [1, 550], [2, 850]]) {
+    for (let i = 0; i < 44; i++) paint(rectPts(20 + i * 42, y - 80, 34, 80), { wash: ['#C8553D', '#3E7C4A', '#1F3A5F'][r], washOp: 170, ink: null });
+    paint(rectPts(0, y, 1920, 26), { wash: '#8A6246', washOp: 255, ink: PAL.ink, sw: .8 });
+  }
+  paint(rectPts(700, -40, 120, 1200), { fill: '#FFF6DE', fillOp: 70, bleed: .15, tex: .3, border: .4, ink: null });
+};
+LOOPS.test_order.len = 1;
+// test loop: ink strokes, then watercolour areas (p5.brush fill after spline)
+LOOPS.test_inkfill = t => {
+  for (let k = 0; k < 6; k++) {
+    const x = 100 + k * 300;
+    area([[x, 200], [x + 250, 200], [x + 250, 500], [x, 500]], ['#C6D98F', '#E3C98A', '#9DC07B', '#D9B872', '#B4CF84', '#E8D39A'][k], null, 120, .03);
+    if (k % 2 === 0) for (let j = 0; j < 4; j++) pen([[x + 10, 260 + j * 50], [x + 240, 262 + j * 50]], .5, PAL.ink, .1);
+  }
+  for (let k = 0; k < 6; k++) { const x = 100 + k * 300; paint(ellPts(x + 120, 750, 110, 110, 20), { fill: '#56A6B3', fillOp: 200, bleed: .05, tex: .5, border: .4, ink: null }); pen([[x, 900], [x + 240, 900]], .6); }
+};
+LOOPS.test_inkfill.len = 1;

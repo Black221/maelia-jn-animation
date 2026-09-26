@@ -103,6 +103,7 @@ function silo(w, h, tall = false) {
       paint([[x, yy], [x + 34, yy], [x + 34, yy - bh], [x, yy - bh]], { wash: c, washOp: 170, ink: null });
     }
     paint(ribbon(P, 26, 26), { wash: '#8A6246', washOp: 255, ink: PAL.ink, sw: .8 });
+    flushBrush(true);
   }
   // light shafts from the skylight
   for (const [x, a] of [[w * .4, -.18], [w * .56, .12]]) wc([[x - 60, -40], [x + 60, -40], [x + 60 + Math.tan(a) * h + 180, h], [x - 60 + Math.tan(a) * h - 60, h]], '#FFF6DE', 70, .15, .3, .4);

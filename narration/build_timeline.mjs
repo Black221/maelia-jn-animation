@@ -60,20 +60,27 @@ fs.writeFileSync('src/timing.js', js);
 const pad = (n, k = 2) => String(n).padStart(k, '0');
 const stamp = s => { const ms = Math.round(s * 1000); return `${pad(Math.floor(ms / 3600000))}:${pad(Math.floor(ms / 60000) % 60)}:${pad(Math.floor(ms / 1000) % 60)},${pad(ms % 1000, 3)}`; };
 const NAMES = { videur: 'LE VIDEUR', arbitre: 'MAÎTRE ARBITRE', tacti: 'TACTI' };
-function chunks(txt, max = 84) {   // k balanced pieces, preferring breaks after punctuation
+function chunks(txt, max = 84) {   // k pieces ≤ max chars; break points scored: balanced, after punctuation
   const k = Math.ceil(txt.length / max); if (k <= 1) return [txt];
-  const words = txt.split(/\s+/), res = []; let cur = '', goal = txt.length / k;
-  for (let i = 0; i < words.length; i++) {
-    const w = words[i]; cur = (cur + ' ' + w).trim();
-    const punct = /[,;:.!?…]$/.test(w), left = words.length - i - 1;
-    if (res.length < k - 1 && left > 0 && (cur.length >= goal * (punct ? .7 : 1.0) || cur.length + (words[i + 1] || '').length > max)) { res.push(cur); cur = ''; }
-  }
-  if (cur) res.push(cur);
-  return res;
+  const words = txt.split(/\s+/), bounds = [];
+  let pos = 0; words.forEach((w, i) => { pos += w.length + 1; if (i < words.length - 1) bounds.push({ i, pos, punct: /[,;:.!?…]$/.test(w) }); });
+  const cost = (a, b) => { const len = b - a; return len > max ? 1e9 : Math.pow(len - txt.length / k, 2) / 40; };
+  let best = null;
+  const pick = (from, fromPos, left, acc, list) => {
+    if (left === 1) { const c = acc + cost(fromPos, txt.length + 1); if (!best || c < best.c) best = { c, list }; return; }
+    for (const b of bounds) if (b.i >= from) { const c = acc + cost(fromPos, b.pos) - (b.punct ? 12 : 0) - (FW.has((words[b.i + 1] || '').toLowerCase()) ? 5 : 0); if (c < 1e8) pick(b.i + 1, b.pos, left - 1, c, [...list, b]); }
+  };
+  pick(0, 0, k, 0, []);
+  if (!best) return [txt];
+  const out = []; let a = 0; for (const b of best.list) { out.push(words.slice(a, b.i + 1).join(' ')); a = b.i + 1; } out.push(words.slice(a).join(' '));
+  return out;
 }
-function wrap2(s, max = 42) {
+// French function words: a break just before one reads naturally
+const FW = new Set(['et', 'mais', 'ou', 'pour', 'qui', 'que', 'qu\'on', 'quels', 'capable', 'dans', 'sur', 'avec', 'à', 'au', 'aux', 'de', 'des', 'du', 'en', 'sans', 'comme', 'pas', 'grâce', 'il', 'elle', 'on', 'les', 'un', 'une']);
+function wrap2(s, max = 42) {       // two lines, balanced, preferring a break after punctuation
   if (s.length <= max) return s;
-  let best = -1; for (let i = 0; i < s.length; i++) if (s[i] === ' ' && Math.abs(i - s.length / 2) < Math.abs(best - s.length / 2)) best = i;
+  let best = -1, bc = 1e9;
+  for (let i = 0; i < s.length; i++) if (s[i] === ' ') { const a = i, b = s.length - i - 1; if (a > max + 3 || b > max + 6) continue; const nxt = s.slice(i + 1).split(' ')[0].toLowerCase(); const c = Math.abs(a - b) - (/[,;:.!?…]/.test(s[i - 1]) ? 10 : 0) - (FW.has(nxt) ? 4 : 0); if (c < bc) { bc = c; best = i; } }
   return best > 0 ? s.slice(0, best) + '\n' + s.slice(best + 1) : s;
 }
 let n = 0; const srt = [];

@@ -3,14 +3,14 @@
 Voici Awa.
 
 2
-00:00:02,487 --> 00:00:05,095
-Elle rêve d'un jumeau numérique
-capable de dire à son
+00:00:02,487 --> 00:00:04,799
+Elle rêve d'un jumeau
+numérique capable de dire
 
 3
-00:00:05,095 --> 00:00:07,358
-territoire quels futurs
-sont encore possibles.
+00:00:04,799 --> 00:00:07,358
+à son territoire quels
+futurs sont encore possibles.
 
 4
 00:00:08,464 --> 00:00:09,264
@@ -45,8 +45,8 @@ il faut les bons mots :
 
 11
 00:00:33,092 --> 00:00:37,745
-jumeau numérique, assimilation de
-données, modèles multi-agents,
+jumeau numérique, assimilation
+de données, modèles multi-agents,
 
 12
 00:00:37,745 --> 00:00:42,616
@@ -134,8 +134,8 @@ quarante et un en entier,
 
 31
 00:01:47,397 --> 00:01:50,552
-obtenus légalement ; les
-autres attendent leur tour.
+obtenus légalement ;
+les autres attendent leur tour.
 
 32
 00:01:52,634 --> 00:01:55,112
@@ -147,8 +147,8 @@ Chaque parchemin est lu deux fois,
 
 34
 00:02:01,993 --> 00:02:04,824
-par deux intelligences
-artificielles qui ne se voient pas.
+par deux intelligences artificielles
+qui ne se voient pas.
 
 35
 00:02:05,504 --> 00:02:08,319
@@ -171,8 +171,8 @@ MAÎTRE ARBITRE — C'est elle la cheffe.
 
 39
 00:02:18,893 --> 00:02:22,986
-Accord entre Bip et Bop : zéro
-virgule neuf, ou presque.
+Accord entre Bip et Bop :
+zéro virgule neuf, ou presque.
 
 40
 00:02:23,666 --> 00:02:26,754
@@ -203,13 +203,12 @@ remonté les références : neuf.
 Pas parfait, mais honnête, et ça se dit.
 
 46
-00:02:48,923 --> 00:02:51,499
-Et chaque information notée
-est reliée à une phrase
+00:02:48,923 --> 00:02:50,944
+Et chaque information notée est reliée à
 
 47
-00:02:51,499 --> 00:02:53,823
-exacte de l'article,
+00:02:50,944 --> 00:02:53,823
+une phrase exacte de l'article,
 vérifiée automatiquement.
 
 48
@@ -217,19 +216,18 @@ vérifiée automatiquement.
 Ici, on ne cite rien de mémoire.
 
 49
-00:02:57,595 --> 00:03:00,445
-Le territoire d'Awa vit
-dans l'incertitude :
+00:02:57,595 --> 00:03:01,158
+Le territoire d'Awa vit dans
+l'incertitude : le climat,
 
 50
-00:03:00,445 --> 00:03:03,879
-le climat, les prix, les
-techniques, tout bouge vite.
+00:03:01,158 --> 00:03:03,879
+les prix, les techniques, tout bouge vite.
 
 51
 00:03:05,215 --> 00:03:09,626
-Et chaque choix agricole a des
-effets sur l'eau, l'azote, les sols.
+Et chaque choix agricole a des effets
+sur l'eau, l'azote, les sols.
 
 52
 00:03:12,595 --> 00:03:16,156
@@ -238,8 +236,8 @@ qui simule le territoire,
 
 53
 00:03:16,156 --> 00:03:19,057
-ses fermes et ses
-rivières, agent par agent.
+ses fermes et ses rivières,
+agent par agent.
 
 54
 00:03:20,082 --> 00:03:21,391
@@ -252,8 +250,8 @@ la simulation planifiée :
 
 56
 00:03:25,213 --> 00:03:29,012
-les données du terrain, collectées au
-fil de la saison… ne rentrent pas.
+les données du terrain, collectées
+au fil de la saison… ne rentrent pas.
 
 57
 00:03:32,595 --> 00:03:34,629
@@ -266,13 +264,13 @@ qui reçoit les données du terrain.
 
 59
 00:03:42,757 --> 00:03:45,820
-Un jumeau numérique, c'est
-une copie qui reçoit…
+Un jumeau numérique,
+c'est une copie qui reçoit…
 
 60
 00:03:45,820 --> 00:03:48,563
-et qui répond, pour
-éclairer les décisions.
+et qui répond,
+pour éclairer les décisions.
 
 61
 00:03:52,595 --> 00:03:54,243
@@ -286,8 +284,8 @@ agricoles sont comme Tacti :
 
 63
 00:03:57,250 --> 00:03:59,554
-ils pilotent en temps
-réel, pour aujourd'hui.
+ils pilotent en temps réel,
+pour aujourd'hui.
 
 64
 00:04:00,204 --> 00:04:02,633
@@ -310,8 +308,8 @@ restent ouvertes,
 
 68
 00:04:13,060 --> 00:04:15,775
-deviennent trop chères, ou
-se referment pour de bon.
+deviennent trop chères,
+ou se referment pour de bon.
 
 69
 00:04:17,609 --> 00:04:19,902
@@ -337,8 +335,8 @@ il met à jour le territoire simulé,
 
 74
 00:04:33,239 --> 00:04:37,096
-il recalcule les futurs possibles en
-explorant le modèle avec OpenMOLE,
+il recalcule les futurs possibles
+en explorant le modèle avec OpenMOLE,
 
 75
 00:04:38,346 --> 00:04:41,867
@@ -360,8 +358,8 @@ pour faire entrer les données ;
 
 79
 00:04:52,643 --> 00:04:54,932
-et le Sénégal, à l'échelle
-d'un territoire,
+et le Sénégal,
+à l'échelle d'un territoire,
 
 80
 00:04:54,932 --> 00:04:57,700
@@ -395,8 +393,8 @@ faire entrer les données existent.
 
 86
 00:05:25,193 --> 00:05:28,021
-En agriculture, on les
-utilise surtout pour recaler
+En agriculture,
+on les utilise surtout pour recaler
 
 87
 00:05:28,021 --> 00:05:30,460
@@ -423,23 +421,23 @@ Leçon un : mettre à jour l'état ne suffit
 pas, il faut aussi recaler les paramètres.
 
 92
-00:05:51,085 --> 00:05:53,674
+00:05:51,085 --> 00:05:53,950
 Leçon deux : certains
-paramètres se ressemblent
+paramètres se ressemblent tant
 
 93
-00:05:53,674 --> 00:05:55,768
-tant qu'on ne peut pas les distinguer.
+00:05:53,950 --> 00:05:55,768
+qu'on ne peut pas les distinguer.
 
 94
-00:05:56,218 --> 00:05:59,487
-Leçon trois : ce qui marche sur
-des données simulées devient
+00:05:56,218 --> 00:05:59,051
+Leçon trois : ce qui marche
+sur des données simulées
 
 95
-00:05:59,487 --> 00:06:01,884
-bien plus difficile sur
-des données réelles.
+00:05:59,051 --> 00:06:01,884
+devient bien plus difficile
+sur des données réelles.
 
 96
 00:06:02,334 --> 00:06:05,583
@@ -448,17 +446,17 @@ parfois difficile à battre !
 
 97
 00:06:06,483 --> 00:06:09,275
-Troisième île : on sait
-dessiner les futurs.
+Troisième île :
+on sait dessiner les futurs.
 
 98
-00:06:10,035 --> 00:06:13,203
+00:06:10,035 --> 00:06:13,514
 Portes qui se verrouillent,
-pentes qu'on ne remonte
+pentes qu'on ne remonte pas,
 
 99
-00:06:13,203 --> 00:06:15,377
-pas, seuils qui font tout basculer.
+00:06:13,514 --> 00:06:15,377
+seuils qui font tout basculer.
 
 100
 00:06:16,136 --> 00:06:19,985
@@ -481,8 +479,8 @@ Heureusement, il y a des exceptions,
 
 104
 00:06:34,289 --> 00:06:38,004
-et MAELIA en fait partie, grâce
-aux démarches participatives.
+et MAELIA en fait partie,
+grâce aux démarches participatives.
 
 105
 00:06:41,483 --> 00:06:44,753
