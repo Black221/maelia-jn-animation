@@ -125,9 +125,9 @@
     for (const sd of [-1, 1]) { const a = Math.sin(ph * TAU + (sd > 0 ? Math.PI : 0)) * .5; inkLine([[x + sd * 12 * s, y], [x + sd * 12 * s + Math.sin(a) * 16 * s, y + Math.cos(a) * 22 * s]], 1.6 * s, PAL.ink, 'ink', 0); }
   }
   // the counter box riding down the rail
-  function counterBox(y, n, sub, subK, extra, extraK) {
+  function counterBox(y, n, sub, subK, extra, extraK, xMin = 0) {
     boilSeed('a1s4 counter');
-    const x = RAIL_X + 170, w = 340, h = 150 + 42 * clamp(subK || 0) + 40 * clamp(extraK || 0), top = y - 75;
+    const x = Math.max(RAIL_X + 170, xMin), w = 340, h = 150 + 42 * clamp(subK || 0) + 40 * clamp(extraK || 0), top = y - 75;
     paint(rrPts(x - w / 2, top, w, h, 20, 1), { wash: PAL.woodDk, washOp: 255, ink: PAL.ink, sw: 1.1 });
     paint(rrPts(x - w / 2 + 14, top + 14, w - 28, h - 28, 12), { wash: PAL.night, washOp: 255, ink: PAL.ink, sw: .7 });
     paint(rrPts(RAIL_X - 26, y - 20, 52, 40, 8), { wash: '#C9A04A', washOp: 255, ink: PAL.ink, sw: .7 });   // the carriage on the rail
@@ -341,7 +341,7 @@
       const sub = st >= c5A ? 'études incluses' : st >= c4A ? 'lus' : null;
       const k = st >= c5A ? seg(st, c5A, c5A + .3) : seg(st, c4A, c4A + .3);
       const wk = st >= c4A && st < c5A ? seg(st, waitK, waitK + .35) : 0;
-      counterBox(cy - 300 / z, fmtFR(n), sub, sub ? k : 0, '(' + fmtFR(445) + ' en attente)', wk);
+      counterBox(cy - 300 / z, fmtFR(n), sub, sub ? k : 0, '(' + fmtFR(445) + ' en attente)', wk, cx + 170 - 925 / z);
     }
     camEnd();
     if (st < .3) flash(0, PAL.cream);

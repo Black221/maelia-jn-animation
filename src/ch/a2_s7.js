@@ -140,15 +140,12 @@
   }
   function archipel(t, lt, dur, S, st) {
     const t0 = S.shots[3][0];
-    const k = seg(st, t0, S.dur), I = ISLES[0];
-    const z = Math.exp(lerp(Math.log(.82), Math.log(1.25), ease(k)));
-    const cx = lerp(1300, I.x + 60, ease(k)), cy = lerp(720, I.y + 40, ease(k));
-    camBegin(cx, cy, z);
+    const k = ease(seg(st, t0, S.dur));
+    // ends exactly on 3.1's first framing (camera 1200, 690, 1.0; the plane at 1080, 640 heading for RQ1)
+    camBegin(lerp(1250, 1200, k), lerp(710, 690, k), lerp(.86, 1.0, k));
     drawPlate('archipel', 0, 0);
-    // the plane crosses from the lower right toward RQ1
-    const pk = ease(seg(st, t0, S.dur - .2));
-    const px = lerp(2000, I.x + 180, pk), py = lerp(1150, I.y + 120, pk);
-    topPlane(px, py, .7, Math.atan2(I.y + 120 - 1150, I.x + 180 - 2000), st);
+    const pk = ease(seg(st, t0, S.dur - .1));
+    topPlane(lerp(1900, 1080, pk), lerp(1080, 640, pk), lerp(.7, .55, pk), -2.6, st);
     camEnd();
     if (st - t0 < .55) cloudWipe(seg(st, t0 - .55, t0 + .55));
   }

@@ -231,8 +231,8 @@
     const bk = Math.max(seg(st, L(2) + .3, L(2) + .6) * (1 - seg(st, go + .4, go + .7)), seg(st, E(2) + .5, E(2) + 1.0) * (1 - seg(st, S.dur - .9, S.dur - .5)));
     if (bk > .02) { boilSeed('gbub'); const bx = gx + 60, by = GY - 290; push(); translate(bx, by); scale(backOut(bk)); paint(rrPts(-150, -38, 300, 76, 30), { wash: PAL.cream, washOp: 255, ink: PAL.ink, sw: .9 }); paint([[-60, 34], [-30, 34], [-80, 64]], { wash: PAL.cream, washOp: 255, ink: PAL.ink, sw: .8 }); pop(); letter('demain comme\naujourd’hui', bx, by + 1, 28, PAL.night, { pop: bk, font: FONT.hand, weight: 400, lh: .95 }); }
     // Awa and Jumo watch from the start
-    if (A3.vis(2330, GY, 300)) A3.awa(2330, GY + 40, 19, { ...actP(st, [[0, 'neutre', { lookX: -.8 }], [fall1 + .3, 'grimace', { lookX: -.9 }], [granFin, 'rire', { lookX: -.6 }]]), view: 'q', flip: true });
-    if (A3.vis(2240, 660, 200)) A3.jumo(2240, 660 + Math.sin(st * 2.4) * 8, 10, { face: st < fall1 ? 'happy' : st < granFin ? 'sad' : 'love', flip: true, boilKey: 'jumo' });
+    if (A3.vis(1930, GY, 300)) A3.awa(1930, GY + 40, 19, { ...actP(st, [[0, 'neutre', { lookX: -.8 }], [fall1 + .3, 'grimace', { lookX: -.9 }], [granFin, 'rire', { lookX: -.6 }]]), view: 'q', flip: true });
+    if (A3.vis(1840, 680, 200)) A3.jumo(1840, 680 + Math.sin(st * 2.4) * 8, 10, { face: st < fall1 ? 'happy' : st < granFin ? 'sad' : 'love', flip: true, boilKey: 'jumo' });
     camEnd();
     const inT = seg(lt, 0, .25);
     cite(['Ternes et al., 2021 : sur données réelles, un filtre particulaire', 'standard fait moins bien que l’absence d’assimilation'], seg(st, fall1 + .3, fall1 + .9) * (1 - seg(st, E(2) + .4, E(2) + .8)));

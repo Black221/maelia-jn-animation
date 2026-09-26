@@ -64,7 +64,7 @@
   function banner(st, k0, k1, k2, a = 1) {
     const parts = [['Modèle', 470, k0], ['→', 745, k1], ['Ombre (un sens)', 1040, k1], ['→', 1335, k2], ['Jumeau (deux sens)', 1615, k2]];
     for (const [txt, x, k0] of parts) {
-      const k = k0 * a; if (k <= .01) continue;
+      const k = k0 * a; if (k <= .01 || a < .25) continue;
       const w = txt.length * 23 + 50, ar = txt === '→';
       if (!ar) { boilSeed('ban' + txt); push(); translate(x, 118); scale(backOut(k)); rotate(-.012 * (x % 3 - 1)); paint(rrPts(-w / 2, -36, w, 72, 12, 1.2), { wash: PAL.cream, washOp: 240 * a, ink: PAL.ink, sw: .8 }); pop(); }
       const col = txt.startsWith('Jumeau') ? '#A8691E' : txt.startsWith('Ombre') ? '#1E7F8E' : ar ? PAL.cream : PAL.night;
