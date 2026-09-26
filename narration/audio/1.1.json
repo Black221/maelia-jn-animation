@@ -1,0 +1,53 @@
+{
+ "id": "1.1",
+ "lines": [
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/00_narrateur.wav",
+   "dur": 0.881,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/01_narrateur.wav",
+   "dur": 4.871,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/02_narrateur.wav",
+   "dur": 0.685,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/03_narrateur.wav",
+   "dur": 4.095,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/04_narrateur.wav",
+   "dur": 4.188,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/05_narrateur.wav",
+   "dur": 2.278,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/06_narrateur.wav",
+   "dur": 1.938,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.1/07_narrateur.wav",
+   "dur": 3.104,
+   "gap": 0.45
+  }
+ ]
+}

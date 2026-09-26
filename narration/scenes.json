@@ -167,7 +167,7 @@
    {
     "qui": "videur",
     "texte": "Pas sûr ? Dehors.",
-    "texte_tts": "Pas sûr ? Dehors."
+    "texte_tts": "Pas sûr ?… Dehors !"
    },
    {
     "qui": "narrateur",
@@ -243,7 +243,7 @@
    175
   ],
   "texte": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus. Premier essai : cinq sur seize. Elle a ajouté une clé et remonté les références : neuf. Pas parfait, mais honnête, et ça se dit. Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement. Ici, on ne cite rien de mémoire.",
-  "texte_tts": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus. Premier essai : cinq sur seize. Elle a ajouté une clé et remonté les références : neuf. Pas parfait, mais honnête, et ça se dit. Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement. Ici, on ne cite rien de mémoire.",
+  "texte_tts": "Pour vérifier qu'on n'avait rien raté d'important, Awa a testé sa recherche sur une liste de travaux connus. Premier essai : cinq sur seize. Elle a ajouté une clé et remonté les références : neuf. … Pas parfait. Mais honnête, et ça se dit. Et chaque information notée est reliée à une phrase exacte de l'article, vérifiée automatiquement. Ici, on ne cite rien de mémoire.",
   "lignes": [
    {
     "qui": "narrateur",
@@ -263,7 +263,7 @@
    {
     "qui": "narrateur",
     "texte": "Pas parfait, mais honnête, et ça se dit.",
-    "texte_tts": "Pas parfait, mais honnête, et ça se dit."
+    "texte_tts": "… Pas parfait. Mais honnête, et ça se dit."
    },
    {
     "qui": "narrateur",

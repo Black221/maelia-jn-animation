@@ -1,0 +1,17 @@
+{
+ "id": "3.5",
+ "lines": [
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/3.5/00_narrateur.wav",
+   "dur": 4.058,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/3.5/01_narrateur.wav",
+   "dur": 5.908,
+   "gap": 0.45
+  }
+ ]
+}

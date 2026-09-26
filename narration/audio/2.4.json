@@ -1,0 +1,23 @@
+{
+ "id": "2.4",
+ "lines": [
+  {
+   "qui": "tacti",
+   "file": "narration/audio/2.4/00_tacti.wav",
+   "dur": 1.648,
+   "gap": 0.35
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/2.4/01_narrateur.wav",
+   "dur": 4.761,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/2.4/02_narrateur.wav",
+   "dur": 5.559,
+   "gap": 0.45
+  }
+ ]
+}

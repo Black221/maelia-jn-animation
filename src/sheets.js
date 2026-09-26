@@ -188,3 +188,6 @@
   };
   LOOPS.style_archipel.len = 4;
 })();
+// test loop: 300 small washes in a grid, to see whether p5.brush drops any before a flush
+LOOPS.test_washes = t => { for (let i = 0; i < 300; i++) paint(rectPts(40 + (i % 30) * 62, 60 + Math.floor(i / 30) * 100, 50, 80), { wash: i < 100 ? '#C8553D' : i < 200 ? '#3E7C4A' : '#1F3A5F', ink: null }); };
+LOOPS.test_washes.len = 1;

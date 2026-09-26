@@ -1,513 +1,513 @@
 1
-00:00:00,300 --> 00:00:01,140
+00:00:00,300 --> 00:00:01,181
 Voici Awa.
 
 2
-00:00:02,390 --> 00:00:06,164
+00:00:02,487 --> 00:00:05,095
 Elle rêve d'un jumeau numérique
 capable de dire à son
 
 3
-00:00:06,164 --> 00:00:09,440
+00:00:05,095 --> 00:00:07,358
 territoire quels futurs
 sont encore possibles.
 
 4
-00:00:10,490 --> 00:00:11,470
+00:00:08,464 --> 00:00:09,264
 Pas si vite.
 
 5
-00:00:13,120 --> 00:00:19,060
+00:00:10,855 --> 00:00:14,950
 Mais avant de construire quoi que ce soit,
 il faut savoir ce que le monde sait déjà.
 
 6
-00:00:19,510 --> 00:00:25,320
+00:00:15,457 --> 00:00:19,645
 Et pour ça, on ne fouille pas au hasard :
 on écrit d'abord les règles de la quête.
 
 7
-00:00:25,770 --> 00:00:28,540
+00:00:20,151 --> 00:00:22,429
 Quatre questions. Des critères clairs.
 
 8
-00:00:28,990 --> 00:00:31,070
+00:00:22,935 --> 00:00:24,873
 Et un protocole… verrouillé.
 
 9
-00:00:31,520 --> 00:00:34,430
+00:00:25,379 --> 00:00:28,483
 Toute modification ? Datée et justifiée.
 
 10
-00:00:35,330 --> 00:00:39,070
+00:00:30,300 --> 00:00:32,642
 Pour ouvrir la bibliothèque,
 il faut les bons mots :
 
 11
-00:00:39,520 --> 00:00:44,039
+00:00:33,092 --> 00:00:37,745
 jumeau numérique, assimilation de
 données, modèles multi-agents,
 
 12
-00:00:44,039 --> 00:00:48,770
+00:00:37,745 --> 00:00:42,616
 systèmes agricoles, trajectoires,
 décision, exploration de modèles.
 
 13
-00:00:49,220 --> 00:00:51,510
+00:00:43,066 --> 00:00:44,982
 Combinés, ils forment six clés.
 
 14
-00:00:51,960 --> 00:00:57,560
+00:00:45,432 --> 00:00:49,434
 On cherche de 2010 à 2026,
 et seulement des articles.
 
 15
-00:00:58,460 --> 00:01:01,580
+00:00:50,334 --> 00:00:52,971
 OpenAlex : trois mille cent quarante-sept.
 
 16
-00:01:02,030 --> 00:01:05,630
+00:00:53,571 --> 00:00:56,219
 Semantic Scholar : mille
 huit cent cinquante-deux.
 
 17
-00:01:06,080 --> 00:01:08,230
+00:00:56,818 --> 00:00:58,553
 HAL : trois cent trente-deux.
 
 18
-00:01:08,680 --> 00:01:10,690
+00:00:59,153 --> 00:01:01,072
 arXiv : cent quarante-sept.
 
 19
-00:01:11,140 --> 00:01:14,988
+00:01:01,672 --> 00:01:04,554
 Et en tirant sur les références
 des premiers articles…
 
 20
-00:01:14,988 --> 00:01:17,910
+00:01:04,554 --> 00:01:06,743
 deux mille cent quatre-vingt-dix de plus.
 
 21
-00:01:18,360 --> 00:01:21,410
+00:01:07,342 --> 00:01:09,981
 Total : sept mille six cent soixante-huit.
 
 22
-00:01:22,660 --> 00:01:23,780
+00:01:11,381 --> 00:01:12,339
 Oui, vraiment.
 
 23
-00:01:24,680 --> 00:01:26,830
+00:01:15,334 --> 00:01:17,074
 Premier étage : les doublons.
 
 24
-00:01:28,546 --> 00:01:34,416
+00:01:18,956 --> 00:01:23,686
 Deuxième : tout ce qui n'est pas un article
 du bon type, ou pas de la bonne époque.
 
 25
-00:01:36,533 --> 00:01:40,063
+00:01:25,967 --> 00:01:29,047
 Troisième : on lit chaque
 titre et chaque résumé.
 
 26
-00:01:40,579 --> 00:01:44,109
+00:01:29,729 --> 00:01:32,996
 Et là, une règle d'or :
 dans le doute, on exclut.
 
 27
-00:01:45,226 --> 00:01:46,546
+00:01:34,277 --> 00:01:35,989
 LE VIDEUR — Pas sûr ? Dehors.
 
 28
-00:01:47,862 --> 00:01:50,012
+00:01:37,371 --> 00:01:39,278
 Pas de résumé ? Pas d'entrée.
 
 29
-00:01:51,528 --> 00:01:54,298
+00:01:40,959 --> 00:01:42,784
 Il en reste six cent quatre-vingt-six.
 
 30
-00:01:56,015 --> 00:01:59,221
+00:01:44,666 --> 00:01:47,397
 On en lit deux cent
 quarante et un en entier,
 
 31
-00:01:59,221 --> 00:02:02,925
+00:01:47,397 --> 00:01:50,552
 obtenus légalement ; les
 autres attendent leur tour.
 
 32
-00:02:04,841 --> 00:02:07,541
+00:01:52,634 --> 00:01:55,112
 Et à la fin… cent trente-neuf études.
 
 33
-00:02:09,680 --> 00:02:12,104
+00:02:00,334 --> 00:02:01,993
 Chaque parchemin est lu deux fois,
 
 34
-00:02:12,104 --> 00:02:16,240
+00:02:01,993 --> 00:02:04,824
 par deux intelligences
 artificielles qui ne se voient pas.
 
 35
-00:02:16,690 --> 00:02:20,430
+00:02:05,504 --> 00:02:08,319
 Quand elles ne sont pas
 d'accord, l'arbitre tranche.
 
 36
-00:02:21,680 --> 00:02:25,518
+00:02:09,798 --> 00:02:12,777
 Et à la fin, c'est Awa qui
 décide : elle revoit toutes
 
 37
-00:02:25,518 --> 00:02:28,930
+00:02:12,777 --> 00:02:15,425
 les inclusions et un
 échantillon des exclusions.
 
 38
-00:02:29,980 --> 00:02:31,580
+00:02:16,705 --> 00:02:17,513
 MAÎTRE ARBITRE — C'est elle la cheffe.
 
 39
-00:02:32,830 --> 00:02:36,840
+00:02:18,893 --> 00:02:22,986
 Accord entre Bip et Bop : zéro
 virgule neuf, ou presque.
 
 40
-00:02:37,290 --> 00:02:42,200
+00:02:23,666 --> 00:02:26,754
 C'est ce que les statisticiens
 appellent un κ, et c'est très bon.
 
 41
-00:02:43,100 --> 00:02:46,651
+00:02:30,334 --> 00:02:33,048
 Pour vérifier qu'on n'avait
 rien raté d'important,
 
 42
-00:02:46,651 --> 00:02:50,700
+00:02:33,048 --> 00:02:36,141
 Awa a testé sa recherche sur
 une liste de travaux connus.
 
 43
-00:02:51,150 --> 00:02:53,440
+00:02:36,591 --> 00:02:38,837
 Premier essai : cinq sur seize.
 
 44
-00:02:54,890 --> 00:02:58,830
+00:02:40,287 --> 00:02:43,618
 Elle a ajouté une clé et
 remonté les références : neuf.
 
 45
-00:03:00,280 --> 00:03:03,190
+00:02:45,068 --> 00:02:47,673
 Pas parfait, mais honnête, et ça se dit.
 
 46
-00:03:04,440 --> 00:03:08,073
+00:02:48,923 --> 00:02:51,499
 Et chaque information notée
 est reliée à une phrase
 
 47
-00:03:08,073 --> 00:03:11,350
+00:02:51,499 --> 00:02:53,823
 exacte de l'article,
 vérifiée automatiquement.
 
 48
-00:03:11,800 --> 00:03:14,160
+00:02:54,273 --> 00:02:56,695
 Ici, on ne cite rien de mémoire.
 
 49
-00:03:15,060 --> 00:03:18,194
+00:02:57,595 --> 00:03:00,445
 Le territoire d'Awa vit
 dans l'incertitude :
 
 50
-00:03:18,194 --> 00:03:21,970
+00:03:00,445 --> 00:03:03,879
 le climat, les prix, les
 techniques, tout bouge vite.
 
 51
-00:03:23,011 --> 00:03:27,781
+00:03:05,215 --> 00:03:09,626
 Et chaque choix agricole a des
 effets sur l'eau, l'azote, les sols.
 
 52
-00:03:30,060 --> 00:03:33,906
+00:03:12,595 --> 00:03:16,156
 Voici MAELIA, une plateforme
 qui simule le territoire,
 
 53
-00:03:33,906 --> 00:03:37,040
+00:03:16,156 --> 00:03:19,057
 ses fermes et ses
 rivières, agent par agent.
 
 54
-00:03:37,514 --> 00:03:39,734
+00:03:20,082 --> 00:03:21,391
 Elle sait jouer des scénarios.
 
 55
-00:03:40,208 --> 00:03:43,956
+00:03:22,416 --> 00:03:25,213
 Mais elle a été conçue pour
 la simulation planifiée :
 
 56
-00:03:43,956 --> 00:03:49,048
+00:03:25,213 --> 00:03:29,012
 les données du terrain, collectées au
 fil de la saison… ne rentrent pas.
 
 57
-00:03:50,060 --> 00:03:52,070
+00:03:32,595 --> 00:03:34,629
 Un modèle, c'est une copie.
 
 58
-00:03:54,028 --> 00:03:59,077
+00:03:36,950 --> 00:03:40,236
 Une ombre numérique, c'est une copie
 qui reçoit les données du terrain.
 
 59
-00:04:01,235 --> 00:04:04,658
+00:03:42,757 --> 00:03:45,820
 Un jumeau numérique, c'est
 une copie qui reçoit…
 
 60
-00:04:04,658 --> 00:04:07,725
+00:03:45,820 --> 00:03:48,563
 et qui répond, pour
 éclairer les décisions.
 
 61
-00:04:10,060 --> 00:04:12,830
+00:03:52,595 --> 00:03:54,243
 TACTI — Maintenant !
 Maintenant ! Maintenant !
 
 62
-00:04:13,280 --> 00:04:16,702
+00:03:54,793 --> 00:03:57,250
 Beaucoup de jumeaux
 agricoles sont comme Tacti :
 
 63
-00:04:16,702 --> 00:04:19,910
+00:03:57,250 --> 00:03:59,554
 ils pilotent en temps
 réel, pour aujourd'hui.
 
 64
-00:04:20,360 --> 00:04:23,558
+00:04:00,204 --> 00:04:02,633
 Awa veut autre chose :
 un jumeau stratégique,
 
 65
-00:04:23,558 --> 00:04:27,680
+00:04:02,633 --> 00:04:05,763
 qui réévalue à chaque saison
 les chemins encore possibles.
 
 66
-00:04:28,580 --> 00:04:31,010
+00:04:07,595 --> 00:04:09,181
 Car les futurs ne sont pas figés.
 
 67
-00:04:32,260 --> 00:04:35,324
+00:04:10,815 --> 00:04:13,060
 Des options apparaissent,
 restent ouvertes,
 
 68
-00:04:35,324 --> 00:04:39,030
+00:04:13,060 --> 00:04:15,775
 deviennent trop chères, ou
 se referment pour de bon.
 
 69
-00:04:40,480 --> 00:04:43,660
+00:04:17,609 --> 00:04:19,902
 Parfois, une porte ne
 s'ouvre qu'un instant.
 
 70
-00:04:44,560 --> 00:04:48,230
+00:04:22,595 --> 00:04:25,877
 Le plan d'Awa : un prototype
 de jumeau stratégique.
 
 71
-00:04:48,680 --> 00:04:49,590
+00:04:26,327 --> 00:04:27,205
 Il observe,
 
 72
-00:04:50,540 --> 00:04:52,280
+00:04:28,155 --> 00:04:29,284
 il intègre les données,
 
 73
-00:04:53,230 --> 00:04:55,790
+00:04:30,234 --> 00:04:32,289
 il met à jour le territoire simulé,
 
 74
-00:04:56,740 --> 00:05:01,860
+00:04:33,239 --> 00:04:37,096
 il recalcule les futurs possibles en
 explorant le modèle avec OpenMOLE,
 
 75
-00:05:03,110 --> 00:05:07,950
+00:04:38,346 --> 00:04:41,867
 et il montre l'écart entre ce qui
 était prévu et ce qui s'est passé.
 
 76
-00:05:08,400 --> 00:05:10,760
+00:04:42,317 --> 00:04:44,741
 Pour décider mieux, et ensemble.
 
 77
-00:05:11,660 --> 00:05:14,640
+00:04:45,641 --> 00:04:47,400
 L'aventure est prévue sur deux terrains :
 
 78
-00:05:15,090 --> 00:05:20,000
+00:04:48,287 --> 00:04:51,756
 La Réunion, bien équipée en capteurs,
 pour faire entrer les données ;
 
 79
-00:05:20,450 --> 00:05:23,514
+00:04:52,643 --> 00:04:54,932
 et le Sénégal, à l'échelle
 d'un territoire,
 
 80
-00:05:23,514 --> 00:05:27,220
+00:04:54,932 --> 00:04:57,700
 pour étudier les trajectoires
 et leurs bifurcations.
 
 81
-00:05:28,120 --> 00:05:32,340
+00:05:00,641 --> 00:05:04,116
 Première île, première leçon :
 le mot “jumeau” est à la mode.
 
 82
-00:05:32,864 --> 00:05:37,634
+00:05:05,089 --> 00:05:08,346
 Mais beaucoup de ces outils sont
 des ombres, ou de simples modèles.
 
 83
-00:05:38,158 --> 00:05:41,408
+00:05:09,319 --> 00:05:11,566
 Et presque tous servent
 le pilotage tactique.
 
 84
-00:05:41,932 --> 00:05:46,702
+00:05:12,539 --> 00:05:16,081
 L'idée d'un jumeau qui explore
 plusieurs futurs ne fait qu'émerger.
 
 85
-00:05:48,120 --> 00:05:52,890
+00:05:20,641 --> 00:05:24,113
 Deuxième île : les méthodes pour
 faire entrer les données existent.
 
 86
-00:05:53,486 --> 00:05:57,120
+00:05:25,193 --> 00:05:28,021
 En agriculture, on les
 utilise surtout pour recaler
 
 87
-00:05:57,120 --> 00:06:00,256
+00:05:28,021 --> 00:05:30,460
 des modèles de culture
 grâce aux satellites.
 
 88
-00:06:00,852 --> 00:06:04,273
+00:05:31,541 --> 00:05:33,980
 Mais pour les modèles
 multi-agents comme MAELIA,
 
 89
-00:06:04,273 --> 00:06:07,552
+00:05:33,980 --> 00:05:36,317
 les meilleurs artisans
 travaillent… ailleurs :
 
 90
-00:06:08,148 --> 00:06:11,198
+00:05:37,397 --> 00:05:40,328
 sur les foules, les épidémies, la finance.
 
 91
-00:06:13,120 --> 00:06:19,060
+00:05:45,641 --> 00:05:50,635
 Leçon un : mettre à jour l'état ne suffit
 pas, il faut aussi recaler les paramètres.
 
 92
-00:06:19,510 --> 00:06:22,872
+00:05:51,085 --> 00:05:53,674
 Leçon deux : certains
 paramètres se ressemblent
 
 93
-00:06:22,872 --> 00:06:25,590
+00:05:53,674 --> 00:05:55,768
 tant qu'on ne peut pas les distinguer.
 
 94
-00:06:26,040 --> 00:06:30,303
+00:05:56,218 --> 00:05:59,487
 Leçon trois : ce qui marche sur
 des données simulées devient
 
 95
-00:06:30,303 --> 00:06:33,430
+00:05:59,487 --> 00:06:01,884
 bien plus difficile sur
 des données réelles.
 
 96
-00:06:33,880 --> 00:06:38,240
+00:06:02,334 --> 00:06:05,583
 Une prévision toute simple reste
 parfois difficile à battre !
 
 97
-00:06:39,140 --> 00:06:42,320
+00:06:06,483 --> 00:06:09,275
 Troisième île : on sait
 dessiner les futurs.
 
 98
-00:06:42,770 --> 00:06:46,417
+00:06:10,035 --> 00:06:13,203
 Portes qui se verrouillent,
 pentes qu'on ne remonte
 
 99
-00:06:46,417 --> 00:06:48,920
+00:06:13,203 --> 00:06:15,377
 pas, seuils qui font tout basculer.
 
 100
-00:06:49,370 --> 00:06:54,760
+00:06:16,136 --> 00:06:19,985
 Et en explorant le modèle intelligemment,
 on découvre bien plus de chemins :
 
 101
-00:06:55,210 --> 00:06:59,290
+00:06:20,745 --> 00:06:23,416
 deux cent soixante comportements
 au lieu de trente-trois.
 
 102
-00:07:00,190 --> 00:07:05,240
+00:06:26,483 --> 00:06:30,541
 Quatrième île : ces outils sont
 rarement testés avec ceux qui décident.
 
 103
-00:07:06,197 --> 00:07:08,762
+00:06:32,096 --> 00:06:34,289
 Heureusement, il y a des exceptions,
 
 104
-00:07:08,762 --> 00:07:13,107
+00:06:34,289 --> 00:06:38,004
 et MAELIA en fait partie, grâce
 aux démarches participatives.
 
 105
-00:07:15,190 --> 00:07:19,000
+00:06:41,483 --> 00:06:44,753
 En rassemblant tout ce savoir,
 Awa découvre un vide :
 
 106
-00:07:20,850 --> 00:07:26,411
+00:06:46,603 --> 00:06:50,840
 personne n'a encore fait entrer, au fil
 des saisons, les observations d'un vrai
 
 107
-00:07:26,411 --> 00:07:31,690
+00:06:50,840 --> 00:06:54,862
 territoire agricole dans un modèle
 multi-agents, pour réévaluer ses futurs.
 
 108
-00:07:33,140 --> 00:07:35,430
+00:06:56,312 --> 00:06:58,094
 Ce pont-là n'existe pas encore.
 
 109
-00:07:37,080 --> 00:07:40,260
+00:06:59,744 --> 00:07:02,109
 C'est exactement celui
 qu'Awa va construire.
 
 110
-00:07:41,160 --> 00:07:43,790
+00:07:03,009 --> 00:07:04,898
 Et l'aventure ne fait que commencer.

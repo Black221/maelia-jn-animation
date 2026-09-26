@@ -10,3 +10,9 @@ narration/raw/
 .env.*
 .DS_Store
 out/*_log.txt
+out/voice.wav
+out/music.wav
+out/sfx.wav
+out/mix.wav
+out/premix.wav
+out/tmp/

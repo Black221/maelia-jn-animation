@@ -184,7 +184,7 @@ function centred(pts, draw) {
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
   push(); translate(cx, cy); draw(pts.map(([x, y]) => [x - cx, y - cy])); pop();
 }
-function paint(pts, o = {}) { centred(pts, (P) => paintAt(P, o)); }
+function paint(pts, o = {}) { BRUSH_DIRTY = true; centred(pts, (P) => paintAt(P, o)); }
 function paintAt(pts, o) {
   if (o.wash || o.fill || o.hatch) {
     if (o.wash) brush.wash(o.wash, o.washOp ?? 255); else brush.noWash();
@@ -193,6 +193,8 @@ function paintAt(pts, o) {
     brush.noStroke();
     if (o.curv) { brush.beginShape(o.curv); for (const p of pts) brush.vertex(p[0], p[1]); brush.endShape(true); }
     else brush.polygon(pts);
+    // p5.brush composites watercolour fills above washes queued after them: flush now to keep the painting order
+    if (o.fill) { BRUSH_DIRTY = true; flushBrush(true); }
   }
   if (o.ink !== null) {
     brush.noWash(); brush.noFill(); brush.noHatch(); brush.set(o.br || 'ink', o.ink || PAL.ink, o.sw ?? 1);
@@ -200,6 +202,7 @@ function paintAt(pts, o) {
   }
 }
 function inkLine(pts, sw = 1, col = PAL.ink, br = 'ink', curv = .5) {
+  BRUSH_DIRTY = true;
   centred(pts, (P) => { brush.noFill(); brush.noWash(); brush.noHatch(); brush.set(br, col, sw); brush.spline(P, curv); });
 }
 // flat shape shorthand: wash + ink outline
@@ -272,7 +275,10 @@ function drawLetters(c) {
     c.restore();
   }
 }
-function flushBrush() {
+// Only when brush work is pending: a flush costs ~70 ms, and sprites/glows call it before every image they draw.
+let BRUSH_DIRTY = true;
+function flushBrush(force = false) {
+  if (!BRUSH_DIRTY && !force) return; BRUSH_DIRTY = false;
   push(); resetMatrix(); translate(-width / 2, -height / 2);
   brush.noStroke(); brush.noHatch(); brush.noWash(); brush.fill('#000000', 1); brush.fillBleed(0); brush.fillTexture(0, 0);
   brush.polygon([[-50, -50], [-40, -50], [-40, -40]]); brush.noFill(); pop();
@@ -337,7 +343,7 @@ async function loadPlates() {
 }
 function draw() {
   if (!window.ready) return;
-  LETTERS = []; CAM = LAST_CAM = null;
+  LETTERS = []; CAM = LAST_CAM = null; BRUSH_DIRTY = true;
   if (PLATE_MODE) return;
   push(); translate(-W / 2, -H / 2);
   BOILN = Math.floor(T * BOIL); CAST_N = 0; boilSeed('frame'); noiseSeed(77);

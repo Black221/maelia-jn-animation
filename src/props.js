@@ -95,7 +95,7 @@ definePlate('maquette', { w: 900, h: 440, res: 1.3, mask(c) { c.beginPath(); c.e
     const cx = 80 + i * 105, cy = 70 + j * 90; if (Math.pow((cx - 450) / 420, 2) + Math.pow((cy - 210) / 190, 2) > .85) continue;
     area([[cx - 48, cy - 38], [cx + 50, cy - 36], [cx + 46, cy + 40], [cx - 50, cy + 38]], cols[(i * 3 + j) % 6], null, 110, .03);
   }
-  const R = [[40, 250], [200, 200], [380, 240], [560, 180], [760, 220], [880, 170]];
+  const R = [[60, 240], [200, 200], [380, 240], [560, 180], [740, 215], [846, 185]];
   paint(subdiv(ribbon(R, 26, 34), 30), { fill: '#56A6B3', fillOp: 230, bleed: .03, tex: .4, border: .4, ink: null });
   pen(R, .6, '#2F6F7A');
   for (const [x, y] of [[230, 120], [620, 300], [700, 110], [330, 320]]) { paint(rectPts(x, y, 26, 18), { wash: '#EFE3CF', washOp: 255, ink: PAL.ink, sw: .45 }); paint([[x - 3, y], [x + 29, y], [x + 13, y - 12]], { wash: PAL.red, washOp: 255, ink: PAL.ink, sw: .45 }); }
@@ -197,4 +197,22 @@ function cite(txts, k = 1, o = {}) {
     pop();
     letter(txt, x - 14, y + 1, 20 * p, PAL.night, { align: 'right', weight: 500, screen: true, maxW: wdt - 24 });
   });
+}
+
+// ---------- numbers that count up and stop dead on the exact value ----------
+// countTo(t, t0, t1, v): an eased count from 0 (or `from`) to v; at t ≥ t1 it is exactly v. fmtFR(7668) → "7 668".
+const fmtFR = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+function countTo(t, t0, t1, v, from = 0) { if (t >= t1) return v; if (t <= t0) return from; return Math.round(lerp(from, v, easeOut((t - t0) / (t1 - t0)))); }
+
+// ---------- a painted wooden sign / paper panel with lettering ----------
+// panel(x, y, w, h, txt, o): o.k (0..1 pop), o.col (board colour), o.size, o.ink (text colour), o.rot, o.post (a stake under it)
+function panel(x, y, w, h, txt, o = {}) {
+  const k = o.k ?? 1, p = backOut(k); if (p < .02) return;
+  boilSeed('panel' + (o.key ?? txt));
+  push(); translate(x, y); rotate(o.rot || 0); scale(p);
+  if (o.post) paint(rectPts(-7, h / 2 - 4, 14, o.post), { wash: PAL.woodDk, washOp: 255, ink: PAL.ink, sw: .7 });
+  paint(rrPts(-w / 2, -h / 2, w, h, Math.min(16, h / 4), 1.5), { wash: o.col || '#F3E3C3', washOp: 255, ink: PAL.ink, sw: .9 });
+  if (o.nails !== false) for (const sx of [-1, 1]) paint(ellPts(sx * (w / 2 - 12), -h / 2 + 12, 3, 3, 6), { wash: '#8A7A6A', ink: null });
+  pop();
+  if (txt) letter(txt, x, y + (o.dy || 0), (o.size || 30) * p, o.ink || PAL.night, { rot: o.rot || 0, weight: o.weight || 600, maxW: (w - 24) * p, lh: 1.12 });
 }

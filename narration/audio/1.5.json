@@ -1,0 +1,41 @@
+{
+ "id": "1.5",
+ "lines": [
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.5/00_narrateur.wav",
+   "dur": 4.49,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.5/01_narrateur.wav",
+   "dur": 2.815,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.5/02_narrateur.wav",
+   "dur": 5.627,
+   "gap": 0.45
+  },
+  {
+   "qui": "arbitre",
+   "file": "narration/audio/1.5/03_arbitre.wav",
+   "dur": 0.808,
+   "gap": 0.35
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.5/04_narrateur.wav",
+   "dur": 4.093,
+   "gap": 0.45
+  },
+  {
+   "qui": "narrateur",
+   "file": "narration/audio/1.5/05_narrateur.wav",
+   "dur": 3.088,
+   "gap": 0.45
+  }
+ ]
+}

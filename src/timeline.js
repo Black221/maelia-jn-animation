@@ -7,8 +7,11 @@
 // t = film time, lt = time since the shot started, dur = shot length, st = time since the scene started.
 // It paints the WHOLE frame and must be a pure function of t (frames render in parallel and out of order).
 
-const SCENES = {}, SC = {};
-function scene(id, build) { SCENES[id] = build; }
+const SCENES = {}, SC = {}, TRACKS = {};
+// scene(id, build, track?): track(st, S) → { name: number } lets tools/check-motion.mjs find pops (positions in px,
+// angles in rad, squash as a fraction).
+function scene(id, build, track) { SCENES[id] = build; if (track) TRACKS[id] = track; }
+window.trackAt = t => { if (!Object.keys(SC).length) resolveScenes(); const s = SC[sceneAt(t).id], f = TRACKS[s.id]; return f ? { scene: s.id, v: f(t - s.start, s) } : { scene: s.id, v: null }; };
 function resolveScenes() {
   for (const s of TIMING.scenes) {
     const S = { ...s, cue: i => (s.cues[i] || s.cues[s.cues.length - 1]).t, cueEnd: i => (s.cues[i] || s.cues[s.cues.length - 1]).end, line: i => s.cues[i] };

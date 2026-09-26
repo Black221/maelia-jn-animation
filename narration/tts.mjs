@@ -10,17 +10,20 @@
 // Character lines (Videur, Arbitre, Tacti) use the same Fish Audio voice, then a pitch/tempo change with ffmpeg so
 // each character sounds distinct (no other synthesis is used).
 //
-// API: endpoint, headers and body follow the Fish Audio docs (https://docs.fish.audio → "Text to Speech").
-// ⚠ Checked against the docs before the first real run: see FISH below; the docs were not reachable from the build
-// machine when this script was written (egress policy), so run with --dry-run first and compare.
+// API (checked against https://docs.fish.audio/api-reference/endpoint/openapi-v1/text-to-speech.md, 2026-09-26):
+//   POST https://api.fish.audio/v1/tts · headers Authorization: Bearer <key>, Content-Type: application/json,
+//   model: s2.1-pro (the docs' production recommendation) · body TTSRequest { text, reference_id, format, sample_rate,
+//   prosody { speed, volume, normalize_loudness }, latency, temperature, top_p, normalize } → audio bytes.
+//   `normalize` only applies to English and Chinese text, so it is off (numbers are already written out in French).
 import fs from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 
 const args = Object.fromEntries(process.argv.slice(2).map(a => { const [k, ...v] = a.replace(/^--/, '').split('='); return [k, v.length ? v.join('=') : true]; }));
 const FISH = {
   url: process.env.FISH_AUDIO_TTS_URL || 'https://api.fish.audio/v1/tts',
-  model: process.env.FISH_AUDIO_MODEL || 's1',          // sent as the `model` header
-  body: (text, voice) => ({ text, reference_id: voice, format: 'mp3', mp3_bitrate: 192, normalize: true, latency: 'normal', prosody: { speed: 0.95, volume: 0 } }),
+  model: process.env.FISH_AUDIO_MODEL || 's2.1-pro-free',  // `model` header. s2.1-pro-free = the same S2.1-Pro model on the free developer tier (the paid tier answered 402: no API credit)
+  body: (text, voice) => ({ text, reference_id: voice, format: 'wav', sample_rate: 44100, normalize: false, latency: 'normal', temperature: 0.7, top_p: 0.7,
+                            prosody: { speed: +(process.env.FISH_AUDIO_SPEED || 0.95), volume: 0, normalize_loudness: true } }),
 };
 // voice changes for the short character lines (ffmpeg rubberband-free: asetrate + atempo keeps the duration sane)
 const CHAR_FX = {
@@ -39,16 +42,23 @@ const trim = (src, dst, fx = '') => execFileSync('ffmpeg', ['-v', 'error', '-y',
   `${fx ? fx + ',' : ''}silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.02,areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse`,
   '-ar', '48000', '-ac', '1', dst]);
 
+// Requests go through curl (it honours the environment's HTTPS proxy); the Authorization header is written to curl's
+// stdin (-H @-), so the key never appears in a file, in the process list or in the logs.
 async function synth(text, out) {
-  if (args['dry-run']) { console.log('  [dry-run]', FISH.url, JSON.stringify({ ...FISH.body(text, '<voice>'), text: text.slice(0, 40) + '…' })); return false; }
-  for (let attempt = 1; attempt <= 4; attempt++) {
-    const r = await fetch(FISH.url, { method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', model: FISH.model }, body: JSON.stringify(FISH.body(text, voice)) });
-    if (r.ok) { fs.writeFileSync(out, Buffer.from(await r.arrayBuffer())); return true; }
-    const msg = (await r.text()).slice(0, 300).replace(key, '***');
-    console.error(`  HTTP ${r.status} (essai ${attempt}) : ${msg}`);
-    if (r.status < 500 && r.status !== 429) throw new Error('Fish Audio a refusé la requête');
-    await new Promise(ok => setTimeout(ok, 2000 * 2 ** (attempt - 1)));
-  }
+  if (args['dry-run']) { console.log('  [dry-run]', FISH.url, FISH.model, JSON.stringify({ ...FISH.body(text, '<voice>'), text: text.slice(0, 40) + '…' })); return false; }
+  const bodyFile = out + '.json'; fs.writeFileSync(bodyFile, JSON.stringify(FISH.body(text, voice)));
+  try {
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      const r = spawnSync('curl', ['-sS', '-X', 'POST', FISH.url, '-H', '@-', '-H', 'Content-Type: application/json', '-H', `model: ${FISH.model}`,
+        '--data-binary', `@${bodyFile}`, '-o', out, '-w', '%{http_code}', '--max-time', '180'], { input: `Authorization: Bearer ${key}\n`, encoding: 'utf8' });
+      const code = +(r.stdout || 0);
+      if (code === 200 && fs.statSync(out).size > 1000) return true;
+      const msg = fs.existsSync(out) ? fs.readFileSync(out, 'utf8').slice(0, 300).split(key).join('***') : (r.stderr || '');
+      console.error(`  HTTP ${code} (essai ${attempt}) : ${msg}`);
+      if (code && code < 500 && code !== 429) throw new Error('Fish Audio a refusé la requête');
+      await new Promise(ok => setTimeout(ok, 2000 * 2 ** (attempt - 1)));
+    }
+  } finally { fs.rmSync(bodyFile, { force: true }); }
   throw new Error('Fish Audio injoignable');
 }
 
@@ -59,8 +69,9 @@ for (const sc of scenes) {
   console.log(`scène ${sc.id} — ${sc.titre}`);
   const lines = [];
   for (let i = 0; i < sc.lignes.length; i++) {
-    const l = sc.lignes[i], raw = `narration/raw/${sc.id}_${i}.mp3`, out = `${dir}/${String(i).padStart(2, '0')}_${l.qui}.wav`;
-    if (args.force || !fs.existsSync(raw)) { if (!(await synth(l.texte_tts, raw))) continue; }
+    const l = sc.lignes[i], raw = `narration/raw/${sc.id}_${i}.wav`, out = `${dir}/${String(i).padStart(2, '0')}_${l.qui}.wav`;
+    const valid = f => fs.existsSync(f) && fs.statSync(f).size > 1000 && fs.readFileSync(f).subarray(0, 4).toString() === 'RIFF';
+    if (args.force || !valid(raw)) { fs.rmSync(raw, { force: true }); if (!(await synth(l.texte_tts, raw))) continue; }
     trim(raw, out, CHAR_FX[l.qui] || '');
     lines.push({ qui: l.qui, file: out, dur: +dur(out).toFixed(3), gap: l.qui === 'narrateur' ? .45 : .35 });
     console.log(`  ${i} ${l.qui.padEnd(9)} ${lines.at(-1).dur.toFixed(2)} s  ${l.texte.slice(0, 60)}`);
