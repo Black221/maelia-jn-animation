@@ -12,7 +12,7 @@
 //     node render.mjs --loop=sheet_awa --stills=0.5 --out=out/sheets                        a standalone loop (model sheets)
 //   Make the video:
 //     node render.mjs --frames [--range=0:8 | --scene=1.3] [--workers=2]                    JPEG frames → out/frames (resumable)
-//     node render.mjs --encode --out=out/video.mp4 [--audio=out/mix.wav]                    out/frames → MP4
+//     node render.mjs --encode --out=out/video.mp4 [--audio=out/mix.wav] [--crf=20 | --bitrate=1500k]                    out/frames → MP4
 //   GPU: software WebGL (SwiftShader) by default on Linux; --gpu uses the platform's GPU path, --gpu-angle=vulkan|gl-egl.
 import puppeteer from 'puppeteer-core';
 import { spawn } from 'node:child_process';
@@ -35,9 +35,17 @@ const fields = s => { const out = []; let d = 0, cur = ''; for (const ch of Stri
 if (args.encode) {
   const out = args.out || 'out/video.mp4', n = readdirSync(FRAMES_DIR).filter(f => f.endsWith('.jpg')).length, audio = args.audio;
   console.log(`encoding ${n} frames → ${out}${audio ? ' with ' + audio : ''}`);
-  await run('ffmpeg', ['-y', '-loglevel', 'error', '-stats', '-framerate', String(fps), '-i', `${FRAMES_DIR}/f%05d.jpg`,
-    ...(audio ? ['-i', audio, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'] : []),
-    '-frames:v', String(n), '-c:v', 'libx264', '-preset', 'slow', '-crf', String(args.crf || 20), '-pix_fmt', 'yuv420p', '-r', String(fps), '-movflags', '+faststart', out]);
+  const input = ['-y', '-loglevel', 'error', '-stats', '-framerate', String(fps), '-i', `${FRAMES_DIR}/f%05d.jpg`];
+  const common = ['-frames:v', String(n), '-c:v', 'libx264', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-r', String(fps)];
+  const aud = audio ? ['-i', audio, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000'] : [];
+  if (args.bitrate) {
+    // two passes at a set video bitrate (e.g. --bitrate=1500k): a predictable file size (the paper grain and brush
+    // boil make every frame differ, so constant quality gives ~14 Mb/s at CRF 20); pass 1 only measures
+    const rate = String(args.bitrate), log = 'out/tmp/x264_2pass'; mkdirSync('out/tmp', { recursive: true });
+    const vbv = ['-b:v', rate, '-maxrate', String(parseFloat(rate) * 3) + 'k', '-bufsize', String(parseFloat(rate) * 6) + 'k', '-passlogfile', log];
+    await run('ffmpeg', [...input, ...common, ...vbv, '-pass', '1', '-an', '-f', 'mp4', '/dev/null']);
+    await run('ffmpeg', [...input, ...aud, ...common, ...vbv, '-pass', '2', '-movflags', '+faststart', out]);
+  } else await run('ffmpeg', [...input, ...aud, ...common, '-crf', String(args.crf || 20), '-movflags', '+faststart', out]);
   console.log('wrote ' + out);
   process.exit(0);
 }

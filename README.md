@@ -34,7 +34,9 @@ node tools/export_sfx.mjs                 # src/sfx_cues.js
 node audio/voice.mjs && node audio/score.mjs && node audio/mix.mjs
 
 # 5. assemblage
-node render.mjs --encode --audio=out/mix.wav --out=out/awa_jumo_v2_full.mp4
+node render.mjs --encode --audio=out/mix.wav --bitrate=1500k --out=out/awa_jumo_v2_full.mp4
+# deux passes à 1,5 Mb/s : ≈ 93 Mo (sous la limite GitHub de 100 Mo). Le grain du papier change à chaque image :
+# à qualité constante, --crf=20 donne ≈ 14 Mb/s (≈ 750 Mo) pour un gain à peine visible.
 ```
 
 ## Temps de calcul (sans GPU)
